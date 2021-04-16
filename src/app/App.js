@@ -1,11 +1,19 @@
+import React, {Suspense} from "react";
 import { BrowserRouter } from 'react-router-dom';
 import { Routes } from './Routes';
+import {LayoutSplashScreen} from '../template/layout/core/MetronicSplashScreen';
+import {MaterialThemeProvider} from '../template/layout/core/MaterialThemeProvider';
 
 function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <Routes></Routes>
+        <Suspense fallback={<LayoutSplashScreen />}>
+          <MaterialThemeProvider>
+            <Routes></Routes>
+          </MaterialThemeProvider>
+        </Suspense>
+        
       </BrowserRouter>
     </div>
   );
