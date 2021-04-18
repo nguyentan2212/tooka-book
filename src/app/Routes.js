@@ -1,17 +1,18 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Redirect, Switch, Route } from 'react-router-dom';
 import BasePage from './BasePage';
-import {AuthPage} from './pages/auth/AuthPage';
+import {AuthPage} from './modules/auth/pages/AuthPage';
 import {Layout} from '../template/layout/components/Layout';
+import useUser from './js/hooks/useUser';
 
 export function Routes() {
-    const isAuthorized = "null";
-    console.log(isAuthorized);
+    const { user, setUser } = useUser();
+    console.log(user);
     return (
       <Switch>
         {/*Render auth page when user at `/auth` and not authorized.
            Otherwise redirect to root page (`/`)*/}
-        {!isAuthorized ? (<Route><AuthPage /></Route>) : (<Redirect from="/auth" to="/" />)}
+        {!user ? (<Route><AuthPage setUser={user => setUser(user)} /></Route>) : (<Layout><BasePage /></Layout>)}
   
         
 
@@ -19,7 +20,7 @@ export function Routes() {
             <Route path="/logout" component={Logout} /> */}
 
         {/*Redirect to `/auth` when user is not authorized*/}
-        {!isAuthorized ? (<Redirect to="/auth/login" />) : (<Layout><BasePage /></Layout>)}
+        {/*!token ? (<Redirect to="/auth/login" />) : (<Layout><BasePage /></Layout>)*/}
       </Switch>
     );
   }

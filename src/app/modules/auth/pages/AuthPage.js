@@ -1,14 +1,14 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
 import { Link, Switch, Redirect } from "react-router-dom";
-import { toAbsoluteUrl } from "../../../template/helpers/AssetsHelpers";
-import { ContentRoute } from "../../../template/layout/components/content/ContentRoute";
+import { toAbsoluteUrl } from "../../../../template/helpers/AssetsHelpers";
+import { ContentRoute } from "../../../../template/layout/components/content/ContentRoute";
 import Login from "./Login";
 import Registration from "./Registration";
 import ForgotPassword from "./ForgotPassword";
-import "../../../template/assets/css/pages/login/classic/login-1.css";
+import "../../../../template/assets/css/pages/login/classic/login-1.css";
 
-export function AuthPage() {
+export function AuthPage({setUser}) {
   return (
     <>
       <div className="d-flex flex-column flex-root h-100">
@@ -91,7 +91,7 @@ export function AuthPage() {
             {/* begin::Content body */}
             <div className="d-flex flex-column-fluid flex-center mt-30 mt-lg-0">
               <Switch>
-                <ContentRoute path="/auth/login" component={Login} />
+                <ContentRoute path="/auth/login" component={() => <Login login={user => setUser(user)}></Login>} />
                 <ContentRoute
                   path="/auth/registration"
                   component={Registration}

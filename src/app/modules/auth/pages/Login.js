@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import {login} from '../js/auth';
 
 const initialValues = {
   email: "admin@demo.com",
@@ -9,7 +10,6 @@ const initialValues = {
 };
 
 function Login(props) {
-  const { intl } = props;
   const [loading, setLoading] = useState(false);
   const LoginSchema = Yup.object().shape({
     email: Yup.string()
@@ -48,17 +48,17 @@ function Login(props) {
     validationSchema: LoginSchema,
     onSubmit: (values, { setStatus, setSubmitting }) => {
       enableLoading();
-      // setTimeout(() => {
-      //   login(values.email, values.password)
-      //     .then(({ data: { accessToken } }) => {
-      //       disableLoading();
-      //       props.login(accessToken);
-      //     })
-      //     .catch(() => {
-      //       disableLoading();
-      //       setSubmitting(false);            
-      //     });
-      // }, 1000);
+      setTimeout(() => {
+        login(values.email, values.password)
+          .then(({ data }) => {
+            disableLoading();
+            props.login(data);           
+          })
+          .catch(() => {
+            disableLoading();
+            setSubmitting(false);            
+          });
+      }, 1000);
     },
   });
 
