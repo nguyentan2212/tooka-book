@@ -1,7 +1,7 @@
 import { toAbsoluteUrl } from "../../helpers";
 export function getInitLayoutConfig() {
   return {
-    demo: "demo1",
+    demo: "tooka-book",
     js: {
       breakpoints: {
         sm: "576",
@@ -158,14 +158,14 @@ export function getInitLayoutConfig() {
     },
     extras: {
       search: {
-        display: true,
+        display: false,
         layout: "dropdown", // offcanvas, dropdown
         offcanvas: {
           direction: "right",
         },
       },
       notifications: {
-        display: true,
+        display: false,
         layout: "dropdown", // offcanvas, dropdown
         dropdown: {
           style: "dark", // light, dark
@@ -175,7 +175,7 @@ export function getInitLayoutConfig() {
         },
       },
       "quick-actions": {
-        display: true,
+        display: false,
         layout: "dropdown", // offcanvas, dropdown,
         dropdown: {
           style: "dark", // light, dark
@@ -186,7 +186,7 @@ export function getInitLayoutConfig() {
       },
       user: {
         display: true,
-        layout: "dropdown", // offcanvas, dropdown
+        layout: "offcanvas", // offcanvas, dropdown
         dropdown: {
           style: "dark",
         },
@@ -195,25 +195,25 @@ export function getInitLayoutConfig() {
         },
       },
       languages: {
-        display: true,
+        display: false,
       },
       cart: {
-        display: true,
+        display: false,
         dropdown: {
           style: "dark", // ligth, dark
         },
       },
       "quick-panel": {
-        display: true,
+        display: false,
         offcanvas: {
           directions: "right",
         },
       },
       chat: {
-        display: true,
+        display: false,
       },
       toolbar: {
-        display: true,
+        display: false,
       },
       scrolltop: {
         display: true,
