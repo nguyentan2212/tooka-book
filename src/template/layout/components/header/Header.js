@@ -4,7 +4,7 @@ import {useHtmlClassService} from "../../core/MetronicLayout";
 import {Topbar} from "./Topbar";
 import {HeaderMenuWrapper} from "./header-menu/HeaderMenuWrapper";
 
-export function Header() {
+export function Header({user}) {
   const uiService = useHtmlClassService();
 
   const layoutProps = useMemo(() => {
@@ -35,7 +35,7 @@ export function Header() {
           {/*end::Header Menu Wrapper*/}
 
           {/*begin::Topbar*/}
-          <Topbar />
+          <Topbar user={user} />
           {/*end::Topbar*/}
         </div>
         {/*end::Container*/}

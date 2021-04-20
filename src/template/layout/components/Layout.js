@@ -11,9 +11,8 @@ import {LayoutInit} from "./LayoutInit";
 import {SubHeader} from "./subheader/SubHeader";
 import {QuickPanel} from "./extras/offcanvas/QuickPanel";
 import {ScrollTop} from "./extras/ScrollTop";
-import {StickyToolbar} from "./extras/StickyToolbar";
 
-export function Layout({ children }) {
+export function Layout({ children, appuser }) {
     const uiService = useHtmlClassService();
     // Layout settings (cssClasses/cssAttributes)
     const layoutProps = useMemo(() => {
@@ -31,7 +30,6 @@ export function Layout({ children }) {
             contentExtended: objectPath.get(uiService.config, "content.extended")
         };
     }, [uiService]);
-
     return layoutProps.selfLayout !== "blank" ? (
         <>
             {/*begin::Main*/}
@@ -42,7 +40,7 @@ export function Layout({ children }) {
                     {layoutProps.asideDisplay && (<Aside/>)}
                     {/*begin::Wrapper*/}
                     <div className="d-flex flex-column flex-row-fluid wrapper" id="kt_wrapper">
-                        <Header/>
+                        <Header user={appuser}/>
                         {/*begin::Content*/}
                         <div
                             id="kt_content"
@@ -72,7 +70,6 @@ export function Layout({ children }) {
             </div>          
             <QuickPanel/>
             <ScrollTop/>
-            <StickyToolbar/>
             {/*end::Main*/}
             <LayoutInit />
         </>

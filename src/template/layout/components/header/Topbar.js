@@ -1,39 +1,10 @@
-import React, { useMemo } from "react";
-import objectPath from "object-path";
-import { useHtmlClassService } from "../../core/MetronicLayout";
+import React from "react";
+import { QuickUserToggler } from "../extras/QuickUserToggler";
 
-export function Topbar() {
-  const uiService = useHtmlClassService();
-  const layoutProps = useMemo(() => {
-    return {
-      viewSearchDisplay: objectPath.get(
-        uiService.config,
-        "extras.search.display"
-      ),
-      viewNotificationsDisplay: objectPath.get(
-        uiService.config,
-        "extras.notifications.display"
-      ),
-      viewQuickActionsDisplay: objectPath.get(
-        uiService.config,
-        "extras.quick-actions.display"
-      ),
-      viewCartDisplay: objectPath.get(uiService.config, "extras.cart.display"),
-      viewQuickPanelDisplay: objectPath.get(
-        uiService.config,
-        "extras.quick-panel.display"
-      ),
-      viewLanguagesDisplay: objectPath.get(
-        uiService.config,
-        "extras.languages.display"
-      ),
-      viewUserDisplay: objectPath.get(uiService.config, "extras.user.display"),
-    };
-  }, [uiService]);
-
+export function Topbar({user}) {
   return (
     <div className="topbar">
-      Topbar
+      <QuickUserToggler user={user} />
     </div>
   );
 }
