@@ -8,10 +8,8 @@ export default function BasePage() {
     return(
         <Suspense fallback={<LayoutSplashScreen />}>
             <Switch>
-                {
-                    <Redirect exact from="/" to="/my-page" />
-                }
-            <ContentRoute path="/my-page" component={MyPage}></ContentRoute>
+                <Redirect exact from="/" to="/my-page" />
+                <ContentRoute path="/my-page" component={MyPage}></ContentRoute>
         </Switch>
         </Suspense>
         );
