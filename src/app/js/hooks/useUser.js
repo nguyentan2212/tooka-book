@@ -2,10 +2,10 @@ import { useState } from 'react';
 import{ getToken, saveToken} from '../utilities/token';
 
 export default function useUser(){
-    const [user, setUser] = useState();
+    const [user, setUser] = useState(getToken());
 
     const saveUser = user =>{
-        saveToken(user.accessToken);
+        saveToken(user);
         setUser(user);
     };
 
