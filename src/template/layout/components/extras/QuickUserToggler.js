@@ -1,12 +1,13 @@
 /* eslint-disable no-restricted-imports */
 /* eslint-disable no-script-url,jsx-a11y/anchor-is-valid */
-import React, { useMemo } from "react";
+import React from "react";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
+import { UserProfileDropdown } from "./dropdowns/UserProfileDropdown";
 
 export function QuickUserToggler({ user }) {
   return (
     <>
-      <OverlayTrigger
+      {/*<OverlayTrigger
         placement="bottom"
         overlay={<Tooltip id="quick-user-tooltip">View user</Tooltip>}>
         <div className="topbar-item">
@@ -29,7 +30,8 @@ export function QuickUserToggler({ user }) {
             </>
           </div>
         </div>
-      </OverlayTrigger>
+      </OverlayTrigger>*/}
+      <UserProfileDropdown user={user} />
     </>
   );
 }
