@@ -2,7 +2,6 @@
 import React, {useMemo, useLayoutEffect, useEffect} from "react";
 import objectPath from "object-path";
 import {useLocation} from "react-router-dom";
-import {QuickActions} from "./components/QuickActions";
 import {BreadCrumbs} from "./components/BreadCrumbs";
 import {getBreadcrumbsAndTitle, useSubheader} from "../../core/MetronicSubheader";
 import {useHtmlClassService} from "../../core/MetronicLayout"
@@ -78,8 +77,7 @@ export function SubHeader() {
                data-toggle="tooltip" title="Select dashboard daterange" data-placement="left">
               <span className="text-muted font-weight-bold mr-2" id="kt_dashboard_daterangepicker_title">Today</span>
               <span className="text-primary font-weight-bold" id="kt_dashboard_daterangepicker_date">Aug 16</span>
-            </a>
-            <QuickActions/>
+            </a>           
           </div>
         </div>
       </div>
