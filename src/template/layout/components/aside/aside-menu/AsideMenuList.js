@@ -64,11 +64,11 @@ export function AsideMenuList({ layoutProps }) {
 
         {/*begin::1 Level QUẢN LÝ KHO*/}
         <li
-          className={`menu-item menu-item-submenu`}
+          className={`menu-item menu-item-submenu ${getMenuItemActive("/quanlykho",true)}`}
           aria-haspopup="true"
           data-menu-toggle="hover"
         >
-          <NavLink className="menu-link menu-toggle" to="#">
+          <NavLink className="menu-link menu-toggle" to="/quanlykho">
             <span className="svg-icon menu-icon">
               <SVG src={toAbsoluteUrl("/media/svg/icons/Design/Cap-2.svg")} />
             </span>
@@ -177,10 +177,10 @@ export function AsideMenuList({ layoutProps }) {
 
         {/*begin::1 Level CÀI ĐẶT*/}
         <li
-          className={`menu-item menu-item-submenu ${getMenuItemActive("/caidat",true)}`}
+          className={`menu-item menu-item-submenu ${getMenuItemActive("/my-page",true)}`}
           aria-haspopup="true"
         >
-          <NavLink className="menu-link menu-toggle" to="/caidat">
+          <NavLink className="menu-link menu-toggle" to="/my-page">
             <span className="svg-icon menu-icon">
               <SVG src={toAbsoluteUrl("/media/svg/icons/Design/Cap-2.svg")} />
             </span>
