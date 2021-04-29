@@ -4,12 +4,16 @@ import BasePage from './BasePage';
 import {AuthPage} from './modules/auth/pages/AuthPage';
 import {Layout} from '../template/layout/components/Layout';
 import useUser from './js/hooks/useUser';
-import{ getToken, removeToken} from './js/utilities/token';
+import{removeToken} from './js/utilities/token';
 import Logout from './modules/auth/Logout';
 
 export function Routes() {
     const { user, setUser } = useUser();
     
+    const logout = () =>{
+      removeToken();
+      setUser(null);
+    }
     console.log(user);
     return (
       <Switch>
@@ -17,7 +21,7 @@ export function Routes() {
            Otherwise redirect to root page (`/`)*/}
         {!user ? (<Route><AuthPage setUser={user => setUser(user)} /></Route>) : (<Redirect from="/auth" to="/" />)}
   
-        <Route path="/logout" component={() => <Logout logout={removeToken}></Logout>} />
+        <Route path="/logout" component={() => <Logout logout={logout}></Logout>} />
 
         {/* <Route path="/error" component={ErrorsPage} />
             <Route path="/logout" component={Logout} /> */}
