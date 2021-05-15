@@ -1,14 +1,13 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
 import { Link } from "react-router-dom";
-
 export function BreadCrumbs({ items }) {
   if (!items || !items.length) {
     return "";
   }
 
   return (
-    <ul className="breadcrumb breadcrumb-transparent breadcrumb-dot font-weight-bold p-0 my-2">
+    <ul className="breadcrumb breadcrumb-transparent font-weight-bold p-0 my-2">
       <li className="breadcrumb-item">
         <Link to="/dashboard">
           <i className="flaticon2-shelter text-muted icon-1x" />

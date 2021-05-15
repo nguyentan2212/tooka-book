@@ -6,7 +6,6 @@ import { ContentRoute } from "../../../../template/layout/components/content/Con
 import Login from "./Login";
 import Registration from "./Registration";
 import ForgotPassword from "./ForgotPassword";
-import "../../../../template/assets/css/pages/login/classic/login-1.css";
 
 export function AuthPage({setUser}) {
   return (

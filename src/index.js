@@ -2,8 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import axios from "axios";
 import './index.css';
+import './style.css'
 import App from './app/App';
-import './style.css';
 import {MetronicLayoutProvider} from './template/layout/core/MetronicLayout';
 import {MetronicSubheaderProvider} from './template/layout/core/MetronicSubheader';
 import {MetronicSplashScreenProvider} from './template/layout/core/MetronicSplashScreen';
@@ -17,7 +17,6 @@ import "./template/assets/plugins/flaticon/flaticon.css";
 import "./template/assets/plugins/flaticon2/flaticon.css";
 // Datepicker
 import "react-datepicker/dist/react-datepicker.css";
-
 // fake api
 mockAxios(axios);
 
