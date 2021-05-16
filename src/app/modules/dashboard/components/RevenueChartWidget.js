@@ -50,6 +50,7 @@ export function RevenueChartWidget({ className, symbolShape, baseColor }) {
       };
   }, [layoutProps]);
 
+  console.log(layoutProps);
   return (
     <>
       {/* begin::Stats Widget 10 */}
@@ -70,9 +71,9 @@ export function RevenueChartWidget({ className, symbolShape, baseColor }) {
             </span>
             <div className="d-flex flex-column text-right">
               <span className="text-dark-75 font-weight-bolder font-size-h3">
-                +420
+                +4200000 vnđ
               </span>
-              <span className="text-muted font-weight-bold mt-2">Sales Change</span>
+              <span className="text-muted font-weight-bold mt-2">Doanh thu</span>
             </div>
           </div>
           <div
@@ -90,134 +91,128 @@ export function RevenueChartWidget({ className, symbolShape, baseColor }) {
 }
 
 function getChartOptions(layoutProps) {
-    const strokeColor = "#E1F0FF";
-  
-    const options = {
-      series: [
-        {
-          name: "Orders",
-          data: [30, 50, 20, 70, 10, 45, 34],
-        },
-      ],
-      chart: {
-        type: "area",
-        height: 200,
-        toolbar: {
-          show: false,
-        },
-        zoom: {
-          enabled: false,
-        },
-        sparkline: {
-          enabled: true,
-        },
-        dropShadow: {
-          enabled: true,
-          enabledOnSeries: undefined,
-          top: 5,
-          left: 0,
-          blur: 3,
-          color: strokeColor,
-          opacity: 0.5,
-        },
+  var options = {
+    series: [
+      {
+        name: "Net Profit",
+        data: [40, 40, 30, 30, 35, 35, 50]
+      }
+    ],
+    chart: {
+      type: "area",
+      height: 150,
+      toolbar: {
+        show: false
       },
-      plotOptions: {},
-      legend: {
+      zoom: {
+        enabled: false
+      },
+      sparkline: {
+        enabled: true
+      }
+    },
+    plotOptions: {},
+    legend: {
+      show: false
+    },
+    dataLabels: {
+      enabled: false
+    },
+    fill: {
+      type: "solid",
+      opacity: 1
+    },
+    stroke: {
+      curve: "smooth",
+      show: true,
+      width: 3,
+      colors: [layoutProps.colorsThemeBasePrimary]
+    },
+    xaxis: {
+      categories: ["Feb", "Mar", "Apr", "May", "Jun", "Aug", "Sep"],
+      axisBorder: {
+        show: false
+      },
+      axisTicks: {
+        show: false
+      },
+      labels: {
         show: false,
+        style: {
+          colors: layoutProps.colorsGrayGray500,
+          fontSize: "12px",
+          fontFamily: layoutProps.fontFamily
+        }
       },
-      dataLabels: {
-        enabled: false,
-      },
-      fill: {
-        type: "solid",
-        opacity: 0,
-      },
-      stroke: {
-        curve: "smooth",
-        show: true,
-        width: 3,
-        colors: [strokeColor],
-      },
-      xaxis: {
-        categories: ["Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug"],
-        axisBorder: {
-          show: false,
-        },
-        axisTicks: {
-          show: false,
-        },
-        labels: {
-          show: false,
-          style: {
-            colors: layoutProps.colorsGrayGray500,
-            fontSize: "12px",
-            fontFamily: layoutProps.fontFamily,
-          },
-        },
-        crosshairs: {
-          show: false,
-          position: "front",
-          stroke: {
-            color: layoutProps.colorsGrayGray300,
-            width: 1,
-            dashArray: 3,
-          },
-        },
-      },
-      yaxis: {
-        min: 0,
-        max: 80,
-        labels: {
-          show: false,
-          style: {
-            colors: layoutProps.colorsGrayGray500,
-            fontSize: "12px",
-            fontFamily: layoutProps.fontFamily,
-          },
-        },
-      },
-      states: {
-        normal: {
-          filter: {
-            type: "none",
-            value: 0,
-          },
-        },
-        hover: {
-          filter: {
-            type: "none",
-            value: 0,
-          },
-        },
-        active: {
-          allowMultipleDataPointsSelection: false,
-          filter: {
-            type: "none",
-            value: 0,
-          },
-        },
+      crosshairs: {
+        show: false,
+        position: "front",
+        stroke: {
+          color: layoutProps.colorsGrayGray300,
+          width: 1,
+          dashArray: 3
+        }
       },
       tooltip: {
+        enabled: true,
+        formatter: undefined,
+        offsetY: 0,
         style: {
           fontSize: "12px",
-          fontFamily: layoutProps.fontFamily,
-        },
-        y: {
-          formatter: function (val) {
-            return "$" + val + " thousands";
-          },
-        },
-        marker: {
-          show: false,
-        },
+          fontFamily: layoutProps.fontFamily
+        }
+      }
+    },
+    yaxis: {
+      min: 0,
+      max: 55,
+      labels: {
+        show: false,
+        style: {
+          colors: layoutProps.colorsGrayGray500,
+          fontSize: "12px",
+          fontFamily: layoutProps.fontFamily
+        }
+      }
+    },
+    states: {
+      normal: {
+        filter: {
+          type: "none",
+          value: 0
+        }
       },
-      colors: ["transparent"],
-      markers: {
-        colors: layoutProps.colorsThemeBaseDanger,
-        strokeColor: [strokeColor],
-        strokeWidth: 3,
+      hover: {
+        filter: {
+          type: "none",
+          value: 0
+        }
       },
-    };
-    return options;
-  }
-  
+      active: {
+        allowMultipleDataPointsSelection: false,
+        filter: {
+          type: "none",
+          value: 0
+        }
+      }
+    },
+    tooltip: {
+      style: {
+        fontSize: "12px",
+        fontFamily: layoutProps.fontFamily
+      },
+      y: {
+        formatter: function(val) {
+          return "$" + val + " thousands";
+        }
+      }
+    },
+    colors: [layoutProps.colorsThemeLightSuccess],
+    markers: {
+      colors: [layoutProps.colorsThemeLightSuccess],
+      strokeColor: [layoutProps.colorsThemeBaseSuccess],
+      strokeWidth: 3
+    }
+  };
+  return options;
+}

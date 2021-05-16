@@ -22,15 +22,15 @@ export function OrderChartWidget({ className, symbolShape, baseColor }) {
         uiService.config,
         "js.colors.gray.gray300"
       ),
-      colorsThemeBaseSuccess: objectPath.get(
+      colorsThemeBasePrimary: objectPath.get(
         uiService.config,
-        `js.colors.theme.base.${baseColor}`
+        "js.colors.theme.base.primary"
       ),
-      colorsThemeLightSuccess: objectPath.get(
+      colorsThemeLightPrimary: objectPath.get(
         uiService.config,
-        `js.colors.theme.light.${baseColor}`
+        "js.colors.theme.light.primary"
       ),
-      fontFamily: objectPath.get(uiService.config, "js.fontFamily"),
+      fontFamily: objectPath.get(uiService.config, "js.fontFamily")
     };
   }, [uiService, baseColor]);
 
@@ -70,9 +70,9 @@ export function OrderChartWidget({ className, symbolShape, baseColor }) {
             </span>
             <div className="d-flex flex-column text-right">
               <span className="text-dark-75 font-weight-bolder font-size-h3">
-                +30
+                +20
               </span>
-              <span className="text-muted font-weight-bold mt-2">Orders Change</span>
+              <span className="text-muted font-weight-bold mt-2">Đơn hàng</span>
             </div>
           </div>
           <div
@@ -90,134 +90,128 @@ export function OrderChartWidget({ className, symbolShape, baseColor }) {
 }
 
 function getChartOptions(layoutProps) {
-    const strokeColor = "#E1F0FF";
-  
-    const options = {
-      series: [
-        {
-          name: "Net Profit",
-          data: [23, 32, 22, 47, 54, 30, 40],
-        },
-      ],
-      chart: {
-        type: "area",
-        height: 200,
-        toolbar: {
-          show: false,
-        },
-        zoom: {
-          enabled: false,
-        },
-        sparkline: {
-          enabled: true,
-        },
-        dropShadow: {
-          enabled: true,
-          enabledOnSeries: undefined,
-          top: 5,
-          left: 0,
-          blur: 3,
-          color: strokeColor,
-          opacity: 0.5,
-        },
+  var options = {
+    series: [
+      {
+        name: "Net Profit",
+        data: [40, 40, 30, 30, 35, 35, 50]
+      }
+    ],
+    chart: {
+      type: "area",
+      height: 150,
+      toolbar: {
+        show: false
       },
-      plotOptions: {},
-      legend: {
+      zoom: {
+        enabled: false
+      },
+      sparkline: {
+        enabled: true
+      }
+    },
+    plotOptions: {},
+    legend: {
+      show: false
+    },
+    dataLabels: {
+      enabled: false
+    },
+    fill: {
+      type: "solid",
+      opacity: 1
+    },
+    stroke: {
+      curve: "smooth",
+      show: true,
+      width: 3,
+      colors: [layoutProps.colorsThemeBasePrimary]
+    },
+    xaxis: {
+      categories: ["Feb", "Mar", "Apr", "May", "Jun", "Aug", "Sep"],
+      axisBorder: {
+        show: false
+      },
+      axisTicks: {
+        show: false
+      },
+      labels: {
         show: false,
+        style: {
+          colors: layoutProps.colorsGrayGray500,
+          fontSize: "12px",
+          fontFamily: layoutProps.fontFamily
+        }
       },
-      dataLabels: {
-        enabled: false,
-      },
-      fill: {
-        type: "solid",
-        opacity: 0,
-      },
-      stroke: {
-        curve: "smooth",
-        show: true,
-        width: 3,
-        colors: [strokeColor],
-      },
-      xaxis: {
-        categories: ["Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug"],
-        axisBorder: {
-          show: false,
-        },
-        axisTicks: {
-          show: false,
-        },
-        labels: {
-          show: false,
-          style: {
-            colors: layoutProps.colorsGrayGray500,
-            fontSize: "12px",
-            fontFamily: layoutProps.fontFamily,
-          },
-        },
-        crosshairs: {
-          show: false,
-          position: "front",
-          stroke: {
-            color: layoutProps.colorsGrayGray300,
-            width: 1,
-            dashArray: 3,
-          },
-        },
-      },
-      yaxis: {
-        min: 0,
-        max: 80,
-        labels: {
-          show: false,
-          style: {
-            colors: layoutProps.colorsGrayGray500,
-            fontSize: "12px",
-            fontFamily: layoutProps.fontFamily,
-          },
-        },
-      },
-      states: {
-        normal: {
-          filter: {
-            type: "none",
-            value: 0,
-          },
-        },
-        hover: {
-          filter: {
-            type: "none",
-            value: 0,
-          },
-        },
-        active: {
-          allowMultipleDataPointsSelection: false,
-          filter: {
-            type: "none",
-            value: 0,
-          },
-        },
+      crosshairs: {
+        show: false,
+        position: "front",
+        stroke: {
+          color: layoutProps.colorsGrayGray300,
+          width: 1,
+          dashArray: 3
+        }
       },
       tooltip: {
+        enabled: true,
+        formatter: undefined,
+        offsetY: 0,
         style: {
           fontSize: "12px",
-          fontFamily: layoutProps.fontFamily,
-        },
-        y: {
-          formatter: function (val) {
-            return "$" + val + " thousands";
-          },
-        },
-        marker: {
-          show: false,
-        },
+          fontFamily: layoutProps.fontFamily
+        }
+      }
+    },
+    yaxis: {
+      min: 0,
+      max: 55,
+      labels: {
+        show: false,
+        style: {
+          colors: layoutProps.colorsGrayGray500,
+          fontSize: "12px",
+          fontFamily: layoutProps.fontFamily
+        }
+      }
+    },
+    states: {
+      normal: {
+        filter: {
+          type: "none",
+          value: 0
+        }
       },
-      colors: ["transparent"],
-      markers: {
-        colors: layoutProps.colorsThemeBaseDanger,
-        strokeColor: [strokeColor],
-        strokeWidth: 3,
+      hover: {
+        filter: {
+          type: "none",
+          value: 0
+        }
       },
-    };
-    return options;
-  }
-  
+      active: {
+        allowMultipleDataPointsSelection: false,
+        filter: {
+          type: "none",
+          value: 0
+        }
+      }
+    },
+    tooltip: {
+      style: {
+        fontSize: "12px",
+        fontFamily: layoutProps.fontFamily
+      },
+      y: {
+        formatter: function(val) {
+          return "$" + val + " thousands";
+        }
+      }
+    },
+    colors: [layoutProps.colorsThemeLightPrimary],
+    markers: {
+      colors: [layoutProps.colorsThemeLightPrimary],
+      strokeColor: [layoutProps.colorsThemeBasePrimary],
+      strokeWidth: 3
+    }
+  };
+  return options;
+}

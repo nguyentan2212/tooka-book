@@ -250,6 +250,7 @@ function getChartOptions(layoutProps) {
       },
     },
     tooltip: {
+      enabled: false,
       style: {
         fontSize: "12px",
         fontFamily: layoutProps.fontFamily,
