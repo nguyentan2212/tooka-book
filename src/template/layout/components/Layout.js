@@ -34,7 +34,7 @@ export function Layout({ children, appuser }) {
         <>
             {/*begin::Main*/}
             <HeaderMobile/>
-            <div className="d-flex flex-column flex-root">
+            <div className="d-flex flex-column flex-root h-100">
                 {/*begin::Page*/}
                 <div className="d-flex flex-row flex-column-fluid page">
                     {layoutProps.asideDisplay && (<Aside/>)}

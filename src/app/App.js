@@ -6,7 +6,7 @@ import {MaterialThemeProvider} from '../template/layout/core/MaterialThemeProvid
 
 function App() {
   return (
-    <div className="App">
+    <div className="App h-100">
       <BrowserRouter>
         <Suspense fallback={<LayoutSplashScreen />}>
           <MaterialThemeProvider>

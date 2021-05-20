@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import axios from "axios";
 import './index.css';
 import './style.css'
+import './custom.css'
 import App from './app/App';
 import {MetronicLayoutProvider} from './template/layout/core/MetronicLayout';
 import {MetronicSubheaderProvider} from './template/layout/core/MetronicSubheader';
