@@ -6,6 +6,7 @@ import {
   TableHead,
   TableRow,
   TableSortLabel,
+  TablePagination,
 } from "@material-ui/core";
 import React, { useState } from "react";
 import { Close, EditOutlined } from "@material-ui/icons";
@@ -37,23 +38,44 @@ function getComparator(order, orderBy) {
 }
 
 function CustomTable(props) {
-  const { headerCells, data, updateHandler, deleteHandler } = props;
+  const { headerCells, data, hasPaging } = props;
 
+  var { filterFunc, updateHandler, deleteHandler } = props;
+
+  const [pages, setPages] = useState([5, 10, 25]);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [order, setOrder] = useState("");
   const [orderBy, setOrderBy] = useState("");
-  const [filterFunc, setFilterFunc] = useState({
-    func: (items) => {
-      return items;
-    },
-  });
 
+  if (filterFunc == undefined) {
+    filterFunc = {
+      func: (items) => {
+        return items;
+      },
+    };
+  }
+
+  if (updateHandler == undefined) {
+    updateHandler = () => {}
+  }
+
+  if (deleteHandler == undefined) {
+    deleteHandler = () => {}
+  }
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
   const recordsAfterPagingAndSorting = () => {
-    return tableSort(
-      filterFunc.func(data),
-      getComparator(order, orderBy)
-    ).slice(page * rowsPerPage, (page + 1) * rowsPerPage);
+    let temp = tableSort(filterFunc.func(data), getComparator(order, orderBy));
+    if (hasPaging)
+      return temp.slice(page * rowsPerPage, (page + 1) * rowsPerPage);
+    else return temp;
   };
 
   const handleSortLabel = (cellID) => {
@@ -123,8 +145,11 @@ function CustomTable(props) {
             <TableRow key={index}>
               <TableCell>{index + 1}</TableCell>
               {headerCells.map((headerCell) => (
-                <TableCell key={headerCell.id}>{headerCell.isCurrency ? (formatter.format(item[headerCell.id]))
-                : (item[headerCell.id])}</TableCell>
+                <TableCell key={headerCell.id}>
+                  {headerCell.isCurrency
+                    ? formatter.format(item[headerCell.id])
+                    : item[headerCell.id]}
+                </TableCell>
               ))}
               <TableCell>
                 <a
@@ -146,6 +171,17 @@ function CustomTable(props) {
           ))}
         </TableBody>
       </Table>
+      {hasPaging && (
+        <TablePagination
+          rowsPerPageOptions={pages}
+          component="div"
+          count={filterFunc.func(data).length}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onChangePage={handleChangePage}
+          onChangeRowsPerPage={handleChangeRowsPerPage}
+        ></TablePagination>
+      )}
     </div>
   );
 }

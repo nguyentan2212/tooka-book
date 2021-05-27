@@ -1,9 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { getAllOrders } from "../js/order";
-import CustomTable from '../../../../template/partials/components/CustomTable';
-import {Notification, ConfirmDialog} from '../../../../template/partials/controls';
+import CustomTable from "../../../../template/partials/components/CustomTable";
+import {
+  Notification,
+  ConfirmDialog,
+} from "../../../../template/partials/controls";
 
-function OrderTable() {
+function OrderTable(props) {
+  const { filterFunc } = props;
+
   const [ordersList, setOrdersList] = useState([]);
   useEffect(() => {
     const fecthData = async () => {
@@ -15,30 +20,30 @@ function OrderTable() {
 
   const headerCells = [
     {
-      id:"customer",
-      label:"Khách hàng",
+      id: "customer",
+      label: "Khách hàng",
     },
     {
-      id:"createdAt",
-      label:"Ngày bán"
+      id: "createdAt",
+      label: "Ngày bán",
     },
     {
-      id:"total",
-      label:"Tổng tiền",
+      id: "total",
+      label: "Tổng tiền",
       isCurrency: true,
     },
     {
-      id:"customerPaid",
-      label:"Khách đưa",
+      id: "customerPaid",
+      label: "Khách đưa",
       isCurrency: true,
     },
     {
-      id:"returnCustomer",
-      label:"Tiền thừa",
+      id: "returnCustomer",
+      label: "Tiền thừa",
       isCurrency: true,
     },
   ];
-  
+
   //Notification
   const [notify, setNotify] = useState({
     isOpen: false,
@@ -56,7 +61,7 @@ function OrderTable() {
   const onDelete = (id) => {
     setConfirmDialog({ ...confirmDialog, isOpen: false });
     setOrdersList(ordersList.filter((order) => order.id != id));
-  }
+  };
 
   const deleteHandler = (id) => {
     setConfirmDialog({
@@ -67,11 +72,17 @@ function OrderTable() {
         onDelete(id);
       },
     });
-  }
+  };
   return (
     <div>
       <div className="table-responsive">
-        <CustomTable headerCells={headerCells} data={ordersList} deleteHandler={(id) => deleteHandler(id)} />
+        <CustomTable
+          headerCells={headerCells}
+          data={ordersList}
+          filterFunc={filterFunc}
+          hasPaging={true}
+          deleteHandler={(id) => deleteHandler(id)}
+        />
       </div>
       <Notification notify={notify} setNotify={setNotify}></Notification>
       <ConfirmDialog

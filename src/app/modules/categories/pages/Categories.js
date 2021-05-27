@@ -163,11 +163,12 @@ const Categories = () => {
     let target = event.target;
     setFilterFunc({
       func: (items) => {
-        if (target.value === "") return items;
-        else
-          return items.filter((item) =>
-            item.name.toLowerCase().includes(target.value)
-          );
+        console.log(items);
+        return items;
+        // else
+        //   return items.filter((item) =>
+        //     item.name.toLowerCase().includes(target.value)
+        //   );
       },
     });
   };
