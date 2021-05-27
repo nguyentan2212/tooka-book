@@ -37,7 +37,7 @@ function getComparator(order, orderBy) {
 }
 
 function CustomTable(props) {
-  const { headerCells, data } = props;
+  const { headerCells, data, updateHandler, deleteHandler } = props;
 
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
@@ -129,12 +129,14 @@ function CustomTable(props) {
               <TableCell>
                 <a
                   href="#"
+                  onClick={updateHandler}
                   className="btn btn-light-info font-weight-bolder font-size-sm mx-1"
                 >
                   <EditOutlined fontSize="small"></EditOutlined>
                 </a>
                 <a
                   href="#"
+                  onClick={() => deleteHandler(item.id)}
                   className="btn btn-light-danger font-weight-bolder font-size-sm mx-1"
                 >
                   <Close fontSize="small"></Close>

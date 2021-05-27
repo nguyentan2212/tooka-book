@@ -17,7 +17,7 @@ import PageTitle from "../../../../template/layout/components/page-title/PageTit
 
 import {Input, CustomButton, PopUp, Notification, ConfirmDialog} from '../../../../template/partials/controls';
 
-import {Close, EditOutlined, Search, Add} from "@material-ui/icons";
+import {Close, EditOutlined, Search, Add, Category} from "@material-ui/icons";
 
 const Categories = () => {
   const [pages, setPages] = useState([5, 10, 25]);
@@ -236,7 +236,7 @@ const Categories = () => {
       <PageTitle
         title="Quản Lý Thể Loại"
         subTitle="Quản Lý Thể Loại"
-        icon="CategoryIcon"
+        icon={() => <Category />}
       />
       {/* Categories List */}
       <Paper className={classes.pageContent}>
