@@ -36,10 +36,10 @@ export function AsideMenuList({ layoutProps }) {
 
         {/*begin::1 Level BÁN HÀNG*/}
         <li
-          className={`menu-item menu-item-submenu ${getMenuItemActive("/quanlybanhang",true)}`}
+          className={`menu-item menu-item-submenu ${getMenuItemActive("/banhang",true)}`}
           aria-haspopup="true"
         >
-          <NavLink className="menu-link menu-toggle" to="/quanlybanhang">
+          <NavLink className="menu-link menu-toggle" to="/banhang">
             <span className="svg-icon menu-icon">
               <SVG src={toAbsoluteUrl("/media/svg/icons/Design/Cap-2.svg")} />
             </span>

@@ -62,12 +62,6 @@ export function SubHeader() {
               <span />
             </button>
           )}
-
-          <div className="d-flex align-items-baseline mr-5">
-            <h5 className="text-dark font-weight-bold my-2 mr-5">
-              <>{subheader.title}</>
-            </h5>
-          </div>
           <BreadCrumbs items={subheader.breadcrumbs} />
         </div>
 
