@@ -1,3 +1,4 @@
+export {CustomAutocomplete} from './CustomAutocomplete';
 export {ConfirmDialog} from './ConfirmDialog';
 export {CustomActionButton} from './CustomActionButton';
 export {CustomButton} from './CustomButton';
@@ -8,5 +9,3 @@ export {DropdownList} from './DropdownList';
 export {Input} from './Input';
 export {Notification} from './Notification';
 export {PopUp} from './PopUp';
-
-

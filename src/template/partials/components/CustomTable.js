@@ -38,9 +38,18 @@ function getComparator(order, orderBy) {
 }
 
 function CustomTable(props) {
-  const { headerCells, data, hasPaging } = props;
-
-  var { filterFunc, updateHandler, deleteHandler } = props;
+  const {
+    headerCells,
+    data,
+    hasPaging,
+    filterFunc = {
+      func: (items) => {
+        return items;
+      },
+    },
+    updateHandler = () => {},
+    deleteHandler = () => {},
+  } = props;
 
   const [pages, setPages] = useState([5, 10, 25]);
   const [page, setPage] = useState(0);
@@ -48,21 +57,6 @@ function CustomTable(props) {
   const [order, setOrder] = useState("");
   const [orderBy, setOrderBy] = useState("");
 
-  if (filterFunc == undefined) {
-    filterFunc = {
-      func: (items) => {
-        return items;
-      },
-    };
-  }
-
-  if (updateHandler == undefined) {
-    updateHandler = () => {}
-  }
-
-  if (deleteHandler == undefined) {
-    deleteHandler = () => {}
-  }
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };

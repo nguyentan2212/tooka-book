@@ -1,13 +1,24 @@
-import React from "react";
+import React, {useState} from "react";
 import { format } from "date-fns";
 
-function PaymentPanel({ className }) {
-  var formattedDate = format(new Date(), "dd/ MM/ yyyy");
+function PaymentPanel(props) {
+  const { orderItemList, total } = props;
+
+  const [customer, setCustomer] = useState("");
+  const [customerPaid, setCustomerPaid] = useState(0);
+  const [customerReturn, setCustomerReturn] = useState(0);
+
+  const handleCustomerPaid = (event) => {
+    const {value} = event.target;
+    setCustomerPaid(value);
+    setCustomerReturn(value-total);
+    console.log(value);
+  }
+  
+
+  const formattedDate = format(new Date(), "dd/ MM/ yyyy");
   const seller = "admin is admin";
-  var customer = "";
-  var total = 1000;
-  var customerPaid = 5000;
-  var customerReturn = customerPaid - total;
+  
   return (
     <div className="card card-custom">
       <div className="card-header">
@@ -17,13 +28,13 @@ function PaymentPanel({ className }) {
       </div>
       <form className="form fv-plugins-bootstrap fv-plugins-framework">
         {/*Begin::Người bán */}
-        <div class="form-group row">
-          <label class="col-sm-4 col-form-label">Người bán</label>
-          <div class="col-sm-8">
+        <div className="form-group row">
+          <label className="col-sm-4 col-form-label">Người bán</label>
+          <div className="col-sm-8">
             <input
               type="text"
-              readonly
-              class="form-control-plaintext"
+              disabled
+              className="form-control-plaintext"
               value={seller}
             />
           </div>
@@ -31,13 +42,13 @@ function PaymentPanel({ className }) {
         {/*End::Người bán */}
 
         {/*Begin::Ngày bán */}
-        <div class="form-group row">
-          <label class="col-sm-4 col-form-label">Ngày bán</label>
-          <div class="col-sm-8">
+        <div className="form-group row">
+          <label className="col-sm-4 col-form-label">Ngày bán</label>
+          <div className="col-sm-8">
             <input
               type="text"
-              readonly
-              class="form-control-plaintext"
+              disabled
+              className="form-control-plaintext"
               value={formattedDate.toString()}
             />
           </div>
@@ -45,31 +56,32 @@ function PaymentPanel({ className }) {
         {/*End::Ngày bán */}
 
         {/*Begin::Khách hàng */}
-        <div class="form-group row">
-          <label for="sellerName" class="col-sm-4 col-form-label">
+        <div className="form-group row">
+          <label className="col-sm-4 col-form-label">
             Khách hàng
           </label>
-          <div class="col-sm-8">
+          <div className="col-sm-8">
             <input
               type="text"
-              class="form-control  form-control-solid"
+              className="form-control  form-control-solid"
               placeholder="Khách mua hàng"
               value={customer}
+              onChange={(event,value) => setCustomer(value)}
             />
           </div>
         </div>
         {/*End::Khách hàng */}
 
         {/*Begin::Tổng tiền */}
-        <div class="form-group row">
-          <label for="sellerName" class="col-sm-4 col-form-label">
+        <div className="form-group row">
+          <label className="col-sm-4 col-form-label">
             Tổng tiền
           </label>
-          <div class="col-sm-8">
+          <div className="col-sm-8">
             <input
               type="text"
-              readonly
-              class="form-control-plaintext"
+              disabled
+              className="form-control form-control-solid"
               value={total}
             />
           </div>
@@ -77,30 +89,31 @@ function PaymentPanel({ className }) {
         {/*End::Tổng tiền */}
 
         {/*Begin::Khách đưa */}
-        <div class="form-group row">
-          <label for="sellerName" class="col-sm-4 col-form-label">
+        <div className="form-group row">
+          <label className="col-sm-4 col-form-label">
             Khách đưa
           </label>
-          <div class="col-sm-8">
+          <div className="col-sm-8">
             <input
               type="number"
-              class="form-control form-control-solid"
+              className="form-control form-control-solid"
               value={customerPaid}
+              onChange={handleCustomerPaid}
             />
           </div>
         </div>
         {/*End::Khách đưa */}
 
         {/*Begin::Trả khách */}
-        <div class="form-group row">
-          <label for="sellerName" class="col-sm-4 col-form-label">
+        <div className="form-group row">
+          <label className="col-sm-4 col-form-label">
             Trả khách
           </label>
-          <div class="col-sm-8">
+          <div className="col-sm-8">
             <input
               type="text"
-              readonly
-              class="form-control-plaintext"
+              disabled
+              className="form-control form-control-solid"
               value={customerReturn}
             />
           </div>
@@ -108,7 +121,7 @@ function PaymentPanel({ className }) {
         {/*End::Trả khách */}
 
         {/*Begin::Submit */}
-        <div class="form-group">
+        <div className="form-group">
             <button className="form-control btn btn-primary font-weight-bold" type="submit">
             <span>Thanh toán</span>
             </button>

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import SVG from "react-inlinesvg";
 import { InputAdornment } from "@material-ui/core";
 import { toAbsoluteUrl } from "../../../../template/helpers/AssetsHelpers";
@@ -39,7 +40,7 @@ function OrderManagePage({ className }) {
           <div className="card-toolbar row w-100 justify-content-between">
             <Input
               onChange={handleSearch}
-              label="Search Categories"
+              label="Search Orders"
               className="col-lg-9"
               InputProps={{
                 startAdornment: (
@@ -49,8 +50,8 @@ function OrderManagePage({ className }) {
                 ),
               }}
             ></Input>
-            <a
-              href="#"
+            <Link
+              to="/banhang"
               className="btn btn-success font-weight-bolder font-size-sm col-lg-2"
             >
               <span className="svg-icon svg-icon-md svg-icon-white">
@@ -60,7 +61,7 @@ function OrderManagePage({ className }) {
                 ></SVG>
               </span>
               Thêm mới hóa đơn
-            </a>
+            </Link>
           </div>
         </div>
         {/* end::Header */}
