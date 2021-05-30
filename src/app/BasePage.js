@@ -6,7 +6,7 @@ import Dashboard from "./modules/dashboard/Dashboard";
 import OrderManagePage from "./modules/orders/pages/OrderManagePage";
 import NewOrderPage from './modules/orders/pages/NewOrderPage';
 import Categories from './modules/categories/pages/Categories';
-
+import AuthorPage from './modules/authors/pages/AuthorPage';
 export default function BasePage() {
     return(
         <Suspense fallback={<LayoutSplashScreen />}>
@@ -16,7 +16,7 @@ export default function BasePage() {
                 <ContentRoute path="/quanlyhoadon" component={OrderManagePage}></ContentRoute>
                 <ContentRoute path="/banhang" component={NewOrderPage}></ContentRoute>
                 <ContentRoute path="/quanlykho/theloai" component={Categories}></ContentRoute>
-                
+                <ContentRoute path="/quanlykho/tacgia" component={AuthorPage}></ContentRoute>
         </Switch>
         </Suspense>
         );

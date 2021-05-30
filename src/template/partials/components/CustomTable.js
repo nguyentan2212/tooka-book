@@ -148,7 +148,7 @@ function CustomTable(props) {
               <TableCell>
                 <a
                   href="#"
-                  onClick={updateHandler}
+                  onClick={() => updateHandler(item)}
                   className="btn btn-light-info font-weight-bolder font-size-sm mx-1"
                 >
                   <EditOutlined fontSize="small"></EditOutlined>
