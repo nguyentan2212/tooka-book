@@ -15,7 +15,7 @@ function NewOrderPage({ className }) {
       setBookList(data);
     };
     fetchAllBooks();
-  });
+  },[]);
 
   const [total, setTotal] = useState(0);
   const [bookOrderList, setBookOrderList] = useState([]);

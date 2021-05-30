@@ -8,6 +8,7 @@ import NewOrderPage from './modules/orders/pages/NewOrderPage';
 import Categories from './modules/categories/pages/Categories';
 import AuthorPage from './modules/authors/pages/AuthorPage';
 import CustomerPage from './modules/customers/pages/CustomerPage';
+import BookManagerPage from "./modules/books/pages/BookManagerPage";
 
 export default function BasePage() {
     return(
@@ -20,6 +21,7 @@ export default function BasePage() {
                 <ContentRoute path="/quanlykho/theloai" component={Categories}></ContentRoute>
                 <ContentRoute path="/quanlykho/tacgia" component={AuthorPage}></ContentRoute>
                 <Route path="/khach" component={CustomerPage}></Route>
+                <Route path="/quanlykho/sach" component={BookManagerPage}></Route>
         </Switch>
         </Suspense>
         );
