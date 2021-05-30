@@ -129,6 +129,20 @@ export function AsideMenuList({ layoutProps }) {
         </li>
         {/*end::1 Level*/}
 
+        {/*begin::1 Level QUẢN LÝ KHÁCH HÀNG*/}
+        <li
+          className={`menu-item menu-item-submenu ${getMenuItemActive("/khach",true)}`}
+          aria-haspopup="true"
+        >
+          <NavLink className="menu-link menu-toggle" to="/khach">
+            <span className="svg-icon menu-icon">
+              <SVG src={toAbsoluteUrl("/media/svg/icons/Design/Cap-2.svg")} />
+            </span>
+            <span className="menu-text">Quản Lý Khách Hàng</span>
+          </NavLink>
+        </li>
+        {/*end::1 Level*/}
+
         {/*begin::1 Level BÁO CÁO*/}
         <li
           className={`menu-item menu-item-submenu ${getMenuItemActive("/baocao",true)}`}

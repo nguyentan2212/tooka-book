@@ -1,19 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { getAllAuthor } from "../js/author";
+import { getAllCustomer } from "../js/customer";
 import CustomTable from "../../../../template/partials/components/CustomTable";
 import { ConfirmDialog } from "../../../../template/partials/controls";
 
-function AuthorTable(props) {
-  const { filterFunc, setAuthor, setOpenPopUp } = props;
-
-  const [authorsList, setAuthorsList] = useState([]);
+function CustomerTable(props) {
+  const { filterFunc, setCustomer, setOpenPopUp } = props;
+  const [customersList, setCustomersList] = useState([]);
   useEffect(() => {
-    const fecthData = async () => {
-      const { data } = await getAllAuthor();
-      setAuthorsList(data);
+    const fetchData = async () => {
+      const { data } = await getAllCustomer();
+      setCustomersList(data);
     };
-    fecthData();
-  }, []);
+    fetchData();
+  },[]);
 
   const headerCells = [
     {
@@ -32,6 +31,11 @@ function AuthorTable(props) {
       id: "Address",
       label: "Địa chỉ ",
     },
+    {
+      id: "Debt",
+      label: "Tiền nợ",
+      isCurrency: true,
+    },
   ];
 
   //Confirm Dialog
@@ -43,7 +47,7 @@ function AuthorTable(props) {
 
   const onDelete = (id) => {
     setConfirmDialog({ ...confirmDialog, isOpen: false });
-    setAuthorsList(authorsList.filter((author) => author.id != id));
+    setCustomersList(customersList.filter((customer) => customer.id != id));
   };
 
   const deleteHandler = (id) => {
@@ -57,8 +61,8 @@ function AuthorTable(props) {
     });
   };
 
-  const updateHandler = (author) => {
-    setAuthor(author);
+  const updateHandler = (customer) => {
+    setCustomer(customer);
     setOpenPopUp(true);
   };
   return (
@@ -66,10 +70,10 @@ function AuthorTable(props) {
       <div className="table-responsive">
         <CustomTable
           headerCells={headerCells}
-          data={authorsList}
+          data={customersList}
           filterFunc={filterFunc}
           hasPaging={true}
-          updateHandler={updateHandler}
+          updateHandler={(item) => updateHandler(item)}
           deleteHandler={(id) => deleteHandler(id)}
         />
       </div>
@@ -81,4 +85,4 @@ function AuthorTable(props) {
   );
 }
 
-export default AuthorTable;
+export default CustomerTable;

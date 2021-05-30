@@ -3,6 +3,7 @@ import mockAuth from '../modules/auth/_mocks_/mockAuth'
 import mockOrder from '../modules/orders/_mocks_/mockOrder';
 import mockBook from '../modules/books/_mock_/mockBook';
 import mockAuthor from '../modules/authors/_mock_/mockAuthor';
+import mockCustomer from '../modules/customers/_mock_/mockCustomer';
 
 export default function mockAxios(axios) {
     const mock = new MockAdapter(axios, { delayResponse: 300 });
@@ -11,7 +12,8 @@ export default function mockAxios(axios) {
     mockOrder(mock);
     mockBook(mock);
     mockAuthor(mock);
-
+    mockCustomer(mock);
+    
     return mock;
 }
   
