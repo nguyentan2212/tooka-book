@@ -12,7 +12,7 @@ import {
   Paper,
 } from "@material-ui/core";
 import React, { useState } from "react";
-import CategoriesForm from "../components/CategoriesForm";
+import CategoriesForm from "../components/CategoryForm";
 import PageTitle from "../../../../template/layout/components/page-title/PageTitle";
 
 import {Input, CustomButton, PopUp, Notification, ConfirmDialog} from '../../../../template/partials/controls';

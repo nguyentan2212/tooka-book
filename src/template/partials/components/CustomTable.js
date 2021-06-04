@@ -131,7 +131,7 @@ function CustomTable(props) {
                 )}
               </TableCell>
             ))}
-            <TableCell>Action</TableCell>
+            <TableCell style={{ width: "200px" }}>Action</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>

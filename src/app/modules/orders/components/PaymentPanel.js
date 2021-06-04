@@ -19,6 +19,9 @@ function PaymentPanel(props) {
   const formattedDate = format(new Date(), "dd/ MM/ yyyy");
   const seller = "admin is admin";
   
+  const handleSubmit = () => {
+    
+  }
   return (
     <div className="card card-custom">
       <div className="card-header">
@@ -26,7 +29,7 @@ function PaymentPanel(props) {
           <h3 className="card-title">Thanh toán</h3>
         </div>
       </div>
-      <form className="form fv-plugins-bootstrap fv-plugins-framework">
+      <form className="form fv-plugins-bootstrap fv-plugins-framework" onSubmit={handleSubmit}>
         {/*Begin::Người bán */}
         <div className="form-group row">
           <label className="col-sm-4 col-form-label">Người bán</label>

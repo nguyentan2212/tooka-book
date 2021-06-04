@@ -6,11 +6,12 @@ import {
   Input,
   CustomButton,
   PopUp,
-  Notification
+  Notification,
 } from "../../../../template/partials/controls";
-import AuthorTable from "../components/AuthorTable";
-import AuthorForm from "../components/AuthorForm";
-function AuthorPage(props) {
+import CategoryTable from "../components/CategoryTable";
+import CategoryForm from "../components/CategoryForm";
+
+function CategoryPage(props) {
   const { className } = props;
   const [filterFunc, setFilterFunc] = useState({
     func: (items) => {
@@ -30,22 +31,20 @@ function AuthorPage(props) {
       },
     });
   };
-  //chứa author được update
-  const [author, setAuthor] = useState(null);
 
+  const [category, setCategory] = useState(null);
   //Popup modal
   const [openPopUp, setOpenPopUp] = useState(false);
-  const onCreateAuthor = () => {
-    setAuthor(null);
+  const onCreateCategory = () => {
+    setCategory(null);
     setOpenPopUp(true);
     console.log(openPopUp);
   };
-
   return (
     <div>
       <PageTitle
-        title="Quản Lý Tác Giả"
-        subTitle="Quản Lý Tác Giả"
+        title="Quản Lý Thể Loại"
+        subTitle="Quản Lý Thể Loại"
         icon={() => <LibraryBooks />}
       />
       <div className={`card card-custom ${className} mt-8`}>
@@ -69,35 +68,36 @@ function AuthorPage(props) {
               variant="outlined"
               startIcon={<Add></Add>}
               className="btn btn-success font-weight-bolder font-size-sm col-lg-2"
-              onClick={() => onCreateAuthor()}
+              onClick={() => onCreateCategory()}
             ></CustomButton>
           </div>
         </div>
         {/* end::Header */}
-        {/* Body */}
+        {/* begin::Body */}
         <div className="card-body pt-0 pb-3">
           <div className="tab-content">
-            <AuthorTable
+            <CategoryTable
               filterFunc={filterFunc}
               setOpenPopUp={setOpenPopUp}
-              setAuthor={setAuthor}
+              setCategory={setCategory}
             />
             <PopUp
               openPopUp={openPopUp}
               setOpenPopUp={setOpenPopUp}
-              title="Bảng Thêm Tác Giả"
+              title="Bảng Thêm Thể Loại"
             >
-              <AuthorForm
-                author={author}
+              <CategoryForm
+                category={category}
                 setOpenPopUp={setOpenPopUp}
-                setAuthor={setAuthor}
-              ></AuthorForm>
+                setCategory={setCategory}
+              ></CategoryForm>
             </PopUp>
           </div>
         </div>
+        {/* end::Body */}
       </div>
     </div>
   );
 }
 
-export default AuthorPage;
+export default CategoryPage;

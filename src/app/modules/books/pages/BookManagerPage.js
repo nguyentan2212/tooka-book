@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from "react";
 import BookItem from "../components/BookItem";
+import { InputAdornment, Toolbar, Grid } from "@material-ui/core";
 import {
-  InputAdornment,
-  makeStyles,
-  Table,
-  Toolbar,
-  Paper,
-  Grid,
-} from "@material-ui/core";
-import { Search } from "@material-ui/icons";
-import { Input } from "../../../../template/partials/controls";
+  Input,
+  CustomButton,
+  PopUp,
+  Notification,
+} from "../../../../template/partials/controls";
 import { getAllBooks } from "../js/book";
+import PageTitle from "../../../../template/layout/components/page-title/PageTitle";
+import { LibraryBooks, Search, Add } from "@material-ui/icons";
 
 function BookManagerPage(props) {
   const { className } = props;
@@ -45,70 +44,55 @@ function BookManagerPage(props) {
     });
   };
 
-  const useStyles = makeStyles((theme) => ({
-    table: {
-      marginTop: theme.spacing(0),
-      "& thead th": {
-        fontWeight: "600",
-        color: theme.palette.primary.main,
-        backgroundColor: theme.palette.primary.light,
-      },
-      "& tbody td": {
-        fontWeight: "300",
-      },
-      "& tbody tr:hover": {
-        backgroundColor: "#fffbf2",
-        cursor: "pointer",
-      },
-    },
-    searchInput: {
-      width: "75%",
-    },
-    pageContent: {
-      margin: theme.spacing(0),
-      padding: theme.spacing(0),
-    },
-    newButton: {
-      position: "absolute",
-      right: "10px",
-    },
-  }));
-
-  const classes = useStyles();
-
   return (
     <div>
-      <Paper className={classes.pageContent}>
-        <Toolbar>
-          <Input
-            onChange={(event) => handleSearch}
-            label="Search Categories"
-            className={classes.searchInput}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <Search></Search>
-                </InputAdornment>
-              ),
-            }}
-          ></Input>
-        </Toolbar>
+      <PageTitle
+        title="Quản Lý Sách"
+        subTitle="Quản Lý Sách"
+        icon={() => <LibraryBooks />}
+      />
+      <div className={`card card-custom ${className} mt-8`}>
+        {/* begin::Header */}
+        <div className="card-header border-0 py-5">
+          <div className="card-toolbar row w-100 justify-content-between">
+            <Input
+              onChange={handleSearch}
+              label="Search Books"
+              className="col-lg-9"
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <Search></Search>
+                  </InputAdornment>
+                ),
+              }}
+            ></Input>
+            <CustomButton
+              text="Thêm Sách"
+              variant="outlined"
+              startIcon={<Add></Add>}
+              className="btn btn-success font-weight-bolder font-size-sm col-lg-2"
+            ></CustomButton>
+          </div>
+        </div>
+        {/* end::Header */}
 
-        <Table className={classes.table}></Table>
-        <Grid container item spacing={4}>
-          {bookList.map((book) => (
-            <Grid item>
-              <BookItem
-                title={book.name}
-                src={book.img}
-                author={book.author}
-                des={book.des}
-                price={book.price}
-              />
-            </Grid>
-          ))}
-        </Grid>
-      </Paper>
+        <div className="d-flex justify-content-center">
+          <Grid container spacing={1}>
+            {bookList.map((book) => (
+              <Grid item xs={3}>
+                <BookItem
+                  title={book.name}
+                  src={book.img}
+                  author={book.author}
+                  des={book.des}
+                  price={book.price}
+                />
+              </Grid>
+            ))}
+          </Grid>
+        </div>
+      </div>
     </div>
   );
 }
