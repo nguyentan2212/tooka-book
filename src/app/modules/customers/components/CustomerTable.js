@@ -8,31 +8,45 @@ function CustomerTable(props) {
   const [customersList, setCustomersList] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
-      const { data } = await getAllCustomer();
-      setCustomersList(data);
+      var objectMapper = require("object-mapper");
+      fetch("http://localhost:5000/api/customer")
+        .then((response) => response.json())
+        .then((res) => {
+          var map = {
+            "[].MaKhachHang": "[].id",
+            "[].TenKhachHang": "[].name",
+            "[].DiaChi": "[].address",
+            "[].SoDienThoai": "[].phoneNumber",
+            "[].Email": "[].email",
+            "[].SoTienNo": "[].debt",
+          };
+          const dest = objectMapper(res, map);
+          setCustomersList(dest);
+          console.log(dest);
+        });
     };
     fetchData();
-  },[]);
+  }, []);
 
   const headerCells = [
     {
-      id: "Name",
+      id: "name",
       label: "Họ Tên",
     },
     {
-      id: "PhoneNumber",
+      id: "phoneNumber",
       label: "SĐT ",
     },
     {
-      id: "Email",
+      id: "email",
       label: "Email ",
     },
     {
-      id: "Address",
+      id: "address",
       label: "Địa chỉ ",
     },
     {
-      id: "Debt",
+      id: "debt",
       label: "Tiền nợ",
       isCurrency: true,
     },
@@ -76,7 +90,7 @@ function CustomerTable(props) {
           data={customersList}
           filterFunc={filterFunc}
           hasPaging={true}
-          updateHandler={(item) => updateHandler(item)}
+          updateHandler={updateHandler}
           deleteHandler={(id) => deleteHandler(id)}
         />
       </div>

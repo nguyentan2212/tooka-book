@@ -38,22 +38,22 @@ function CustomerForm(props) {
 
   const validate = (fieldValues = values) => {
     let temp = { ...errors };
-    if ("Name" in fieldValues) {
-      temp.Name =
-        fieldValues.Name.length > 0 ? "" : "Xin hãy nhập tên hoặc bút danh!";
+    if ("name" in fieldValues) {
+      temp.name =
+        fieldValues.name.length > 0 ? "" : "Xin hãy nhập tên hoặc bút danh!";
     }
-    if ("Email" in fieldValues)
-      temp.Email = /$^|.+@.+..+/.test(fieldValues.Email)
+    if ("email" in fieldValues)
+      temp.email = /$^|.+@.+..+/.test(fieldValues.email)
         ? ""
         : "Vui lòng nhập địa chỉ hợp lệ.";
-    if ("PhoneNumber" in fieldValues) {
-      temp.PhoneNumber =
-        fieldValues.PhoneNumber.length > 9
+    if ("phoneNumber" in fieldValues) {
+      temp.phoneNumber =
+        fieldValues.phoneNumber.length > 9
           ? ""
           : "Xin hãy nhập số điện thoại liên lạc hợp lệ có it nhất 10 số";
     }
-    if ("Debt" in fieldValues)
-      temp.Debt = fieldValues.Debt ? "" : "Số tiền nợ không được âm";
+    if ("debt" in fieldValues)
+      temp.debt = fieldValues.debt ? "" : "Số tiền nợ không được âm";
     setErrors({ ...temp });
 
     if (fieldValues === values)
@@ -89,25 +89,25 @@ function CustomerForm(props) {
               variant="outlined"
               label="Họ tên"
               name="Name"
-              value={values.Name}
+              value={values.name}
               onChange={handleChange}
-              error={errors.Name}
+              error={errors.name}
             ></Input>
             <Input
               variant="outlined"
               label="Tiền nợ"
               name="Debt"
-              value={values.Debt}
+              value={values.debt}
               onChange={handleChange}
-              error={errors.Debt}
+              error={errors.debt}
             ></Input>
             <Input
               variant="outlined"
               label="Địa chỉ"
               name="Address"
-              value={values.Address}
+              value={values.address}
               onChange={handleChange}
-              error={errors.Address}
+              error={errors.address}
             ></Input>
           </Grid>
           <Grid item xs={6}>
@@ -115,17 +115,17 @@ function CustomerForm(props) {
               variant="outlined"
               label="Số điện thoại"
               name="Phone"
-              value={values.PhoneNumber}
+              value={values.phoneNumber}
               onChange={handleChange}
-              error={errors.PhoneNumber}
+              error={errors.phoneNumber}
             ></Input>
             <Input
               variant="outlined"
               label="Địa chỉ Email"
               name="Email"
-              value={values.Email}
+              value={values.email}
               onChange={handleChange}
-              error={errors.Email}
+              error={errors.email}
             ></Input>
             <div className="row w-100 justify-content-center">
               <CustomButton

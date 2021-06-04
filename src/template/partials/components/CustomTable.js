@@ -98,7 +98,7 @@ function CustomTable(props) {
 
   const classes = useStyles();
 
-  var formatter = new Intl.NumberFormat("en-US", {
+  var formatter = new Intl.NumberFormat("vi-VN", {
     style: "currency",
     currency: "VND",
   });

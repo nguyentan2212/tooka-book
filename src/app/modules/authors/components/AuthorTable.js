@@ -9,27 +9,37 @@ function AuthorTable(props) {
   const [authorsList, setAuthorsList] = useState([]);
   useEffect(() => {
     const fecthData = async () => {
-      const { data } = await getAllAuthor();
-      setAuthorsList(data);
+      var objectMapper = require("object-mapper");
+      fetch("http://localhost:5000/api/author")
+        .then((response) => response.json())
+        .then((res) => {
+          var map = {
+            "[].MaTacGia": "[].id",
+            "[].TenTacGia": "[].name",
+          };
+          const dest = objectMapper(res, map);
+          setAuthorsList(dest);
+          console.log(dest);
+        });
     };
     fecthData();
   }, []);
 
   const headerCells = [
     {
-      id: "Name",
+      id: "name",
       label: "Họ Tên",
     },
     {
-      id: "PhoneNumber",
+      id: "phoneNumber",
       label: "SĐT ",
     },
     {
-      id: "Email",
+      id: "email",
       label: "Email ",
     },
     {
-      id: "Address",
+      id: "address",
       label: "Địa chỉ ",
     },
   ];
@@ -60,7 +70,7 @@ function AuthorTable(props) {
   const updateHandler = (author) => {
     setAuthor(author);
     setOpenPopUp({
-      isOpen: false,
+      isOpen: true,
       title: "Cập Nhật Tác Giả",
     });
   };
