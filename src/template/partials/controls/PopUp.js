@@ -20,24 +20,27 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export const PopUp = (props) => {
-  const { title, children, openPopUp, setOpenPopUp } = props;
+  const { children, openPopUp, setOpenPopUp } = props;
   const classes = useStyles();
   return (
     <>
       <Dialog
-        open={openPopUp}
+        open={openPopUp.isOpen}
         maxWidth="md"
         classes={{ paper: classes.dialogWrapper }}
       >
         <DialogTitle className={classes.dialogTitle}>
           <div style={{ display: "flex" }}>
             <Typography variant="h6" component="div" style={{ flexGrow: 1 }}>
-              {title}
+              {openPopUp.title}
             </Typography>
             <a
               href="#"
               className="btn btn-light-danger font-weight-bolder font-size-sm mx-1"
-              onClick={() => setOpenPopUp(false)}
+              onClick={() => setOpenPopUp({
+                isOpen: false,
+                title: "Thêm Khách Hàng Mới",
+              })}
             >
               <CloseIcon></CloseIcon>
             </a>

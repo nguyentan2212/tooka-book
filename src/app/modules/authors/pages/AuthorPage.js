@@ -34,10 +34,16 @@ function AuthorPage(props) {
   const [author, setAuthor] = useState(null);
 
   //Popup modal
-  const [openPopUp, setOpenPopUp] = useState(false);
+  const [openPopUp, setOpenPopUp] = useState({
+    isOpen: false,
+    title: "Bảng Thêm Tác Giả",
+  });
   const onCreateAuthor = () => {
     setAuthor(null);
-    setOpenPopUp(true);
+    setOpenPopUp({
+      isOpen: true,
+      title: "Bảng Thêm Tác Giả",
+    });
     console.log(openPopUp);
   };
 
@@ -85,7 +91,7 @@ function AuthorPage(props) {
             <PopUp
               openPopUp={openPopUp}
               setOpenPopUp={setOpenPopUp}
-              title="Bảng Thêm Tác Giả"
+              title={openPopUp.title}
             >
               <AuthorForm
                 author={author}

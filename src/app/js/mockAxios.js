@@ -14,7 +14,7 @@ export default function mockAxios(axios) {
     mockBook(mock);
     mockAuthor(mock);
     mockCustomer(mock);
-    mockCategory(mock);
+    //mockCategory(mock);
     
     return mock;
 }

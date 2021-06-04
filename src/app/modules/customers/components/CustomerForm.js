@@ -68,7 +68,10 @@ function CustomerForm(props) {
     event.preventDefault();
     if (validate()) {
       resetForm();
-      setOpenPopUp(false);
+      setOpenPopUp({
+        isOpen: false,
+        title: "Thêm Khách Hàng Mới",
+      });
     }
   };
 
@@ -98,6 +101,14 @@ function CustomerForm(props) {
               onChange={handleChange}
               error={errors.Debt}
             ></Input>
+            <Input
+              variant="outlined"
+              label="Địa chỉ"
+              name="Address"
+              value={values.Address}
+              onChange={handleChange}
+              error={errors.Address}
+            ></Input>
           </Grid>
           <Grid item xs={6}>
             <Input
@@ -115,14 +126,6 @@ function CustomerForm(props) {
               value={values.Email}
               onChange={handleChange}
               error={errors.Email}
-            ></Input>
-            <Input
-              variant="outlined"
-              label="Địa chỉ"
-              name="Address"
-              value={values.Address}
-              onChange={handleChange}
-              error={errors.Address}
             ></Input>
             <div className="row w-100 justify-content-center">
               <CustomButton

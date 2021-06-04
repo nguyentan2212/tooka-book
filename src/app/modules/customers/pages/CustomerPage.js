@@ -31,9 +31,16 @@ function CustomerPage(props) {
     });
   };
   //Popup modal
-  const [openPopUp, setOpenPopUp] = useState(false);
+  const [openPopUp, setOpenPopUp] = useState({
+    isOpen: false,
+    title: "Thêm Khách Hàng Mới",
+  });
+  console.log(openPopUp);
   const onCreateCustomer = () => {
-    setOpenPopUp(true);
+    setOpenPopUp({
+      isOpen: true,
+      title: "Thêm Khách Hàng Mới",
+    });
     console.log(openPopUp);
   };
 
@@ -84,7 +91,7 @@ function CustomerPage(props) {
             <PopUp
               openPopUp={openPopUp}
               setOpenPopUp={setOpenPopUp}
-              title="Bảng Thêm Khách Hàng"
+              title={openPopUp.title}
             >
               <CustomerForm
                 customer={customer}

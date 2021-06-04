@@ -34,10 +34,18 @@ function CategoryPage(props) {
 
   const [category, setCategory] = useState(null);
   //Popup modal
-  const [openPopUp, setOpenPopUp] = useState(false);
+  const [openPopUp, setOpenPopUp] = useState({
+    isOpen: false,
+    title: "Bảng Thêm Thể Loại",
+  });
+
   const onCreateCategory = () => {
     setCategory(null);
-    setOpenPopUp(true);
+    setOpenPopUp({
+      isOpen: true,
+      title: "Bảng Thêm Thể Loại",
+    });
+    
     console.log(openPopUp);
   };
   return (
@@ -84,7 +92,7 @@ function CategoryPage(props) {
             <PopUp
               openPopUp={openPopUp}
               setOpenPopUp={setOpenPopUp}
-              title="Bảng Thêm Thể Loại"
+              title={openPopUp.title}
             >
               <CategoryForm
                 category={category}

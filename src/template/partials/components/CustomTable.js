@@ -135,7 +135,7 @@ function CustomTable(props) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {recordsAfterPagingAndSorting().map((item, index) => (
+          {data && recordsAfterPagingAndSorting().map((item, index) => (
             <TableRow key={index}>
               <TableCell>{index + 1}</TableCell>
               {headerCells.map((headerCell) => (
@@ -169,7 +169,7 @@ function CustomTable(props) {
         <TablePagination
           rowsPerPageOptions={pages}
           component="div"
-          count={filterFunc.func(data).length}
+          count={data ? filterFunc.func(data).length : 0}
           rowsPerPage={rowsPerPage}
           page={page}
           onChangePage={handleChangePage}

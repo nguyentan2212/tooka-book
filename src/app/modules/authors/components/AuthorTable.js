@@ -59,7 +59,10 @@ function AuthorTable(props) {
 
   const updateHandler = (author) => {
     setAuthor(author);
-    setOpenPopUp(true);
+    setOpenPopUp({
+      isOpen: false,
+      title: "Cập Nhật Tác Giả",
+    });
   };
   return (
     <div>

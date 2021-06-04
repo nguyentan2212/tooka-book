@@ -8689,6 +8689,11 @@ object-keys@^1.0.11, object-keys@^1.0.12, object-keys@^1.1.1:
   resolved "https://registry.npmjs.org/object-keys/-/object-keys-1.1.1.tgz"
   integrity sha512-NuAESUOUMrlIXOfHKzD6bpPu3tYt3xvjNdRIQ+FeT0lNb4K8WR70CaDxhuNguS2XG+GjkyMwOzsN5ZktImfhLA==
 
+object-mapper@^6.2.0:
+  version "6.2.0"
+  resolved "https://registry.yarnpkg.com/object-mapper/-/object-mapper-6.2.0.tgz#f12b097081a97da953adafbc1f7f41b3ff615cae"
+  integrity sha512-kGa23lcUwnTbT0W2GqRipoiPax734TbXVTUF3vaWlAXY5baMQES323B9NHJODvxhn9sVMZmzeenD74PnCZZuHA==
+
 object-path@^0.11.5:
   version "0.11.5"
   resolved "https://registry.npmjs.org/object-path/-/object-path-0.11.5.tgz"

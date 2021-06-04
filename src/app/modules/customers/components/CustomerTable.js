@@ -63,7 +63,10 @@ function CustomerTable(props) {
 
   const updateHandler = (customer) => {
     setCustomer(customer);
-    setOpenPopUp(true);
+    setOpenPopUp({
+      isOpen: true,
+      title: "Cập Nhật Khách Hàng Mới",
+    });
   };
   return (
     <div>

@@ -59,7 +59,10 @@ const CategoryForm = (props) => {
     event.preventDefault();
     if (validate()) {
       resetForm();
-      setOpenPopUp(false);
+      setOpenPopUp({
+        isOpen: false,
+        title: "Bảng Cập Nhật Thể Loại",
+      });
     }
   };
 
@@ -75,7 +78,7 @@ const CategoryForm = (props) => {
           <Grid item>
             <Input
               variant="outlined"
-              label="New Category"
+              label="Category Name"
               name="newCategory"
               value={values.name}
               onChange={handleChange}
