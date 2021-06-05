@@ -35,7 +35,6 @@ function CustomerPage(props) {
     isOpen: false,
     title: "Thêm Khách Hàng Mới",
   });
-  console.log(openPopUp);
   const onCreateCustomer = () => {
     setOpenPopUp({
       isOpen: true,

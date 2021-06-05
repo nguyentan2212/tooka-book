@@ -7,13 +7,13 @@ import mockCustomer from '../modules/customers/_mock_/mockCustomer';
 import mockCategory from "../modules/categories/_mock_/mockCategory";
 
 export default function mockAxios(axios) {
-    const mock = new MockAdapter(axios, { delayResponse: 300 });
+    const mock = new MockAdapter(axios, { delayResponse: 1000 });
 
     mockAuth(mock);
     mockOrder(mock);
     mockBook(mock);
-    mockAuthor(mock);
-    mockCustomer(mock);
+    //mockAuthor(mock);
+    //mockCustomer(mock);
     //mockCategory(mock);
     
     return mock;

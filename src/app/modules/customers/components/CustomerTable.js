@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { getAllCustomer } from "../js/customer";
+import { getAllCustomers } from "../js/customer";
 import CustomTable from "../../../../template/partials/components/CustomTable";
 import { ConfirmDialog } from "../../../../template/partials/controls";
 
@@ -8,22 +8,9 @@ function CustomerTable(props) {
   const [customersList, setCustomersList] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
-      var objectMapper = require("object-mapper");
-      fetch("http://localhost:5000/api/customer")
-        .then((response) => response.json())
-        .then((res) => {
-          var map = {
-            "[].MaKhachHang": "[].id",
-            "[].TenKhachHang": "[].name",
-            "[].DiaChi": "[].address",
-            "[].SoDienThoai": "[].phoneNumber",
-            "[].Email": "[].email",
-            "[].SoTienNo": "[].debt",
-          };
-          const dest = objectMapper(res, map);
-          setCustomersList(dest);
-          console.log(dest);
-        });
+      const data = await getAllCustomers();
+      setCustomersList(data);
+      console.log(data);
     };
     fetchData();
   }, []);

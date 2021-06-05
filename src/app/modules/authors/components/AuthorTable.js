@@ -9,18 +9,10 @@ function AuthorTable(props) {
   const [authorsList, setAuthorsList] = useState([]);
   useEffect(() => {
     const fecthData = async () => {
-      var objectMapper = require("object-mapper");
-      fetch("http://localhost:5000/api/author")
-        .then((response) => response.json())
-        .then((res) => {
-          var map = {
-            "[].MaTacGia": "[].id",
-            "[].TenTacGia": "[].name",
-          };
-          const dest = objectMapper(res, map);
-          setAuthorsList(dest);
-          console.log(dest);
-        });
+      const dest = await getAllAuthor();
+      setAuthorsList(dest);
+      console.log(dest);
+
     };
     fecthData();
   }, []);

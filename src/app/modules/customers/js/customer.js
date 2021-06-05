@@ -1,9 +1,22 @@
-import axios from "axios";
+import { setupAxios } from "../../../js";
+var objectMapper = require("object-mapper");
 
-const {API_URL} = process.env;
-export const GET_ALL_CUSTOMERS_URL = API_URL + "api/customer";
+export const GET_ALL_CUSTOMERS_URL = "/api/customer";
 
-export async function getAllCustomer(){
-    const result = await axios.get(GET_ALL_CUSTOMERS_URL);
-    return result;
+export async function getAllCustomers() {
+  const result = setupAxios()
+    .get(GET_ALL_CUSTOMERS_URL)
+    .then(({ data }) => {
+      var map = {
+        "[].MaKhachHang": "[].id",
+        "[].TenKhachHang": "[].name",
+        "[].DiaChi": "[].address",
+        "[].SoDienThoai": "[].phoneNumber",
+        "[].Email": "[].email",
+        "[].SoTienNo": "[].debt",
+      };
+      const dest = objectMapper(data, map);
+      return dest;
+    });
+  return result;
 }

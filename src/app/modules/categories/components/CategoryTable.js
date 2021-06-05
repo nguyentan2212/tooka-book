@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { getAllCategories } from "../js/category";
 import CustomTable from "../../../../template/partials/components/CustomTable";
 import { ConfirmDialog } from "../../../../template/partials/controls";
 function CategoryTable(props) {
@@ -7,19 +8,9 @@ function CategoryTable(props) {
   const [categoryList, setCategoryList] = useState([]);
   useEffect(() => {
     const fecthData = async () => {
-      var objectMapper = require("object-mapper");
-      fetch("http://localhost:5000/api/category")
-        .then((response) => response.json())
-        .then((res) => {
-          var map = {
-            "[].MaTheLoai": "[].id",
-            "[].TenTheLoai": "[].name",
-          };
-          const dest = objectMapper(res, map);
-          setCategoryList(dest);
-          console.log(dest);
-        });
-      
+      const data = await getAllCategories();
+      setCategoryList(data);
+      console.log(data);
     };
     fecthData();
   }, []);

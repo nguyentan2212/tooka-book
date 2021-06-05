@@ -1,9 +1,17 @@
-import axios from "axios";
+import { setupAxios } from "../../../js";
+var objectMapper = require("object-mapper");
 
-const {API_URL} = process.env;
-export const GET_ALL_AUTHORS_URL = API_URL + "api/author";
+export const GET_ALL_AUTHORS_URL = "/api/author";
 
-export async function getAllAuthor(){
-    const result = await axios.get(GET_ALL_AUTHORS_URL);
-    return result;
+export function getAllAuthor() {
+  const result = setupAxios().get(GET_ALL_AUTHORS_URL).then(({ data }) => {
+    var map = {
+      "[].MaTacGia": "[].id",
+      "[].TenTacGia": "[].name",
+    }
+    const dest = objectMapper(data, map);
+
+    return dest;
+  });
+  return result;
 }
