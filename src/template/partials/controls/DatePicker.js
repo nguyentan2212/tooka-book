@@ -8,7 +8,13 @@ import {
 import DateFnsUtils from "@date-io/date-fns";
 
 export const DatePicker = (props) => {
-  const { name, value, label, onChange } = props;
+  const {
+    name,
+    value,
+    label,
+    onChange = () => {},
+    views = ["year", "month", "date"],
+  } = props;
 
   const convertToDefaultEventPara = (name, value) => ({
     target: {
@@ -22,9 +28,10 @@ export const DatePicker = (props) => {
       <KeyboardDatePicker
         disableToolbar
         variant="inline"
+        views={views}
         inputVariant="outlined"
         label={label}
-        format="MMM/dd/yyyy"
+        format="MMM/yyyy"
         name={name}
         value={value}
         onChange={(date) => {

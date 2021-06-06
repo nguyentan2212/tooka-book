@@ -7,7 +7,7 @@ import {
   CustomButton,
   PopUp,
 } from "../../../../template/partials/controls";
-import AuthorTable from '../components/CustomerTable';
+import CustomerTable from '../components/CustomerTable';
 import CustomerForm from "../components/CustomerForm";
 
 function CustomerPage(props) {
@@ -82,7 +82,7 @@ function CustomerPage(props) {
         {/* Body */}
         <div className="card-body pt-0 pb-3">
           <div className="tab-content">
-            <AuthorTable
+            <CustomerTable
               filterFunc={filterFunc}
               setOpenPopUp={setOpenPopUp}
               setCustomer={setCustomer}

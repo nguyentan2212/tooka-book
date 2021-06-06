@@ -47,8 +47,8 @@ function CustomTable(props) {
         return items;
       },
     },
-    updateHandler = () => {},
-    deleteHandler = () => {},
+    updateHandler,
+    deleteHandler,
   } = props;
 
   const [pages, setPages] = useState([5, 10, 25]);
@@ -131,38 +131,47 @@ function CustomTable(props) {
                 )}
               </TableCell>
             ))}
-            <TableCell style={{ width: "200px" }}>Action</TableCell>
+            {(updateHandler || deleteHandler) && (
+              <TableCell style={{ width: "200px" }}>Action</TableCell>
+            )}
           </TableRow>
         </TableHead>
         <TableBody>
-          {data && recordsAfterPagingAndSorting().map((item, index) => (
-            <TableRow key={index}>
-              <TableCell>{index + 1}</TableCell>
-              {headerCells.map((headerCell) => (
-                <TableCell key={headerCell.id}>
-                  {headerCell.isCurrency
-                    ? formatter.format(item[headerCell.id])
-                    : item[headerCell.id]}
-                </TableCell>
-              ))}
-              <TableCell>
-                <a
-                  href="#"
-                  onClick={() => updateHandler(item)}
-                  className="btn btn-light-info font-weight-bolder font-size-sm mx-1"
-                >
-                  <EditOutlined fontSize="small"></EditOutlined>
-                </a>
-                <a
-                  href="#"
-                  onClick={() => deleteHandler(item.id)}
-                  className="btn btn-light-danger font-weight-bolder font-size-sm mx-1"
-                >
-                  <Close fontSize="small"></Close>
-                </a>
-              </TableCell>
-            </TableRow>
-          ))}
+          {data &&
+            recordsAfterPagingAndSorting().map((item, index) => (
+              <TableRow key={index}>
+                <TableCell>{index + 1}</TableCell>
+                {headerCells.map((headerCell) => (
+                  <TableCell key={headerCell.id}>
+                    {headerCell.isCurrency
+                      ? formatter.format(item[headerCell.id])
+                      : item[headerCell.id]}
+                  </TableCell>
+                ))}
+                {(updateHandler || deleteHandler) && (
+                  <TableCell>
+                    {updateHandler && (
+                      <a
+                        href="#"
+                        onClick={() => updateHandler(item)}
+                        className="btn btn-light-info font-weight-bolder font-size-sm mx-1"
+                      >
+                        <EditOutlined fontSize="small"></EditOutlined>
+                      </a>
+                    )}
+                    {deleteHandler && (
+                      <a
+                        href="#"
+                        onClick={() => deleteHandler(item.id)}
+                        className="btn btn-light-danger font-weight-bolder font-size-sm mx-1"
+                      >
+                        <Close fontSize="small"></Close>
+                      </a>
+                    )}
+                  </TableCell>
+                )}
+              </TableRow>
+            ))}
         </TableBody>
       </Table>
       {hasPaging && (

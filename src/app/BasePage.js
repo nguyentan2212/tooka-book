@@ -9,6 +9,8 @@ import CategoryPage from './modules/categories/pages/CategoryPage';
 import AuthorPage from './modules/authors/pages/AuthorPage';
 import CustomerPage from './modules/customers/pages/CustomerPage';
 import BookManagerPage from "./modules/books/pages/BookManagerPage";
+import InventoryReport from "./modules/reports/pages/InventoryReport";
+import RevenueReport from "./modules/reports/pages/RevenueReport";
 
 export default function BasePage() {
     return(
@@ -22,6 +24,8 @@ export default function BasePage() {
                 <ContentRoute path="/quanlykho/tacgia" component={AuthorPage}></ContentRoute>
                 <Route path="/khach" component={CustomerPage}></Route>
                 <Route path="/quanlykho/sach" component={BookManagerPage}></Route>
+                <Route path="/baocao/tonkho" component={InventoryReport}></Route>
+                <Route path="/baocao/doanhthu" component={RevenueReport}></Route>
         </Switch>
         </Suspense>
         );
