@@ -22,7 +22,7 @@ function BookManagerPage(props) {
   const [bookList, setBookList] = useState([]);
   useEffect(() => {
     const fetchAllBooks = async () => {
-      const { data } = await getAllBooks();
+      const data = await getAllBooks();
       setBookList(data);
     };
     fetchAllBooks();
@@ -38,7 +38,7 @@ function BookManagerPage(props) {
           return items.filter(
             (item) =>
               item.title.toLowerCase().includes(target.value) &&
-              item.author.toLowerCase().includes(target.value)
+              item.author.name.toLowerCase().includes(target.value)
           );
       },
     });
@@ -79,14 +79,10 @@ function BookManagerPage(props) {
 
         <div className="d-flex justify-content-center">
           <Grid container spacing={1}>
-            {bookList.map((book) => (
-              <Grid item xs={3}>
+            {bookList.map((book, index) => (
+              <Grid item xs={3} key={index}>
                 <BookItem
-                  title={book.name}
-                  src={book.img}
-                  author={book.author}
-                  des={book.des}
-                  price={book.price}
+                  book={book}
                 />
               </Grid>
             ))}

@@ -16,7 +16,10 @@ export default function mockAuth(mock) {
         );
   
         if (user) {
-          return [200,{ ...user, password: undefined }];
+          let result = {
+            data: { ...user, password: undefined }
+          }
+          return result;
         }
       } 
       return [400];

@@ -1,97 +1,58 @@
 import React, { useState } from "react";
-import {
-  makeStyles,
-  Paper,
-  Grid,
-  Typography,
-  ButtonBase,
-} from "@material-ui/core";
+import { Paper, Grid, Typography, ButtonBase } from "@material-ui/core";
 import ExtraButton from "./ExtraButton";
-import {toAbsoluteUrl} from '../../../../template/helpers/AssetsHelpers';
+import { toAbsoluteUrl } from "../../../../template/helpers/AssetsHelpers";
 
 function BookItem(props) {
-  const { src, des, title, author, price } = props;
+  const { book } = props;
   const [ishover, setIshover] = useState(false);
 
   const handleishover = () => setIshover(!ishover);
 
-  const useStyles = makeStyles((theme) => ({
-    root: {
-      flexGrow: 1,
-    },
-    paper: {
-      padding: theme.spacing(1),
-      margin: "auto",
-      maxWidth: 250,
-      maxHeight: 420,
-      minWidth: 250,
-      minHeight: 420,
-    },
-    image: {
-      width: "100%",
-      height: "100%",
-    },
-    img: {
-      margin: "auto",
-      display: "block",
-      minWidth: "70%",
-      minHeight: "100%",
-      maxHeight: "230px",
-    },
-    item: {
-      justifyContent: "center",
-      display: "flex",
-    },
-  }));
-  const classes = useStyles();
+  var formatter = new Intl.NumberFormat("vi-VN", {
+    style: "currency",
+    currency: "VND",
+  });
+
   return (
-    <div className={classes.root}>
-      <Paper onClick={handleishover} className={classes.paper}>
-        <Grid container spacing={2} classname={classes.item}>
-          <Grid item xs={12} sm container>
-            <Grid item xs container direction="column" spacing={2}>
-              <Grid item container xs>
-                <Grid
-                  container
-                  direction="row"
-                  justify="space-between"
-                  alignItems="flex-start"
-                >
-                  <Typography
-                    style={{ fontSize: "20px", textAlign: "center" }}
-                    variant="body2"
-                    gutterBottom
-                  >
-                    {title}
-                  </Typography>
-                </Grid>
-                <Grid item>
-                  <Typography variant="body2" color="textSecondary">
-                    {author}
-                  </Typography>
-                </Grid>
-              </Grid>
-            </Grid>
-            <Grid xs={12} item>
-              <ButtonBase style={{ width: "100%" }} className={classes.image}>
-                <img className={classes.img} alt="complex" src={toAbsoluteUrl(src)} />
-                <ExtraButton ishover={ishover} />
-              </ButtonBase>
-            </Grid>
-            <Grid container xs>
-              <Grid xs={12} container>
-                <Typography variant="body2" color="textSecondary">
-                  {des}
-                </Typography>
-              </Grid>
-            </Grid>
-            <Grid container>
-              <Typography style={{ color: "green" }} variant="subtitle1">
-                ${price}
-              </Typography>
-            </Grid>
-          </Grid>
-        </Grid>
+    <div>
+      <Paper
+        onClick={handleishover}
+        className="min-w-100 max-w-250px min-h-100 min-h-400px"
+      >
+        <div className="d-flex flex-column justify-content-center m-2">
+          <h4 className="text-center font-weight-bolder mt-2">{book.title}</h4>
+          <p className="font-weight-bolder text-center">({book.author.name})</p>
+          <p className="font-weight-bolder">Thể loại: {book.category.name}</p>
+          <div>
+            <ButtonBase className="w-100 h-100">
+              <img
+                className="d-block w-75 max-h-200"
+                alt="complex"
+                src={toAbsoluteUrl("/media/books/1.png")}
+              />
+              <ExtraButton ishover={ishover} />
+            </ButtonBase>
+          </div>
+          <div className="d-flex mt-1">
+            <p className="font-weight-bolder mr-1">NXB:</p>{" "}
+            <p>{book.publisher}</p>
+          </div>
+          <div className="d-flex">
+            <p className="font-weight-bolder mr-1">Năm xuất bản:</p>
+            <p>{book.publishYear}</p>
+          </div>
+          <div className="d-flex justify-content-between">
+            <div className="d-flex">
+              <p className="font-weight-bolder mr-1">Giá:</p>{" "}
+              <p>{formatter.format(book.price)}</p>
+            </div>
+            <div className="d-flex">
+              <p className="font-weight-bolder mr-1">Tồn kho:</p>
+              <p>{book.stock} cuốn</p>
+            </div>
+          </div>
+        </div>
       </Paper>
     </div>
   );

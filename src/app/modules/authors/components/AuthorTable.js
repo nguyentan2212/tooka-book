@@ -22,18 +22,6 @@ function AuthorTable(props) {
       id: "name",
       label: "Họ Tên",
     },
-    {
-      id: "phoneNumber",
-      label: "SĐT ",
-    },
-    {
-      id: "email",
-      label: "Email ",
-    },
-    {
-      id: "address",
-      label: "Địa chỉ ",
-    },
   ];
 
   //Confirm Dialog

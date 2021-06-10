@@ -10,33 +10,24 @@ function ExtraButton({ ishover }) {
     <div>
       <Grid
         style={{ height: "95px" }}
-        xs
         container
         direction="row"
         justify="flex-end"
         alignItems="flex-end"
       >
-        <Grid
-          style={{ height: "50px", marginLeft: "15px" }}
-          container
-          direction="row"
-          justify="flex-end"
-          alignItems="flex-end"
-        >
-          <Grid item container>
-            <ul className={ishover ? "SearchBar active" : "SearchBar"}>
-              <div className="extra_button">
-                <i class="fas fa-trash"></i>
-              </div>
-            </ul>
-          </Grid>
-          <Grid item container>
-            <ul className={ishover ? "SearchBar2 active" : "SearchBar2"}>
-              <div onClick={DeleteClick} className="extra_button">
-                <i class="fas fa-wrench"></i>
-              </div>
-            </ul>
-          </Grid>
+        <Grid item container>
+          <ul className={ishover ? "SearchBar active" : "SearchBar"}>
+            <div className="extra_button">
+              <i className="fas fa-trash"></i>
+            </div>
+          </ul>
+        </Grid>
+        <Grid item container>
+          <ul className={ishover ? "SearchBar2 active" : "SearchBar2"}>
+            <div onClick={DeleteClick} className="extra_button">
+              <i className="fas fa-wrench"></i>
+            </div>
+          </ul>
         </Grid>
       </Grid>
     </div>

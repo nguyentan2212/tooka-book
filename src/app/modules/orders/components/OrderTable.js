@@ -12,8 +12,7 @@ function OrderTable(props) {
   const [ordersList, setOrdersList] = useState([]);
   useEffect(() => {
     const fecthData = async () => {
-      const { data } = await getAllOrders();
-      setOrdersList(data);
+      setOrdersList(await getAllOrders());
     };
     fecthData();
   }, []);
@@ -33,12 +32,12 @@ function OrderTable(props) {
       isCurrency: true,
     },
     {
-      id: "customerPaid",
+      id: "paid",
       label: "Khách đưa",
       isCurrency: true,
     },
     {
-      id: "returnCustomer",
+      id: "dept",
       label: "Tiền thừa",
       isCurrency: true,
     },

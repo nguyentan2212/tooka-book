@@ -35,7 +35,7 @@ function InventoryTable(props) {
       const reportData = {
         columns: headerCells,
         data: result,
-      };
+      }; 
       setReportData(result);
       setReportData(reportData);
       console.log(date.getMonth(), date.getFullYear());

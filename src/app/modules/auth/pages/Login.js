@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import {login} from '../js/auth';
+import { login } from "../js/auth";
 
 const initialValues = {
   email: "admin@demo.com",
@@ -49,15 +49,8 @@ function Login(props) {
     onSubmit: (values, { setStatus, setSubmitting }) => {
       enableLoading();
       setTimeout(() => {
-        login(values.email, values.password)
-          .then(({ data }) => {
-            disableLoading();
-            props.login(data);           
-          })
-          .catch(() => {
-            disableLoading();
-            setSubmitting(false);            
-          });
+        const { data } = login(values.email, values.password);
+        props.login(data);
       }, 1000);
     },
   });
@@ -66,9 +59,7 @@ function Login(props) {
     <div className="login-form login-signin" id="kt_login_signin_form">
       {/* begin::Head */}
       <div className="text-center mb-10 mb-lg-20">
-        <h3 className="font-size-h1">
-        LOGIN
-        </h3>
+        <h3 className="font-size-h1">LOGIN</h3>
         <p className="text-muted font-weight-bold">
           Enter your username and password
         </p>

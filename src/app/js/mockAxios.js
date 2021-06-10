@@ -10,8 +10,8 @@ export default function mockAxios(axios) {
     const mock = new MockAdapter(axios, { delayResponse: 1000 });
 
     mockAuth(mock);
-    mockOrder(mock);
-    mockBook(mock);
+    //mockOrder(mock);
+    //mockBook(mock);
     //mockAuthor(mock);
     //mockCustomer(mock);
     //mockCategory(mock);

@@ -9,46 +9,70 @@ import { getAllBooks } from "../../books/js/book";
 
 function NewOrderPage({ className }) {
   const [bookList, setBookList] = useState([]);
+
   useEffect(() => {
     const fetchAllBooks = async () => {
-      const { data } = await getAllBooks();
+      const data = await getAllBooks();
       setBookList(data);
     };
     fetchAllBooks();
-  },[]);
+  }, []);
 
   const [total, setTotal] = useState(0);
   const [bookOrderList, setBookOrderList] = useState([]);
+
+  const incAmount = (index, amount) => {
+    console.log(index, amount);
+    if (amount > 0) {
+      let tempList = [...bookOrderList];
+      let item = tempList[index];
+      item.amount = amount;
+      item.total = item.price * item.amount;
+      tempList[index] = item;
+      setBookOrderList(tempList);
+    }
+  };
+
+  const addItem = (book) => {
+    setBookOrderList((bookOrderList) => [
+      ...bookOrderList,
+      {
+        id: book.id,
+        title: book.title,
+        amount: 1,
+        price: book.price,
+        total: book.price,
+      },
+    ]);
+  };
   const onAddItem = (book) => {
     if (book) {
       const itemIndex = bookOrderList.findIndex((item) => item.id == book.id);
-      if (itemIndex >= 0) {
-        bookOrderList[itemIndex].amount++;
-        bookOrderList[itemIndex].total =
-          bookOrderList[itemIndex].price * bookOrderList[itemIndex].amount;
-        setBookOrderList(bookOrderList);
-      } else {
-        setBookOrderList((bookOrderList) => [
-          ...bookOrderList,
-          {
-            id: book.id,
-            title: book.title,
-            amount: 1,
-            price: book.price,
-            total: book.price,
-          },
-        ]);
+      if (itemIndex < 0) {
+        addItem(book);
       }
       setTotal(total + book.price);
     }
   };
 
   const onDelete = (id) => {
-    let item = bookOrderList.find(element => element.id == id);
+    let item = bookOrderList.find((element) => element.id == id);
     setTotal(total - item.price * item.amount);
     setBookOrderList(bookOrderList.filter((order) => order.id != id));
   };
-  
+
+  const amountChangeHandler = (index, value) => {
+    incAmount(index, parseInt(value));
+  };
+
+  const priceChangeHandler = (index, value) => {
+    let tempList = [...bookOrderList];
+    let item = tempList[index];
+    item.price = value;
+    item.total = item.price * item.amount;
+    tempList[index] = item;
+    setBookOrderList(tempList);
+  };
   return (
     <div>
       <PageTitle
@@ -57,14 +81,12 @@ function NewOrderPage({ className }) {
         icon={() => <LibraryBooks />}
       />
       <div className={`card card-custom mt-8 ${className}`}>
-        {/* Body */}
-        <div className="card-header border-0 py-5"></div>
-        <div className="card-body pt-0 pb-3">
+        <div className="card-body py-3 mt-2">
           <div className="tab-content">
             <div className="row">
-              <div className="col-lg-6 col-xxl-8">
+              <div className="col-lg-8 col-xxl-8">
                 <Autocomplete
-                  className="w-75"
+                  className="w-100"
                   options={bookList}
                   autoHighlight
                   onChange={(event, book) => onAddItem(book)}
@@ -74,8 +96,8 @@ function NewOrderPage({ className }) {
                       <h3 className="text-dark-75 font-weight-bolder font-size-lg">
                         {book.title}
                       </h3>
-                      <p>Thể loại: {book.category}</p>
-                      <p>Tác giả: {book.author}</p>
+                      <p>Thể loại: {book.category.name}</p>
+                      <p>Tác giả: {book.author.name}</p>
                       <p>Hàng tồn: {book.stock}</p>
                       <p>Giá: {book.price}</p>
                     </div>
@@ -85,14 +107,19 @@ function NewOrderPage({ className }) {
                       {...params}
                       label={"Search book"}
                       variant="outlined"
-                      InputProps={{ ...params.InputProps, type: "search" }}
+                      InputProps={{ ...params.InputProps }}
                     />
                   )}
                 />
-                <BookOrderTable bookOrderList={bookOrderList} onDelete={onDelete} />
+                <BookOrderTable
+                  bookOrderList={bookOrderList}
+                  amountChangeHandler={amountChangeHandler}
+                  priceChangeHandler={priceChangeHandler}
+                  onDelete={onDelete}
+                />
               </div>
-              <div className="col-lg-6 col-xxl-4">
-                <PaymentPanel orderItemList={bookOrderList} total={total} />
+              <div className="col-lg-4 col-xxl-4">
+                <PaymentPanel orderItemList={bookOrderList} />
               </div>
             </div>
           </div>
