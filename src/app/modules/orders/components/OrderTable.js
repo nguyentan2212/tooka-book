@@ -38,7 +38,7 @@ function OrderTable(props) {
     },
     {
       id: "dept",
-      label: "Tiền thừa",
+      label: "Tiền nợ",
       isCurrency: true,
     },
   ];
@@ -56,22 +56,6 @@ function OrderTable(props) {
     title: "",
     subTitle: "",
   });
-
-  const onDelete = (id) => {
-    setConfirmDialog({ ...confirmDialog, isOpen: false });
-    setOrdersList(ordersList.filter((order) => order.id != id));
-  };
-
-  const deleteHandler = (id) => {
-    setConfirmDialog({
-      isOpen: true,
-      title: "Are you sure to delete this item ?",
-      subTitle: "You can't undo this action!",
-      onConfirm: () => {
-        onDelete(id);
-      },
-    });
-  };
   return (
     <div>
       <div className="table-responsive">
@@ -80,7 +64,6 @@ function OrderTable(props) {
           data={ordersList}
           filterFunc={filterFunc}
           hasPaging={true}
-          deleteHandler={(id) => deleteHandler(id)}
         />
       </div>
       <Notification notify={notify} setNotify={setNotify}></Notification>

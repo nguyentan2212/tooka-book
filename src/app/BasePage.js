@@ -11,6 +11,7 @@ import CustomerPage from './modules/customers/pages/CustomerPage';
 import BookManagerPage from "./modules/books/pages/BookManagerPage";
 import InventoryReport from "./modules/reports/pages/InventoryReport";
 import RevenueReport from "./modules/reports/pages/RevenueReport";
+import EmployeePage from "./modules/employee/pages/EmployeePage";
 
 export default function BasePage() {
     return(
@@ -26,6 +27,7 @@ export default function BasePage() {
                 <Route path="/quanlykho/sach" component={BookManagerPage}></Route>
                 <Route path="/baocao/tonkho" component={InventoryReport}></Route>
                 <Route path="/baocao/doanhthu" component={RevenueReport}></Route>
+                <Route path="/quanlynhanvien" component={EmployeePage}></Route>
         </Switch>
         </Suspense>
         );

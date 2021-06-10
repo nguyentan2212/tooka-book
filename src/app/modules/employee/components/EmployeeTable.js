@@ -1,28 +1,30 @@
 import React, { useState, useEffect } from "react";
-import { getAllCustomers } from "../js/customer";
+import { getAllEmployees } from "../js/employee";
 import CustomTable from "../../../../template/partials/components/CustomTable";
 import { ConfirmDialog } from "../../../../template/partials/controls";
 
-function CustomerTable(props) {
-  const { filterFunc, setCustomer, setOpenPopUp } = props;
-  const [customersList, setCustomersList] = useState([]);
+function EmployeeTable(props) {
+  const { filterFunc, setEmployee, setOpenPopUp } = props;
+  const [employeesList, setEmployeesList] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
-      const data = await getAllCustomers();
-      setCustomersList(data);
-      console.log(data);
+      setEmployeesList(await getAllEmployees());
     };
     fetchData();
   }, []);
 
   const headerCells = [
     {
-      id: "name",
+      id: "username",
+      label: "Username",
+    },
+    {
+      id: "realname",
       label: "Họ Tên",
     },
     {
-      id: "phoneNumber",
-      label: "SĐT ",
+      id: "phonenumber",
+      label: "SĐT",
     },
     {
       id: "email",
@@ -31,11 +33,6 @@ function CustomerTable(props) {
     {
       id: "address",
       label: "Địa chỉ ",
-    },
-    {
-      id: "debt",
-      label: "Tiền nợ",
-      isCurrency: true,
     },
   ];
 
@@ -46,8 +43,8 @@ function CustomerTable(props) {
     subTitle: "",
   });
 
-  const updateHandler = (customer) => {
-    setCustomer(customer);
+  const updateHandler = (employee) => {
+    setEmployee(employee);
     setOpenPopUp({
       isOpen: true,
       title: "Cập Nhật Khách Hàng Mới",
@@ -58,7 +55,7 @@ function CustomerTable(props) {
       <div className="table-responsive">
         <CustomTable
           headerCells={headerCells}
-          data={customersList}
+          data={employeesList}
           filterFunc={filterFunc}
           hasPaging={true}
           updateHandler={updateHandler}
@@ -72,4 +69,4 @@ function CustomerTable(props) {
   );
 }
 
-export default CustomerTable;
+export default EmployeeTable;
