@@ -39,7 +39,7 @@ export const PopUp = (props) => {
               className="btn btn-light-danger font-weight-bolder font-size-sm mx-1"
               onClick={() => setOpenPopUp({
                 isOpen: false,
-                title: "Thêm Khách Hàng Mới",
+                title: "",
               })}
             >
               <CloseIcon></CloseIcon>

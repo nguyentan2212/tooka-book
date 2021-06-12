@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { getAllEmployees } from "../js/employee";
 import CustomTable from "../../../../template/partials/components/CustomTable";
-import { ConfirmDialog } from "../../../../template/partials/controls";
+import { PopUp } from "../../../../template/partials/controls";
+import UpdateAccountForm from "./UpdateAccountForm";
 
 function EmployeeTable(props) {
-  const { filterFunc, setEmployee, setOpenPopUp } = props;
+  const { filterFunc, updated, setUpdated } = props;
   const [employeesList, setEmployeesList] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
       setEmployeesList(await getAllEmployees());
     };
     fetchData();
-  }, []);
+  }, [updated]);
 
   const headerCells = [
     {
@@ -36,19 +37,23 @@ function EmployeeTable(props) {
     },
   ];
 
-  //Confirm Dialog
-  const [confirmDialog, setConfirmDialog] = useState({
+  const [openPopUp, setOpenPopUp] = useState({
     isOpen: false,
-    title: "",
-    subTitle: "",
+    title: "Cập nhật nhân viên",
   });
 
+  const [account, setAccount] = useState(null);
+
   const updateHandler = (employee) => {
-    setEmployee(employee);
     setOpenPopUp({
-      isOpen: true,
-      title: "Cập Nhật Khách Hàng Mới",
-    });
+    isOpen: true,
+    title: "Cập nhật nhân viên",
+  });
+    console.log(employee);
+    if (employee)
+    {
+      setAccount(employee);
+    }
   };
   return (
     <div>
@@ -61,10 +66,17 @@ function EmployeeTable(props) {
           updateHandler={updateHandler}
         />
       </div>
-      <ConfirmDialog
-        confirmDialog={confirmDialog}
-        setConfirmDialog={setConfirmDialog}
-      ></ConfirmDialog>
+      <PopUp
+        openPopUp={openPopUp}
+        setOpenPopUp={setOpenPopUp}
+        title={openPopUp.title}
+      >
+        <UpdateAccountForm
+          updated={updated}
+          setUpdated={setUpdated}
+          account={account}
+        />
+      </PopUp>
     </div>
   );
 }

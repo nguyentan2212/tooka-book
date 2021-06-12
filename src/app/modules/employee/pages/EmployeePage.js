@@ -8,6 +8,7 @@ import {
   PopUp,
 } from "../../../../template/partials/controls";
 import EmployeeTable from "../components/EmployeeTable";
+import NewAccountForm from "../components/NewAccountForm";
 
 function EmployeePage(props) {
   const { className } = props;
@@ -29,6 +30,7 @@ function EmployeePage(props) {
       },
     });
   };
+  const [updated, setUpdated] = useState(0);
   //Popup modal
   const [openPopUp, setOpenPopUp] = useState({
     isOpen: false,
@@ -42,9 +44,6 @@ function EmployeePage(props) {
     console.log(openPopUp);
   };
 
-  //chứa author được update
-  const [employee, setEmployee] = useState(null);
-
   return (
     <div>
       <PageTitle
@@ -53,7 +52,7 @@ function EmployeePage(props) {
         icon={() => <LibraryBooks />}
       />
       <div className={`card card-custom ${className} mt-8`}>
-          {/* begin::Header */}
+        {/* begin::Header */}
         <div className="card-header border-0 py-5">
           <div className="card-toolbar row w-100 justify-content-between">
             <Input
@@ -83,15 +82,15 @@ function EmployeePage(props) {
           <div className="tab-content">
             <EmployeeTable
               filterFunc={filterFunc}
-              setOpenPopUp={setOpenPopUp}
-              setEmployee={setEmployee}
+              updated={updated}
+              setUpdated={setUpdated}
             />
             <PopUp
               openPopUp={openPopUp}
               setOpenPopUp={setOpenPopUp}
               title={openPopUp.title}
             >
-              <div></div>
+              <NewAccountForm updated={updated} setUpdated={setUpdated} />
             </PopUp>
           </div>
         </div>
