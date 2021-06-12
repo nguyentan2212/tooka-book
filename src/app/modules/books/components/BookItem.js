@@ -29,7 +29,7 @@ function BookItem(props) {
               <img
                 className="d-block w-75 max-h-200"
                 alt="complex"
-                src={toAbsoluteUrl("/media/books/1.png")}
+                src={toAbsoluteUrl(book.img ? book.img : "/media/books/1.png")}
               />
               <ExtraButton ishover={ishover} />
             </ButtonBase>

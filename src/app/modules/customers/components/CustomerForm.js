@@ -55,6 +55,7 @@ function CustomerForm(props) {
     initialValues,
     validationSchema: RegisterSchema,
     onSubmit: async (values, { setSubmitting, resetForm }) => {
+      setSubmitting(true);
       postCustomer(
         values.fullName,
         values.email,

@@ -5,11 +5,11 @@ import {
   Input,
   CustomButton,
   PopUp,
-  Notification,
 } from "../../../../template/partials/controls";
 import { getAllBooks } from "../js/book";
 import PageTitle from "../../../../template/layout/components/page-title/PageTitle";
 import { LibraryBooks, Search, Add } from "@material-ui/icons";
+import AddBookForm from "../components/AddBookForm";
 
 function BookManagerPage(props) {
   const { className } = props;
@@ -19,6 +19,8 @@ function BookManagerPage(props) {
     },
   });
 
+  const [updated, setUpdated] = useState(0);
+
   const [bookList, setBookList] = useState([]);
   useEffect(() => {
     const fetchAllBooks = async () => {
@@ -26,7 +28,7 @@ function BookManagerPage(props) {
       setBookList(data);
     };
     fetchAllBooks();
-  }, []);
+  }, [updated]);
 
   const handleSearch = (event) => {
     let target = event.target;
@@ -44,6 +46,17 @@ function BookManagerPage(props) {
     });
   };
 
+  const [openPopUp, setOpenPopUp] = useState({
+    isOpen: false,
+    title: "Thêm Sách Mới",
+  });
+
+  const onCreateBook = () => {
+    setOpenPopUp({
+      isOpen: true,
+      title: "Thêm Sách Mới",
+    });
+  }
   return (
     <div>
       <PageTitle
@@ -72,6 +85,7 @@ function BookManagerPage(props) {
               variant="outlined"
               startIcon={<Add></Add>}
               className="btn btn-success font-weight-bolder font-size-sm col-lg-2"
+              onClick={onCreateBook}
             ></CustomButton>
           </div>
         </div>
@@ -87,6 +101,16 @@ function BookManagerPage(props) {
               </Grid>
             ))}
           </Grid>
+          <PopUp
+              openPopUp={openPopUp}
+              setOpenPopUp={setOpenPopUp}
+              title={openPopUp.title}
+            >
+              <AddBookForm
+                updated={updated}
+                setUpdated={setUpdated}
+              ></AddBookForm>
+            </PopUp>
         </div>
       </div>
     </div>
