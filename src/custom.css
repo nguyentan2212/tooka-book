@@ -1,3 +1,7 @@
 .MuiTableCell-root{
     font-size: 1.08rem !important;
 }
+
+.swal2-container {
+    z-index: 1500 !important;
+  }

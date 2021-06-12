@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { getAllCustomers } from "../js/customer";
+import { getAllCustomers, customerPay } from "../js/customer";
 import CustomTable from "../../../../template/partials/components/CustomTable";
-import { ConfirmDialog } from "../../../../template/partials/controls";
+import Swal from "sweetalert2";
 
 function CustomerTable(props) {
-  const { filterFunc, setCustomer, setOpenPopUp } = props;
+  const { filterFunc, updated, setUpdated } = props;
   const [customersList, setCustomersList] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
@@ -13,7 +13,7 @@ function CustomerTable(props) {
       console.log(data);
     };
     fetchData();
-  }, []);
+  }, [updated]);
 
   const headerCells = [
     {
@@ -39,19 +39,42 @@ function CustomerTable(props) {
     },
   ];
 
-  //Confirm Dialog
-  const [confirmDialog, setConfirmDialog] = useState({
-    isOpen: false,
-    title: "",
-    subTitle: "",
-  });
-
-  const updateHandler = (customer) => {
-    setCustomer(customer);
-    setOpenPopUp({
-      isOpen: true,
-      title: "Cập Nhật Khách Hàng Mới",
+  const updateHandler = async (customer) => {
+    const { value: money } = await Swal.fire({
+      title: "Thu tiền nợ",
+      input: "text",
+      inputLabel: "Thu tiền nợ",
+      showCancelButton: true,
+      inputValidator: (value) => {
+        if (!value) {
+          return "Không được để trống!";
+        }
+        if (isNaN(value))
+        {
+          return "Định đạng không đúng!";
+        }
+        let temp = parseInt(value);
+        if (temp > customer.debt)
+        {
+          return `Tiền thu không được vượt quá nợ: ${customer.debt} đ`
+        }
+      },
     });
+    if (money) {
+      const result = await customerPay(customer.id, money);
+      if (result.status === 200) {
+        Swal.fire({
+          title: "Thu nợ thành công",
+          icon: "success",
+        });
+        setUpdated(!updated);
+      } else {
+        Swal.fire({
+          title: "Thu nợ thất bại",
+          icon: "error",
+        });
+      }
+    }
   };
   return (
     <div>
@@ -64,10 +87,6 @@ function CustomerTable(props) {
           updateHandler={updateHandler}
         />
       </div>
-      <ConfirmDialog
-        confirmDialog={confirmDialog}
-        setConfirmDialog={setConfirmDialog}
-      ></ConfirmDialog>
     </div>
   );
 }

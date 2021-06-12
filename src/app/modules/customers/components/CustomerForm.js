@@ -1,14 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Grid, makeStyles } from "@material-ui/core";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import Swal from "sweetalert2";
 import { Input, CustomButton } from "../../../../template/partials/controls";
-
-const initialValues = {
-  Name: "",
-  PhoneNumber: "",
-  Email: "",
-  Address: "",
-  Debt: "0",
-};
+import { postCustomer } from "../js/customer";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -20,112 +16,111 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function CustomerForm(props) {
-  const { customer, setCustomer, setOpenPopUp } = props;
-  const [values, setValues] = useState(initialValues);
-
-  const [errors, setErrors] = useState({});
-
+  const { updated, setUpdated } = props;
   const classes = useStyles();
 
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    setValues({
-      ...values,
-      [name]: value,
-    });
-    validate({ [name]: value });
-  };
+  const phoneRegExp =
+    /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
+  const RegisterSchema = Yup.object().shape({
+    fullName: Yup.string().required("Không được để trống"),
+    email: Yup.string()
+      .email("Sai định dạng email")
+      .required("Không được để trống"),
+    address: Yup.string().required("Không được để trống"),
+    phoneNumber: Yup.string()
+      .matches(phoneRegExp, "Sai định dạng số điện thoại")
+      .required("Không được để trống"),
+  });
 
-  const validate = (fieldValues = values) => {
-    let temp = { ...errors };
-    if ("name" in fieldValues) {
-      temp.name =
-        fieldValues.name.length > 0 ? "" : "Xin hãy nhập tên hoặc bút danh!";
+  const getInputClasses = (fieldname) => {
+    if (formik.touched[fieldname] && formik.errors[fieldname]) {
+      return "is-invalid";
     }
-    if ("email" in fieldValues)
-      temp.email = /$^|.+@.+..+/.test(fieldValues.email)
-        ? ""
-        : "Vui lòng nhập địa chỉ hợp lệ.";
-    if ("phoneNumber" in fieldValues) {
-      temp.phoneNumber =
-        fieldValues.phoneNumber.length > 9
-          ? ""
-          : "Xin hãy nhập số điện thoại liên lạc hợp lệ có it nhất 10 số";
+
+    if (formik.touched[fieldname] && !formik.errors[fieldname]) {
+      return "is-valid";
     }
-    if ("debt" in fieldValues)
-      temp.debt = fieldValues.debt ? "" : "Số tiền nợ không được âm";
-    setErrors({ ...temp });
 
-    if (fieldValues === values)
-      return Object.values(temp).every((value) => value === "");
+    return "";
   };
 
-  useEffect(() => {
-    if (customer) setValues({ ...customer });
-  }, [customer]);
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    if (validate()) {
-      resetForm();
-      setOpenPopUp({
-        isOpen: false,
-        title: "Thêm Khách Hàng Mới",
-      });
-    }
+  const initialValues = {
+    fullName: "",
+    email: "",
+    phoneNumber: "",
+    address: "",
   };
 
-  const resetForm = () => {
-    setValues(initialValues);
-    setErrors({});
-  };
+  const formik = useFormik({
+    initialValues,
+    validationSchema: RegisterSchema,
+    onSubmit: async (values, { setSubmitting, resetForm }) => {
+      postCustomer(
+        values.fullName,
+        values.email,
+        values.phoneNumber,
+        values.address
+      )
+        .then((res) => {
+          setUpdated(!updated);
+          Swal.fire({
+            icon: "success",
+            title: "Regeister success",
+            text: `Wellcome ${res.data.fullName}`,
+          });
+          resetForm(initialValues)
+        })
+        .catch((e) => {
+          setSubmitting(false);
+          Swal.fire({
+            icon: "error",
+            title: "Oops...Register failed!",
+            text: `Error: ${e.message}`,
+          });
+          console.log("error");
+        });
+    },
+
+  });
 
   return (
     <div>
-      <form className={classes.root} onSubmit={handleSubmit}>
+      <form className={classes.root} onSubmit={formik.handleSubmit}>
         <Grid container>
           <Grid item xs={6}>
             <Input
               variant="outlined"
               label="Họ tên"
-              name="Name"
-              value={values.name}
-              onChange={handleChange}
-              error={errors.name}
-            ></Input>
-            <Input
-              variant="outlined"
-              label="Tiền nợ"
-              name="Debt"
-              value={values.debt}
-              onChange={handleChange}
-              error={errors.debt}
+              className={`${getInputClasses("fullName")}`}
+              {...formik.getFieldProps("fullName")}
+              error={formik.touched.fullName && formik.errors.fullName}
+              helperText={formik.errors.fullName}
             ></Input>
             <Input
               variant="outlined"
               label="Địa chỉ"
-              name="Address"
-              value={values.address}
-              onChange={handleChange}
-              error={errors.address}
+              className={`${getInputClasses("address")}`}
+              {...formik.getFieldProps("address")}
+              error={formik.touched.address && formik.errors.address}
+              helperText={formik.errors.address}
             ></Input>
           </Grid>
           <Grid item xs={6}>
             <Input
               variant="outlined"
               label="Số điện thoại"
-              name="Phone"
-              value={values.phoneNumber}
-              onChange={handleChange}
-              error={errors.phoneNumber}
+              className={`${getInputClasses("phoneNumber")}`}
+              {...formik.getFieldProps("phoneNumber")}
+              error={formik.touched.phoneNumber && formik.errors.phoneNumber}
+              helperText={formik.errors.phoneNumber}
             ></Input>
             <Input
               variant="outlined"
               label="Địa chỉ Email"
-              name="Email"
-              value={values.email}
-              onChange={handleChange}
-              error={errors.email}
+              className={`${getInputClasses("email")}`}
+              {...formik.getFieldProps("email")}
+              error={formik.touched.email && formik.errors.email}
+              helperText={formik.errors.email}
             ></Input>
             <div className="row w-100 justify-content-center">
               <CustomButton
@@ -137,7 +132,7 @@ function CustomerForm(props) {
                 text="Đặt lại"
                 color="default"
                 className="col-4 form-control btn btn-secondary font-weight-bold"
-                onClick={resetForm}
+                onClick={formik.handleReset}
               ></CustomButton>
             </div>
           </Grid>

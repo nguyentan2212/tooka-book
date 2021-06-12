@@ -2,14 +2,10 @@ import React, { useState } from "react";
 import { InputAdornment } from "@material-ui/core";
 import PageTitle from "../../../../template/layout/components/page-title/PageTitle";
 import { LibraryBooks, Search, Add } from "@material-ui/icons";
-import {
-  Input,
-  CustomButton,
-  PopUp,
-  Notification,
-} from "../../../../template/partials/controls";
+import { Input, CustomButton } from "../../../../template/partials/controls";
 import CategoryTable from "../components/CategoryTable";
-import CategoryForm from "../components/CategoryForm";
+import Swal from "sweetalert2";
+import { postCategory } from "../js/category";
 
 function CategoryPage(props) {
   const { className } = props;
@@ -32,21 +28,35 @@ function CategoryPage(props) {
     });
   };
 
-  const [category, setCategory] = useState(null);
-  //Popup modal
-  const [openPopUp, setOpenPopUp] = useState({
-    isOpen: false,
-    title: "Bảng Thêm Thể Loại",
-  });
+  const [updated, setUpdated] = useState(0);
 
-  const onCreateCategory = () => {
-    setCategory(null);
-    setOpenPopUp({
-      isOpen: true,
-      title: "Bảng Thêm Thể Loại",
+  const onCreateCategory = async () => {
+    const { value: categoryName } = await Swal.fire({
+      title: "Nhập tên thể loại",
+      input: "text",
+      inputLabel: "Tên thể loại",
+      showCancelButton: true,
+      inputValidator: (value) => {
+        if (!value) {
+          return "Không được để trống!";
+        }
+      },
     });
-    
-    console.log(openPopUp);
+    if (categoryName) {
+      const result = await postCategory(categoryName);
+      if (result.status === 200) {
+        Swal.fire({
+          title: "Thêm mới thành công",
+          icon: "success",
+        });
+        setUpdated(!updated);
+      } else {
+        Swal.fire({
+          title: "Thêm mới thất bại",
+          icon: "error",
+        });
+      }
+    }
   };
   return (
     <div>
@@ -84,22 +94,7 @@ function CategoryPage(props) {
         {/* begin::Body */}
         <div className="card-body pt-0 pb-3">
           <div className="tab-content">
-            <CategoryTable
-              filterFunc={filterFunc}
-              setOpenPopUp={setOpenPopUp}
-              setCategory={setCategory}
-            />
-            <PopUp
-              openPopUp={openPopUp}
-              setOpenPopUp={setOpenPopUp}
-              title={openPopUp.title}
-            >
-              <CategoryForm
-                category={category}
-                setOpenPopUp={setOpenPopUp}
-                setCategory={setCategory}
-              ></CategoryForm>
-            </PopUp>
+            <CategoryTable filterFunc={filterFunc} updated={updated} />
           </div>
         </div>
         {/* end::Body */}

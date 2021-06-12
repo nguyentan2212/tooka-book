@@ -7,11 +7,13 @@ import {
   CustomButton,
   PopUp,
 } from "../../../../template/partials/controls";
-import CustomerTable from '../components/CustomerTable';
+import CustomerTable from "../components/CustomerTable";
 import CustomerForm from "../components/CustomerForm";
 
 function CustomerPage(props) {
   const { className } = props;
+  const [updated, setUpdated] = useState(0);
+
   const [filterFunc, setFilterFunc] = useState({
     func: (items) => {
       return items;
@@ -43,9 +45,6 @@ function CustomerPage(props) {
     console.log(openPopUp);
   };
 
-  //chứa author được update
-  const [customer, setCustomer] = useState(null);
-  
   return (
     <div>
       <PageTitle
@@ -84,8 +83,8 @@ function CustomerPage(props) {
           <div className="tab-content">
             <CustomerTable
               filterFunc={filterFunc}
-              setOpenPopUp={setOpenPopUp}
-              setCustomer={setCustomer}
+              updated={updated}
+              setUpdated={setUpdated}
             />
             <PopUp
               openPopUp={openPopUp}
@@ -93,9 +92,8 @@ function CustomerPage(props) {
               title={openPopUp.title}
             >
               <CustomerForm
-                customer={customer}
-                setOpenPopUp={setOpenPopUp}
-                setCustomer={setCustomer}
+                updated={updated}
+                setUpdated={setUpdated}
               ></CustomerForm>
             </PopUp>
           </div>

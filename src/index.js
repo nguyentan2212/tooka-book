@@ -7,7 +7,7 @@ import App from "./app/App";
 import { MetronicLayoutProvider } from "./template/layout/core/MetronicLayout";
 import { MetronicSubheaderProvider } from "./template/layout/core/MetronicSubheader";
 import { MetronicSplashScreenProvider } from "./template/layout/core/MetronicSplashScreen";
-import { mockAxios, setupAxios } from "./app/js";
+import { setupAxios } from "./app/js";
 
 import "./template/assets/plugins/keenthemes-icons/font/ki.css";
 import "socicon/css/socicon.css";
@@ -19,8 +19,6 @@ import "react-datepicker/dist/react-datepicker.css";
 
 //setup  axios requests
 const instance = setupAxios();
-// fake api
-mockAxios(instance);
 
 ReactDOM.render(
   <MetronicLayoutProvider>

@@ -1,15 +1,12 @@
 import React, { useState } from "react";
 import { InputAdornment } from "@material-ui/core";
+import Swal from "sweetalert2";
 import PageTitle from "../../../../template/layout/components/page-title/PageTitle";
 import { LibraryBooks, Search, Add } from "@material-ui/icons";
-import {
-  Input,
-  CustomButton,
-  PopUp,
-  Notification
-} from "../../../../template/partials/controls";
+import { Input, CustomButton } from "../../../../template/partials/controls";
 import AuthorTable from "../components/AuthorTable";
-import AuthorForm from "../components/AuthorForm";
+import { postAuthor } from "../js/author";
+
 function AuthorPage(props) {
   const { className } = props;
   const [filterFunc, setFilterFunc] = useState({
@@ -30,21 +27,35 @@ function AuthorPage(props) {
       },
     });
   };
-  //chứa author được update
-  const [author, setAuthor] = useState(null);
+  const [updated, setUpdated] = useState(0);
 
-  //Popup modal
-  const [openPopUp, setOpenPopUp] = useState({
-    isOpen: false,
-    title: "Bảng Thêm Tác Giả",
-  });
-  const onCreateAuthor = () => {
-    setAuthor(null);
-    setOpenPopUp({
-      isOpen: true,
-      title: "Bảng Thêm Tác Giả",
+  const onCreateAuthor = async () => {
+    const { value: authorName } = await Swal.fire({
+      title: "Nhập tên tác giả",
+      input: "text",
+      inputLabel: "Tên tác giả",
+      showCancelButton: true,
+      inputValidator: (value) => {
+        if (!value) {
+          return "Không được để trống!";
+        }
+      },
     });
-    console.log(openPopUp);
+    if (authorName) {
+      const result = await postAuthor(authorName);
+      if (result.status === 200) {
+        Swal.fire({
+          title: "Thêm mới thành công",
+          icon: "success",
+        });
+        setUpdated(!updated);
+      } else {
+        Swal.fire({
+          title: "Thêm mới thất bại",
+          icon: "error",
+        });
+      }
+    }
   };
 
   return (
@@ -83,22 +94,7 @@ function AuthorPage(props) {
         {/* Body */}
         <div className="card-body pt-0 pb-3">
           <div className="tab-content">
-            <AuthorTable
-              filterFunc={filterFunc}
-              setOpenPopUp={setOpenPopUp}
-              setAuthor={setAuthor}
-            />
-            <PopUp
-              openPopUp={openPopUp}
-              setOpenPopUp={setOpenPopUp}
-              title={openPopUp.title}
-            >
-              <AuthorForm
-                author={author}
-                setOpenPopUp={setOpenPopUp}
-                setAuthor={setAuthor}
-              ></AuthorForm>
-            </PopUp>
+            <AuthorTable filterFunc={filterFunc} updated={updated} />
           </div>
         </div>
       </div>
