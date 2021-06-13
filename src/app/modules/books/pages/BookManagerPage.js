@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import BookItem from "../components/BookItem";
-import { InputAdornment, Toolbar, Grid } from "@material-ui/core";
+import { InputAdornment, Grid } from "@material-ui/core";
 import {
   Input,
   CustomButton,
@@ -56,7 +56,7 @@ function BookManagerPage(props) {
       isOpen: true,
       title: "Thêm Sách Mới",
     });
-  }
+  };
   return (
     <div>
       <PageTitle
@@ -64,7 +64,7 @@ function BookManagerPage(props) {
         subTitle="Quản Lý Sách"
         icon={() => <LibraryBooks />}
       />
-      <div className={`card card-custom ${className} mt-8`}>
+      <div className={`card card-custom mt-8`}>
         {/* begin::Header */}
         <div className="card-header border-0 py-5">
           <div className="card-toolbar row w-100 justify-content-between">
@@ -94,23 +94,25 @@ function BookManagerPage(props) {
         <div className="d-flex justify-content-center">
           <Grid container spacing={1}>
             {bookList.map((book, index) => (
-              <Grid item xs={3} key={index}>
+              <Grid item xs={3} key={index} className="">
                 <BookItem
                   book={book}
+                  updated={updated}
+                  setUpdated={setUpdated}
                 />
               </Grid>
             ))}
           </Grid>
           <PopUp
-              openPopUp={openPopUp}
-              setOpenPopUp={setOpenPopUp}
-              title={openPopUp.title}
-            >
-              <AddBookForm
-                updated={updated}
-                setUpdated={setUpdated}
-              ></AddBookForm>
-            </PopUp>
+            openPopUp={openPopUp}
+            setOpenPopUp={setOpenPopUp}
+            title={openPopUp.title}
+          >
+            <AddBookForm
+              updated={updated}
+              setUpdated={setUpdated}
+            ></AddBookForm>
+          </PopUp>
         </div>
       </div>
     </div>
