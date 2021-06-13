@@ -76,7 +76,7 @@ function AddBookForm(props) {
           setUpdated(!updated);
           Swal.fire({
             icon: "success",
-            title: "Regeister success",
+            title: "Add success",
             text: "Thêm thành công",
           });
           resetForm(initialValues);
@@ -85,7 +85,7 @@ function AddBookForm(props) {
           setSubmitting(false);
           Swal.fire({
             icon: "error",
-            title: "Oops...Register failed!",
+            title: "Oops...Add failed!",
             text: `Error: ${e.message}`,
           });
           console.log("error");

@@ -12,6 +12,7 @@ import BookManagerPage from "./modules/books/pages/BookManagerPage";
 import InventoryReport from "./modules/reports/pages/InventoryReport";
 import RevenueReport from "./modules/reports/pages/RevenueReport";
 import EmployeePage from "./modules/employee/pages/EmployeePage";
+import RulesPage from "./modules/rules/pages/RulesPage";
 
 export default function BasePage() {
     return(
@@ -28,6 +29,7 @@ export default function BasePage() {
                 <Route path="/baocao/tonkho" component={InventoryReport}></Route>
                 <Route path="/baocao/doanhthu" component={RevenueReport}></Route>
                 <Route path="/quanlynhanvien" component={EmployeePage}></Route>
+                <Route path="/rules" component={RulesPage}></Route>
         </Switch>
         </Suspense>
         );
