@@ -8,7 +8,7 @@ function RevenueTable(props) {
 
   const headerCells = [
     {
-      id: "bookId",
+      id: "title",
       label: "Tựa Sách",
     },
     {

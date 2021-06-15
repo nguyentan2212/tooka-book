@@ -6,26 +6,33 @@ import { LibraryBooks } from "@material-ui/icons";
 import { TextField } from "@material-ui/core";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import { getAllBooks } from "../../books/js/book";
+import { getAllRules } from "../../rules/js/rule";
+import { getAllCustomers } from "../../customers/js/customer";
 
 function NewOrderPage({ className }) {
   const [bookList, setBookList] = useState([]);
-
+  const [rules, setRules] = useState(null);
+  const [customerList, setCustomerList] = useState(null);
+  const [updated, setUpdated] = useState(false);
   useEffect(() => {
-    const fetchAllBooks = async () => {
-      const data = await getAllBooks();
-      setBookList(data);
+    const fetchData = async () => {
+      const book = await getAllBooks();
+      setBookList(book);
+      const tempRules = await getAllRules();
+      setRules(tempRules);
+      const customers = await getAllCustomers();
+      setCustomerList(customers);
     };
-    fetchAllBooks();
-  }, []);
+    fetchData();
+  }, [updated]);
 
   const [total, setTotal] = useState(0);
   const [bookOrderList, setBookOrderList] = useState([]);
 
   const incAmount = (index, amount) => {
-    console.log(index, amount);
-    if (amount > 0) {
-      let tempList = [...bookOrderList];
-      let item = tempList[index];
+    let tempList = [...bookOrderList];
+    let item = tempList[index];
+    if (amount > 0 && item.stock - amount >= rules.LuongTonSauKhiBan) {
       item.amount = amount;
       item.total = item.price * item.amount;
       tempList[index] = item;
@@ -42,8 +49,10 @@ function NewOrderPage({ className }) {
         amount: 1,
         price: book.price,
         total: book.price,
+        stock: book.stock,
       },
     ]);
+    setTotal(total + book.price);
   };
   const onAddItem = (book) => {
     if (book) {
@@ -51,7 +60,6 @@ function NewOrderPage({ className }) {
       if (itemIndex < 0) {
         addItem(book);
       }
-      setTotal(total + book.price);
     }
   };
 
@@ -68,11 +76,18 @@ function NewOrderPage({ className }) {
   const priceChangeHandler = (index, value) => {
     let tempList = [...bookOrderList];
     let item = tempList[index];
-    item.price = value;
-    item.total = item.price * item.amount;
-    tempList[index] = item;
-    setBookOrderList(tempList);
+    if (item && value >= 0) {
+      item.price = value;
+      item.total = item.price * item.amount;
+      tempList[index] = item;
+      setBookOrderList(tempList);
+    }
   };
+
+  var formatter = new Intl.NumberFormat("vi-VN", {
+    style: "currency",
+    currency: "VND",
+  });
   return (
     <div>
       <PageTitle
@@ -119,9 +134,27 @@ function NewOrderPage({ className }) {
                 />
               </div>
               <div className="col-lg-4 col-xxl-4">
-                <PaymentPanel orderItemList={bookOrderList} />
+                {rules && customerList && (
+                  <PaymentPanel
+                    orderItemList={bookOrderList}
+                    rules={rules}
+                    customerList={customerList}
+                    updated={updated}
+                    setUpdated={setUpdated}
+                  />
+                )}
               </div>
             </div>
+          </div>
+        </div>
+        <div className="card-footer pt-2 pb-3">
+          <div className="d-flex justify-content-lg-start">
+            <p className="text-warning font-size-lg mr-2">
+              *Lượng tồn sau khi bán: {rules?.LuongTonSauKhiBan}
+            </p>
+            <p className="text-warning font-size-lg ml-2">
+              *Tiền nợ tối đa: {formatter.format(rules?.TienNoToiDa)}
+            </p>
           </div>
         </div>
       </div>

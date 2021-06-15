@@ -13,6 +13,7 @@ export async function getInventoryReport(month, year) {
     .then(({ data }) => {
       var map = {
         "[].MaSach": "[].bookId",
+        "[].TenSach": "[].title",
         "[].TonDau": "[].firstBuy",
         "[].PhatSinh": "[].buyMore",
         "[].TonCuoi": "[].inStock",
@@ -20,22 +21,25 @@ export async function getInventoryReport(month, year) {
       const dest = objectMapper(data, map);
       return dest;
     });
+
   return result;
 }
 
-export async function getRevenueReport(month, year){
-  const result = setupAxios().post(GET_REVENUE_REPORT_URL, {
-    Thang: month,
-    Nam: year,
-  })
-  .then(({data}) => {
-    var map = {
-      "[].MaSach": "[].bookId",
-      "[].SoLuongBan": "[].bookSold",
-      "[].TongTien": "[].total",
-    };
-    const dest = objectMapper(data, map);
-    return dest;
-  });
+export async function getRevenueReport(month, year) {
+  const result = setupAxios()
+    .post(GET_REVENUE_REPORT_URL, {
+      Thang: month,
+      Nam: year,
+    })
+    .then(({ data }) => {
+      var map = {
+        "[].MaSach": "[].bookId",
+        "[].TenSach": "[].title",
+        "[].SoLuongBan": "[].bookSold",
+        "[].TongTien": "[].total",
+      };
+      const dest = objectMapper(data, map);
+      return dest;
+    });
   return result;
 }

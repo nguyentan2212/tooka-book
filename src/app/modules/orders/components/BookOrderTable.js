@@ -22,6 +22,10 @@ function BookOrderTable(props) {
       label: "Tên sách",
     },
     {
+      id: "stock",
+      label: "Tồn kho",
+    },
+    {
       id: "amount",
       label: "Số lượng",
     },
@@ -102,6 +106,7 @@ function BookOrderTable(props) {
                 <TableRow key={index}>
                   <TableCell>{index + 1}</TableCell>
                   <TableCell>{item.title}</TableCell>
+                  <TableCell>{item.stock}</TableCell>
                   <TableCell>
                     <TextField
                       size="small"

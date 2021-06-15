@@ -1,10 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { getAllOrders } from "../js/order";
 import CustomTable from "../../../../template/partials/components/CustomTable";
-import {
-  Notification,
-  ConfirmDialog,
-} from "../../../../template/partials/controls";
 
 function OrderTable(props) {
   const { filterFunc } = props;
@@ -42,20 +38,6 @@ function OrderTable(props) {
       isCurrency: true,
     },
   ];
-
-  //Notification
-  const [notify, setNotify] = useState({
-    isOpen: false,
-    message: "",
-    type: "",
-  });
-
-  //Confirm Dialog
-  const [confirmDialog, setConfirmDialog] = useState({
-    isOpen: false,
-    title: "",
-    subTitle: "",
-  });
   return (
     <div>
       <div className="table-responsive">
@@ -66,11 +48,6 @@ function OrderTable(props) {
           hasPaging={true}
         />
       </div>
-      <Notification notify={notify} setNotify={setNotify}></Notification>
-      <ConfirmDialog
-        confirmDialog={confirmDialog}
-        setConfirmDialog={setConfirmDialog}
-      ></ConfirmDialog>
     </div>
   );
 }
