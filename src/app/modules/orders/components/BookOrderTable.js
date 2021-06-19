@@ -8,13 +8,11 @@ import {
   TableRow,
   TextField,
 } from "@material-ui/core";
-import { Close, EditOutlined } from "@material-ui/icons";
-
-import { ConfirmDialog } from "../../../../template/partials/controls";
+import { Close } from "@material-ui/icons";
+import Swal from "sweetalert2";
 
 function BookOrderTable(props) {
-  const { amountChangeHandler, priceChangeHandler, bookOrderList, onDelete } =
-    props;
+  const { amountChangeHandler, priceChangeHandler, bookOrderList, onDelete } = props;
 
   const headerCells = [
     {
@@ -41,23 +39,33 @@ function BookOrderTable(props) {
     },
   ];
 
-  //Confirm Dialog
-  const [confirmDialog, setConfirmDialog] = useState({
-    isOpen: false,
-    title: "",
-    subTitle: "",
+  const deleteConfirm = Swal.mixin({
+    customClass: {
+      confirmButton: "btn btn-success ml-2",
+      cancelButton: "btn btn-danger mr-2",
+    },
+    buttonsStyling: false,
   });
 
   const deleteHandler = (id) => {
-    setConfirmDialog({
-      isOpen: true,
-      title: "Are you sure to delete this item ?",
-      subTitle: "You can't undo this action!",
-      onConfirm: () => {
-        setConfirmDialog({ ...confirmDialog, isOpen: false });
-        onDelete(id);
-      },
-    });
+    deleteConfirm
+      .fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Yes, delete it!",
+        cancelButtonText: "No, cancel!",
+        reverseButtons: true,
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          deleteConfirm.fire("Deleted!", "Your file has been deleted.", "success");
+          onDelete(id);
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+          deleteConfirm.fire("Cancelled", "Your imaginary file is safe :)", "error");
+        }
+      });
   };
 
   const useStyles = makeStyles((theme) => ({
@@ -89,8 +97,7 @@ function BookOrderTable(props) {
     <div>
       <div className="table-responsive">
         <Table
-          className={`table table-head-custom table-head-bg table-borderless table-vertical-center ${classes.table}`}
-        >
+          className={`table table-head-custom table-head-bg table-borderless table-vertical-center ${classes.table}`}>
           <TableHead>
             <TableRow>
               <TableCell>#</TableCell>
@@ -114,10 +121,7 @@ function BookOrderTable(props) {
                       type="number"
                       variant="outlined"
                       value={item.amount}
-                      onChange={(e) =>
-                        amountChangeHandler(index, e.target.value)
-                      }
-                    ></TextField>
+                      onChange={(e) => amountChangeHandler(index, e.target.value)}></TextField>
                   </TableCell>
                   <TableCell>
                     <TextField
@@ -126,18 +130,14 @@ function BookOrderTable(props) {
                       type="number"
                       variant="outlined"
                       value={item.price}
-                      onChange={(e) =>
-                        priceChangeHandler(index, e.target.value)
-                      }
-                    ></TextField>
+                      onChange={(e) => priceChangeHandler(index, e.target.value)}></TextField>
                   </TableCell>
                   <TableCell>{formatter.format(item.total)}</TableCell>
                   <TableCell className="text-center">
                     <a
                       href="#"
                       onClick={() => deleteHandler(item.id)}
-                      className="btn btn-light-danger font-weight-bolder font-size-sm "
-                    >
+                      className="btn btn-light-danger font-weight-bolder font-size-sm ">
                       <Close fontSize="small"></Close>
                     </a>
                   </TableCell>
@@ -145,10 +145,6 @@ function BookOrderTable(props) {
               ))}
           </TableBody>
         </Table>
-        <ConfirmDialog
-          confirmDialog={confirmDialog}
-          setConfirmDialog={setConfirmDialog}
-        ></ConfirmDialog>
       </div>
     </div>
   );

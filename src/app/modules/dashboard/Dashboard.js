@@ -1,12 +1,11 @@
 import React from "react";
 import { OverviewWiget } from "./components/OverviewWidget";
-import { RevenueChartWidget } from "./components/RevenueChartWidget";
-import { OrderChartWidget } from "./components/OrderChartWidget";
-import {TilesWidget} from "./components/TilesWidget";
+import PatternWidget from "./components/PatternWidget";
+import { TilesWidget } from "./components/TilesWidget";
 
 function Dashboard() {
   return (
-    <div>
+    <div className="my-12">
       <div className="row">
         <div className="col-lg-6 col-xxl-4">
           <OverviewWiget className="card-stretch gutter-b" />
@@ -14,24 +13,28 @@ function Dashboard() {
         <div className="col-lg-6 col-xxl-8">
           <div className="row">
             <div className="col-xxl-12">
-              <TilesWidget
-                className="card-stretch gutter-b"
-                baseColor="info"
-              />
+              <TilesWidget className="card-stretch gutter-b" baseColor="info" />
             </div>
           </div>
           <div className="row">
             <div className="col-lg-12 col-xxl-6">
-              <OrderChartWidget
+              <PatternWidget
                 className="card-stretch gutter-b"
-                baseColor="info"
+                imageUrl="/media/svg/patterns/taieri.svg"
+                link="/banhang"
+                title="Bán Sách"
+                buttonTitle="Bán"
+                backgroundColor="#663259"
               />
             </div>
             <div className="col-lg-12 col-xxl-6">
-              <RevenueChartWidget
+              <PatternWidget
                 className="card-stretch gutter-b"
-                baseColor="primary"
-              />
+                imageUrl="/media/svg/patterns/rhone-2.svg"
+                link="/baocao/doanhthu"
+                title="Báo cáo doanh thu"
+                buttonTitle="Xem"
+                backgroundColor="#1B283F"></PatternWidget>
             </div>
           </div>
         </div>

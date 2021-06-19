@@ -10,9 +10,7 @@ export function AsideMenuList({ layoutProps }) {
   const location = useLocation();
   const getMenuItemActive = (url, hasSubmenu = false) => {
     return checkIsActive(location, url)
-      ? ` ${
-          !hasSubmenu && "menu-item-active"
-        } menu-item-open menu-item-not-hightlighted`
+      ? ` ${!hasSubmenu && "menu-item-active"} menu-item-open menu-item-not-hightlighted`
       : "";
   };
 
@@ -21,10 +19,7 @@ export function AsideMenuList({ layoutProps }) {
       {/*begin::menu nav*/}
       <ul className={`menu-nav ${layoutProps.ulClasses}`}>
         {/*begin::1 Level Dashboard Menu*/}
-        <li
-          className={`menu-item ${getMenuItemActive("/dashboard", false)}`}
-          aria-haspopup="true"
-        >
+        <li className={`menu-item ${getMenuItemActive("/dashboard", false)}`} aria-haspopup="true">
           <NavLink className="menu-link" to="/dashboard">
             <span className="svg-icon menu-icon">
               <SVG src={toAbsoluteUrl("/media/svg/icons/Design/Layers.svg")} />
@@ -36,15 +31,11 @@ export function AsideMenuList({ layoutProps }) {
 
         {/*begin::1 Level BÁN HÀNG*/}
         <li
-          className={`menu-item menu-item-submenu ${getMenuItemActive(
-            "/banhang",
-            true
-          )}`}
-          aria-haspopup="true"
-        >
+          className={`menu-item menu-item-submenu ${getMenuItemActive("/banhang", true)}`}
+          aria-haspopup="true">
           <NavLink className="menu-link menu-toggle" to="/banhang">
             <span className="svg-icon menu-icon">
-              <SVG src={toAbsoluteUrl("/media/svg/icons/Design/Cap-2.svg")} />
+              <SVG src={toAbsoluteUrl("/media/svg/icons/Shopping/Cart1.svg")} />
             </span>
             <span className="menu-text">Bán Hàng</span>
           </NavLink>
@@ -53,15 +44,11 @@ export function AsideMenuList({ layoutProps }) {
 
         {/*begin::1 Level BÁN HÀNG*/}
         <li
-          className={`menu-item menu-item-submenu ${getMenuItemActive(
-            "/nhaphang",
-            true
-          )}`}
-          aria-haspopup="true"
-        >
+          className={`menu-item menu-item-submenu ${getMenuItemActive("/nhaphang", true)}`}
+          aria-haspopup="true">
           <NavLink className="menu-link menu-toggle" to="/nhaphang">
             <span className="svg-icon menu-icon">
-              <SVG src={toAbsoluteUrl("/media/svg/icons/Design/Cap-2.svg")} />
+              <SVG src={toAbsoluteUrl("/media/svg/icons/Shopping/Box3.svg")} />
             </span>
             <span className="menu-text">Nhập Hàng</span>
           </NavLink>
@@ -70,16 +57,12 @@ export function AsideMenuList({ layoutProps }) {
 
         {/*begin::1 Level QUAN LÝ HÓA ĐƠN*/}
         <li
-          className={`menu-item menu-item-submenu ${getMenuItemActive(
-            "/quanlyhoadon",
-            true
-          )}`}
+          className={`menu-item menu-item-submenu ${getMenuItemActive("/quanlyhoadon", true)}`}
           aria-haspopup="true"
-          data-menu-toggle="hover"
-        >
+          data-menu-toggle="hover">
           <NavLink className="menu-link menu-toggle" to="/quanlyhoadon">
             <span className="svg-icon menu-icon">
-              <SVG src={toAbsoluteUrl("/media/svg/icons/Design/Cap-2.svg")} />
+              <SVG src={toAbsoluteUrl("/media/svg/icons/Shopping/Wallet2.svg")} />
             </span>
             <span className="menu-text">Quản Lý Hóa Đơn</span>
             <i className="menu-arrow" />
@@ -93,12 +76,8 @@ export function AsideMenuList({ layoutProps }) {
                 </span>
               </li>
               <li
-                className={`menu-item ${getMenuItemActive(
-                  "/quanlyhoadon/banhang",
-                  true
-                )}`}
-                aria-haspopup="true"
-              >
+                className={`menu-item ${getMenuItemActive("/quanlyhoadon/banhang", true)}`}
+                aria-haspopup="true">
                 <NavLink className="menu-link" to="/quanlyhoadon/banhang">
                   <i className="menu-bullet menu-bullet-dot">
                     <span />
@@ -107,12 +86,8 @@ export function AsideMenuList({ layoutProps }) {
                 </NavLink>
               </li>
               <li
-                className={`menu-item ${getMenuItemActive(
-                  "/quanlyhoadon/nhaphang",
-                  true
-                )}`}
-                aria-haspopup="true"
-              >
+                className={`menu-item ${getMenuItemActive("/quanlyhoadon/nhaphang", true)}`}
+                aria-haspopup="true">
                 <NavLink className="menu-link" to="/quanlyhoadon/nhaphang">
                   <i className="menu-bullet menu-bullet-dot">
                     <span />
@@ -127,18 +102,14 @@ export function AsideMenuList({ layoutProps }) {
 
         {/*begin::1 Level QUẢN LÝ KHO*/}
         <li
-          className={`menu-item menu-item-submenu ${getMenuItemActive(
-            "/quanlykho",
-            true
-          )}`}
+          className={`menu-item menu-item-submenu ${getMenuItemActive("/quanlysach", true)}`}
           aria-haspopup="true"
-          data-menu-toggle="hover"
-        >
-          <NavLink className="menu-link menu-toggle" to="/quanlykho">
+          data-menu-toggle="hover">
+          <NavLink className="menu-link menu-toggle" to="/quanlysach">
             <span className="svg-icon menu-icon">
-              <SVG src={toAbsoluteUrl("/media/svg/icons/Design/Cap-2.svg")} />
+              <SVG src={toAbsoluteUrl("/media/svg/icons/Home/Book.svg")} />
             </span>
-            <span className="menu-text">Quản Lý Kho</span>
+            <span className="menu-text">Quản Lý Sách</span>
             <i className="menu-arrow" />
           </NavLink>
 
@@ -148,49 +119,37 @@ export function AsideMenuList({ layoutProps }) {
             <ul className="menu-subnav">
               <li className="menu-item menu-item-parent" aria-haspopup="true">
                 <span className="menu-link">
-                  <span className="menu-text">Quản Lý Kho</span>
+                  <span className="menu-text">Quản Lý Sách</span>
                 </span>
               </li>
               <li
-                className={`menu-item ${getMenuItemActive(
-                  "/quanlykho/sach",
-                  true
-                )}`}
-                aria-haspopup="true"
-              >
-                <NavLink className="menu-link" to="/quanlykho/sach">
+                className={`menu-item ${getMenuItemActive("/quanlysach/sach", true)}`}
+                aria-haspopup="true">
+                <NavLink className="menu-link" to="/quanlysach/sach">
                   <i className="menu-bullet menu-bullet-dot">
                     <span />
                   </i>
-                  <span className="menu-text">Quản Lý Sách</span>
+                  <span className="menu-text">Sách</span>
                 </NavLink>
               </li>
               <li
-                className={`menu-item ${getMenuItemActive(
-                  "/quanlykho/theloai",
-                  true
-                )}`}
-                aria-haspopup="true"
-              >
-                <NavLink className="menu-link" to="/quanlykho/theloai">
+                className={`menu-item ${getMenuItemActive("/quanlysach/theloai", true)}`}
+                aria-haspopup="true">
+                <NavLink className="menu-link" to="/quanlysach/theloai">
                   <i className="menu-bullet menu-bullet-dot">
                     <span />
                   </i>
-                  <span className="menu-text">Quản Lý Thể Loại</span>
+                  <span className="menu-text">Thể Loại</span>
                 </NavLink>
               </li>
               <li
-                className={`menu-item ${getMenuItemActive(
-                  "/quanlykho/tacgia",
-                  true
-                )}`}
-                aria-haspopup="true"
-              >
-                <NavLink className="menu-link" to="/quanlykho/tacgia">
+                className={`menu-item ${getMenuItemActive("/quanlysach/tacgia", true)}`}
+                aria-haspopup="true">
+                <NavLink className="menu-link" to="/quanlysach/tacgia">
                   <i className="menu-bullet menu-bullet-dot">
                     <span />
                   </i>
-                  <span className="menu-text">Quản Lý Tác Giả</span>
+                  <span className="menu-text">Tác Giả</span>
                 </NavLink>
               </li>
             </ul>
@@ -201,15 +160,11 @@ export function AsideMenuList({ layoutProps }) {
 
         {/*begin::1 Level QUẢN NHÂN VIÊN*/}
         <li
-          className={`menu-item menu-item-submenu ${getMenuItemActive(
-            "/quanlynhanvien",
-            true
-          )}`}
-          aria-haspopup="true"
-        >
+          className={`menu-item menu-item-submenu ${getMenuItemActive("/quanlynhanvien", true)}`}
+          aria-haspopup="true">
           <NavLink className="menu-link menu-toggle" to="/quanlynhanvien">
             <span className="svg-icon menu-icon">
-              <SVG src={toAbsoluteUrl("/media/svg/icons/Design/Cap-2.svg")} />
+              <SVG src={toAbsoluteUrl("/media/svg/icons/Communication/Address-card.svg")} />
             </span>
             <span className="menu-text">Quản Lý Nhân Viên</span>
           </NavLink>
@@ -218,15 +173,11 @@ export function AsideMenuList({ layoutProps }) {
 
         {/*begin::1 Level QUẢN LÝ KHÁCH HÀNG*/}
         <li
-          className={`menu-item menu-item-submenu ${getMenuItemActive(
-            "/khach",
-            true
-          )}`}
-          aria-haspopup="true"
-        >
+          className={`menu-item menu-item-submenu ${getMenuItemActive("/khach", true)}`}
+          aria-haspopup="true">
           <NavLink className="menu-link menu-toggle" to="/khach">
             <span className="svg-icon menu-icon">
-              <SVG src={toAbsoluteUrl("/media/svg/icons/Design/Cap-2.svg")} />
+              <SVG src={toAbsoluteUrl("/media/svg/icons/Communication/Group.svg")} />
             </span>
             <span className="menu-text">Quản Lý Khách Hàng</span>
           </NavLink>
@@ -235,16 +186,12 @@ export function AsideMenuList({ layoutProps }) {
 
         {/*begin::1 Level BÁO CÁO*/}
         <li
-          className={`menu-item menu-item-submenu ${getMenuItemActive(
-            "/baocao",
-            true
-          )}`}
+          className={`menu-item menu-item-submenu ${getMenuItemActive("/baocao", true)}`}
           aria-haspopup="true"
-          data-menu-toggle="hover"
-        >
+          data-menu-toggle="hover">
           <NavLink className="menu-link menu-toggle" to="/baocao">
             <span className="svg-icon menu-icon">
-              <SVG src={toAbsoluteUrl("/media/svg/icons/Design/Cap-2.svg")} />
+              <SVG src={toAbsoluteUrl("/media/svg/icons/Communication/Clipboard-list.svg")} />
             </span>
             <span className="menu-text">Báo Cáo</span>
             <i className="menu-arrow" />
@@ -260,12 +207,8 @@ export function AsideMenuList({ layoutProps }) {
                 </span>
               </li>
               <li
-                className={`menu-item ${getMenuItemActive(
-                  "/baocao/tonkho",
-                  true
-                )}`}
-                aria-haspopup="true"
-              >
+                className={`menu-item ${getMenuItemActive("/baocao/tonkho", true)}`}
+                aria-haspopup="true">
                 <NavLink className="menu-link" to="/baocao/tonkho">
                   <i className="menu-bullet menu-bullet-dot">
                     <span />
@@ -274,12 +217,8 @@ export function AsideMenuList({ layoutProps }) {
                 </NavLink>
               </li>
               <li
-                className={`menu-item ${getMenuItemActive(
-                  "/baocao/doanhthu",
-                  true
-                )}`}
-                aria-haspopup="true"
-              >
+                className={`menu-item ${getMenuItemActive("/baocao/doanhthu", true)}`}
+                aria-haspopup="true">
                 <NavLink className="menu-link" to="/baocao/doanhthu">
                   <i className="menu-bullet menu-bullet-dot">
                     <span />
@@ -295,17 +234,13 @@ export function AsideMenuList({ layoutProps }) {
 
         {/*begin::1 Level CÀI ĐẶT*/}
         <li
-          className={`menu-item menu-item-submenu ${getMenuItemActive(
-            "/rules",
-            true
-          )}`}
-          aria-haspopup="true"
-        >
+          className={`menu-item menu-item-submenu ${getMenuItemActive("/rules", true)}`}
+          aria-haspopup="true">
           <NavLink className="menu-link menu-toggle" to="/rules">
             <span className="svg-icon menu-icon">
-              <SVG src={toAbsoluteUrl("/media/svg/icons/Design/Cap-2.svg")} />
+              <SVG src={toAbsoluteUrl("/media/svg/icons/Shopping/Settings.svg")} />
             </span>
-            <span className="menu-text">Cài Đặt</span>
+            <span className="menu-text">Quy định</span>
           </NavLink>
         </li>
         {/*end::1 Level*/}

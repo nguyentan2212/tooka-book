@@ -3,7 +3,7 @@ import moment from "moment";
 import { setupAxios } from "../../../js";
 var objectMapper = require("object-mapper");
 
-const format1 = "DD-MM-YYYY";
+const format1 = "YYYY-MM-DD";
 const format2 = "DD/MM/YYYY";
 
 const GET_IMPORTS = "/api/ImportBookList";
@@ -18,6 +18,7 @@ export const getImports = async () => {
         "[].NgayLap": "[].date",
         "[].TongTien": "[].total",
       };
+      console.log(data);
       const dest = objectMapper(data, map);
       if (dest) {
         for (let i = 0; i < dest.length; i++) {

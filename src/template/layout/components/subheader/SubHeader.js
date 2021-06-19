@@ -5,7 +5,7 @@ import { useLocation } from "react-router-dom";
 import { BreadCrumbs } from "./components/BreadCrumbs";
 import { getBreadcrumbsAndTitle, useSubheader } from "../../core/MetronicSubheader";
 import { useHtmlClassService } from "../../core/MetronicLayout";
-
+import moment from "moment";
 export function SubHeader() {
   const uiService = useHtmlClassService();
   const location = useLocation();
@@ -85,7 +85,7 @@ export function SubHeader() {
               className="text-primary font-weight-bold"
               id="kt_dashboard_daterangepicker_date"
             >
-              Aug 16
+              {moment().format("MMM Do YY")}
             </span>
           </a>
         </div>

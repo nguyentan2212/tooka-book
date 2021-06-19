@@ -1,7 +1,7 @@
 import React from "react";
 import ReactExport from "react-export-excel";
 import { CustomButton } from "../controls";
-import { Search } from "@material-ui/icons";
+import { GetApp } from "@material-ui/icons";
 const ExcelFile = ReactExport.ExcelFile;
 const ExcelSheet = ReactExport.ExcelFile.ExcelSheet;
 const ExcelColumn = ReactExport.ExcelFile.ExcelColumn;
@@ -17,7 +17,7 @@ export function Download(props) {
         <CustomButton
           text="Xuất File"
           variant="outlined"
-          startIcon={<Search></Search>}
+          startIcon={<GetApp></GetApp>}
           className="btn btn-success font-weight-bolder font-size-sm"
         ></CustomButton>
       }

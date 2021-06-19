@@ -25,10 +25,10 @@ export default function BasePage() {
                 <Route path="/quanlyhoadon/nhaphang" component={ImportBookList}></Route>
                 <Route path="/banhang" component={NewOrderPage}></Route>
                 <Route path="/nhaphang" component={ImportBook}></Route>
-                <Route path="/quanlykho/theloai" component={CategoryPage}></Route>
-                <Route path="/quanlykho/tacgia" component={AuthorPage}></Route>
+                <Route path="/quanlysach/theloai" component={CategoryPage}></Route>
+                <Route path="/quanlysach/tacgia" component={AuthorPage}></Route>
                 <Route path="/khach" component={CustomerPage}></Route>
-                <Route path="/quanlykho/sach" component={BookManagerPage}></Route>
+                <Route path="/quanlysach/sach" component={BookManagerPage}></Route>
                 <Route path="/baocao/tonkho" component={InventoryReport}></Route>
                 <Route path="/baocao/doanhthu" component={RevenueReport}></Route>
                 <Route path="/quanlynhanvien" component={EmployeePage}></Route>

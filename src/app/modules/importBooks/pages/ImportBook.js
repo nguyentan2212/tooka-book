@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import moment from "moment";
 import ImportTable from "../components/ImportTable";
-import { LibraryBooks, Add } from "@material-ui/icons";
+import { LocalGroceryStore, Add } from "@material-ui/icons";
 import PageTitle from "../../../../template/layout/components/page-title/PageTitle";
 import { TextField } from "@material-ui/core";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import { getAllBooks } from "../../books/js/book";
 import { getAllRules } from "../../rules/js/rule";
-import { CustomButton } from "../../../../template/partials/controls";
+import { toAbsoluteUrl } from "../../../../template/helpers/AssetsHelpers";
 import { postImport } from "../js/importBook";
 import Swal from "sweetalert2";
 
@@ -33,12 +33,15 @@ function ImportBook() {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    setBookList(bookList.filter((book) => book.stock < rules.LuongTonTruocKhiNhap));
+  },[rules])
   const incAmount = (index, amount) => {
     let tempList = [...importList];
-    let item = tempList[index];
+    let item = { ...tempList[index] };
 
     item.amount = amount;
-    item.total = item.price * item.amount;
+    item.totalPrice = item.price * item.amount;
     tempList[index] = item;
     setImportList(tempList);
   };
@@ -63,10 +66,10 @@ function ImportBook() {
 
   const priceChangeHandler = (index, target) => {
     let tempList = [...importList];
-    let item = tempList[index];
+    let item = { ...tempList[index] };
 
     item.price = target.value;
-    item.total = item.price * item.amount;
+    item.totalPrice = item.price * item.amount;
     tempList[index] = item;
     setImportList(tempList);
   };
@@ -96,10 +99,7 @@ function ImportBook() {
 
   const isValid = () => {
     for (let i = 0; i < importList?.length; i++) {
-      if (
-        importList[i].amount < rules.LuongNhapToiThieu ||
-        importList[i].price < 0
-      ) {
+      if (importList[i].amount < rules.LuongNhapToiThieu || importList[i].price < 0) {
         return false;
       }
     }
@@ -108,53 +108,62 @@ function ImportBook() {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (isValid()) {
-        let temp = {
-            total: total,
-            items: importList,
-        };
-        postImport(temp).then((result) => {
-            if (result.status === 200){
-                Swal.fire({
-                    title: "Thông báo",
-                    text: "Nhập hàng thành công",
-                    icon: "success",
-                })
-            }
-        }).catch((e) => {
+      let temp = {
+        total: total,
+        items: importList,
+      };
+      postImport(temp)
+        .then((result) => {
+          if (result.status === 200) {
             Swal.fire({
-              icon: "error",
-              title: "Oops...Nhập hàng thất bại!",
-              text: `Error: ${e.message}`,
+              title: "Thông báo",
+              text: "Nhập hàng thành công",
+              icon: "success",
             });
-            console.log("error");
+          }
+        })
+        .catch((e) => {
+          Swal.fire({
+            icon: "error",
+            title: "Oops...Nhập hàng thất bại!",
+            text: `Error: ${e.message}`,
           });
+          console.log("error");
+        });
     }
   };
   return (
     <div>
-      <PageTitle
-        title="Nhập Hàng"
-        subTitle="Nhập Hàng"
-        icon={() => <LibraryBooks />}
-      />
+      <PageTitle title="Nhập Hàng" subTitle="Nhập Hàng" icon={() => <LocalGroceryStore />} />
       <div className="card card-custom mt-8">
-        <div className="card-body py-3 mt-2">
+        <div className="card-header py-3 mt-2">
           <div className="card-toolbar row w-100 justify-content-between">
             <Autocomplete
-              className="col-lg-10"
+              className="w-100"
               options={bookList}
               autoHighlight
               onChange={(event, book) => onAddItem(book)}
               getOptionLabel={(option) => option.title}
               renderOption={(book) => (
-                <div>
-                  <h3 className="text-dark-75 font-weight-bolder font-size-lg">
-                    {book.title}
-                  </h3>
-                  <p>Thể loại: {book.category.name}</p>
-                  <p>Tác giả: {book.author.name}</p>
-                  <p>Hàng tồn: {book.stock}</p>
-                  <p>Giá: {book.price}</p>
+                <div className="w-100">
+                  <h3 className="text-dark-75 font-weight-bolder font-size-lg">{book.title}</h3>
+                  <div className="row w-100">
+                    <div className="col-lg-2">
+                      <img src={toAbsoluteUrl(book.img)} className="h-50px"></img>
+                    </div>
+                    <div className="col-lg-2">
+                      <p>Thể loại: {book.category.name}</p>
+                    </div>
+                    <div className="col-lg-2">
+                      <p>Tác giả: {book.author.name}</p>
+                    </div>
+                    <div className="col-lg-2">
+                      <p>Hàng tồn: {book.stock}</p>
+                    </div>
+                    <div className="col-lg-2">
+                      <p>Giá: {book.price}</p>
+                    </div>
+                  </div>
                 </div>
               )}
               renderInput={(params) => (
@@ -166,12 +175,6 @@ function ImportBook() {
                 />
               )}
             />
-            <CustomButton
-              text="Thêm sách mới"
-              variant="outlined"
-              startIcon={<Add></Add>}
-              className="btn btn-success font-weight-bolder font-size-sm"
-            ></CustomButton>
           </div>
         </div>
         <div className="card-body pt-0 pb-3">
@@ -185,17 +188,14 @@ function ImportBook() {
         </div>
         <form>
           <div className="d-flex justify-content-lg-between pt-0 pb-3 mx-10">
-            <p className="text-dark-75 font-weight-bolder font-size-lg">
-              Ngày nhập: {currentDate}
-            </p>
+            <p className="text-dark-75 font-weight-bolder font-size-lg">Ngày nhập: {currentDate}</p>
             <p className="text-dark-75 font-weight-bolder font-size-lg">
               Tổng tiền: {formatter.format(total)}
             </p>
             <button
               className="btn btn-primary font-weight-bold"
               type="submit"
-              onClick={(e) => handleSubmit(e)}
-            >
+              onClick={(e) => handleSubmit(e)}>
               <span>Thanh toán</span>
             </button>
           </div>

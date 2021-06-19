@@ -6,7 +6,7 @@ import {
   DatePicker,
   CustomButton,
 } from "../../../../template/partials/controls";
-import { LibraryBooks, Search } from "@material-ui/icons";
+import { MonetizationOn, PostAdd } from "@material-ui/icons";
 
 function RevenueReport({ className }) {
   const [reportDate, setReportDate] = useState(new Date());
@@ -26,7 +26,7 @@ function RevenueReport({ className }) {
       <PageTitle
         title="Báo Cáo Doanh Thu"
         subTitle="Báo Cáo Doanh Thu"
-        icon={() => <LibraryBooks />}
+        icon={() => <MonetizationOn />}
       />
       <div className={`card card-custom ${className} mt-8`}>
         <div className="card-header border-0 py-5">
@@ -41,7 +41,7 @@ function RevenueReport({ className }) {
             <CustomButton
               text="Tạo Báo Cáo"
               variant="outlined"
-              startIcon={<Search></Search>}
+              startIcon={<PostAdd></PostAdd>}
               className="btn btn-success font-weight-bolder font-size-sm col-lg-2 ml-2"
               onClick={() => onCreateReport()}
             ></CustomButton>

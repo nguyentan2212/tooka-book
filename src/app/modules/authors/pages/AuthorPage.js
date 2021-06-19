@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { InputAdornment } from "@material-ui/core";
 import Swal from "sweetalert2";
 import PageTitle from "../../../../template/layout/components/page-title/PageTitle";
-import { LibraryBooks, Search, Add } from "@material-ui/icons";
+import { Person, Search, Add } from "@material-ui/icons";
 import { Input, CustomButton } from "../../../../template/partials/controls";
 import AuthorTable from "../components/AuthorTable";
 import { postAuthor } from "../js/author";
@@ -63,7 +63,7 @@ function AuthorPage(props) {
       <PageTitle
         title="Quản Lý Tác Giả"
         subTitle="Quản Lý Tác Giả"
-        icon={() => <LibraryBooks />}
+        icon={() => <Person />}
       />
       <div className={`card card-custom ${className} mt-8`}>
         {/* begin::Header */}

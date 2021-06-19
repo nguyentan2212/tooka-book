@@ -7,7 +7,7 @@ export const GET_ALL_ORDER_URL = "/api/bill";
 export const POST_ORDER_URL = "/api/bill";
 
 const format1 = "YYYY-MM-DD HH:mm:ss";
-const format2 = "DD/MM/YYYY";
+const format2 = "DD-MM-YYYY";
 
 export async function getAllOrders() {
   const result = await setupAxios()
@@ -36,6 +36,7 @@ export async function getAllOrders() {
 }
 
 export function postBill(bill) {
+  bill.change = (bill.totalPrice > bill.paid) ? bill.totalPrice - bill.paid : 0;
   var map = {
     customerId: "MaKhachHang",
     totalPrice: "TongTien",

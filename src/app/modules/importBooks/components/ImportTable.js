@@ -35,13 +35,7 @@ const formatter = new Intl.NumberFormat("vi-VN", {
 });
 
 function ImportTable(props) {
-  const {
-    amountChangeHandler,
-    priceChangeHandler,
-    importList,
-    onDelete,
-    rules,
-  } = props;
+  const { amountChangeHandler, priceChangeHandler, importList, onDelete, rules } = props;
 
   const classes = useStyles();
 
@@ -89,18 +83,10 @@ function ImportTable(props) {
       })
       .then((result) => {
         if (result.isConfirmed) {
-          deleteConfirm.fire(
-            "Deleted!",
-            "Your file has been deleted.",
-            "success"
-          );
+          deleteConfirm.fire("Deleted!", "Your file has been deleted.", "success");
           onDelete(id);
         } else if (result.dismiss === Swal.DismissReason.cancel) {
-          deleteConfirm.fire(
-            "Cancelled",
-            "Your imaginary file is safe :)",
-            "error"
-          );
+          deleteConfirm.fire("Cancelled", "Your imaginary file is safe :)", "error");
         }
       });
   };
@@ -120,8 +106,7 @@ function ImportTable(props) {
   return (
     <div className="table-responsive">
       <Table
-        className={`table table-head-custom table-head-bg table-borderless table-vertical-center ${classes.table}`}
-      >
+        className={`table table-head-custom table-head-bg table-borderless table-vertical-center ${classes.table}`}>
         <TableHead>
           <TableRow>
             <TableCell>#</TableCell>
@@ -147,8 +132,7 @@ function ImportTable(props) {
                     value={item.amount}
                     onChange={(e) => amountChangeHandler(index, e.target)}
                     error={isValid(item, "amount") ? true : false}
-                    helperText={isValid(item, "amount")}
-                  ></TextField>
+                    helperText={isValid(item, "amount")}></TextField>
                 </TableCell>
                 <TableCell>
                   <TextField
@@ -159,16 +143,14 @@ function ImportTable(props) {
                     value={item.price}
                     onChange={(e) => priceChangeHandler(index, e.target)}
                     error={isValid(item, "price") ? true : false}
-                    helperText={isValid(item, "price")}
-                  ></TextField>
+                    helperText={isValid(item, "price")}></TextField>
                 </TableCell>
                 <TableCell>{formatter.format(item.totalPrice)}</TableCell>
                 <TableCell className="text-center">
                   <a
                     href="#"
                     onClick={() => deleteHandler(item.id)}
-                    className="btn btn-light-danger font-weight-bolder font-size-sm "
-                  >
+                    className="btn btn-light-danger font-weight-bolder font-size-sm ">
                     <Close fontSize="small"></Close>
                   </a>
                 </TableCell>

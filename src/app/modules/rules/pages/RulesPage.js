@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import PageTitle from "../../../../template/layout/components/page-title/PageTitle";
-import { LibraryBooks } from "@material-ui/icons";
+import { Gavel } from "@material-ui/icons";
 import { getAllRules } from "../js/rule";
 import RulesForm from "../components/RulesForm";
 
@@ -19,7 +19,7 @@ function RulesPage() {
       <PageTitle
         title="Quy Định"
         subTitle="Quy Định"
-        icon={() => <LibraryBooks />}
+        icon={() => <Gavel />}
       />
       {rules && <RulesForm rules={rules} />}
     </div>

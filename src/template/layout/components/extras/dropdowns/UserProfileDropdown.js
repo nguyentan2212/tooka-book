@@ -7,7 +7,6 @@ import { toAbsoluteUrl } from "../../../../helpers";
 import { DropdownTopbarItemToggler } from "../../../../partials/dropdowns/DropdownTopbarItemToggler";
 
 export function UserProfileDropdown({ user }) {
-
   return (
     <Dropdown drop="down" alignRight>
       <Dropdown.Toggle as={DropdownTopbarItemToggler} id="dropdown-toggle-user-profile">
@@ -19,9 +18,7 @@ export function UserProfileDropdown({ user }) {
             {user.fullname}
           </span>
           <span className="symbol symbol-35 symbol-light-success">
-            <span className="symbol-label font-size-h5 font-weight-bold">
-              {user.fullname[0]}
-            </span>
+            <span className="symbol-label font-size-h5 font-weight-bold">{user.fullname[0]}</span>
           </span>
         </div>
       </Dropdown.Toggle>
@@ -36,24 +33,16 @@ export function UserProfileDropdown({ user }) {
             <div className="text-dark font-weight-bold m-0 flex-grow-1 mr-3 font-size-h5">
               {user.fullname}
             </div>
-            <div className="text-dark m-0 flex-grow-1 mr-3 font-size-h5">
-              @{user.username}
-            </div>
+            <div className="text-dark m-0 flex-grow-1 mr-3 font-size-h5">@{user.username}</div>
           </div>
         </div>
         <div className="separator separator-solid"></div>
 
-        <div className="navi navi-spacer-x-0 pt-5">      
-          <div className="navi-footer  px-8 py-5">
-            <Link
-              to="/logout"
-              className="btn btn-light-primary font-weight-bold"
-            >
+        <div className="navi navi-spacer-x-0 pt-5">
+          <div className="navi-footer d-flex justify-content-lg-center px-8 py-5">
+            <Link to="/logout" className="btn btn-light-primary font-weight-bold">
               Đăng Xuất
             </Link>
-            <a href="#" className="btn btn-clean font-weight-bold">
-              Đổi Mật Khẩu
-            </a>
           </div>
         </div>
       </Dropdown.Menu>

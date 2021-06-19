@@ -5,7 +5,7 @@ import { InputAdornment } from "@material-ui/core";
 import { toAbsoluteUrl } from "../../../../template/helpers/AssetsHelpers";
 import OrderTable from "../components/OrderTable";
 import PageTitle from "../../../../template/layout/components/page-title/PageTitle";
-import { LibraryBooks, Search } from "@material-ui/icons";
+import { Store, Search } from "@material-ui/icons";
 import { Input } from "../../../../template/partials/controls";
 
 function OrderManagePage({ className }) {
@@ -32,7 +32,7 @@ function OrderManagePage({ className }) {
       <PageTitle
         title="Quản Lý Hóa Đơn"
         subTitle="Quản Lý Hóa Đơn"
-        icon={() => <LibraryBooks />}
+        icon={() => <Store />}
       />
       <div className={`card card-custom ${className} mt-8`}>
         {/* begin::Header */}

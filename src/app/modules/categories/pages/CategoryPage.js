@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { InputAdornment } from "@material-ui/core";
 import PageTitle from "../../../../template/layout/components/page-title/PageTitle";
-import { LibraryBooks, Search, Add } from "@material-ui/icons";
+import { Category, Search, Add } from "@material-ui/icons";
 import { Input, CustomButton } from "../../../../template/partials/controls";
 import CategoryTable from "../components/CategoryTable";
 import Swal from "sweetalert2";
@@ -63,7 +63,7 @@ function CategoryPage(props) {
       <PageTitle
         title="Quản Lý Thể Loại"
         subTitle="Quản Lý Thể Loại"
-        icon={() => <LibraryBooks />}
+        icon={() => <Category />}
       />
       <div className={`card card-custom ${className} mt-8`}>
         {/* begin::Header */}

@@ -1,5 +1,5 @@
 /* eslint-disable no-script-url,jsx-a11y/anchor-is-valid */
-import React, { useMemo, useEffect } from "react";
+import React, { useMemo, useState, useEffect } from "react";
 import objectPath from "object-path";
 import ApexCharts from "apexcharts";
 import SVG from "react-inlinesvg";
@@ -8,24 +8,15 @@ import { useHtmlClassService } from "../../../../template/layout/core/MetronicLa
 
 export function RevenueChartWidget({ className, symbolShape, baseColor }) {
   const uiService = useHtmlClassService();
+  const [categories, setCategories] = useState(null);
+  const [data, setData] = useState(null);
+
   const layoutProps = useMemo(() => {
     return {
-      colorsGrayGray500: objectPath.get(
-        uiService.config,
-        "js.colors.gray.gray500"
-      ),
-      colorsGrayGray200: objectPath.get(
-        uiService.config,
-        "js.colors.gray.gray200"
-      ),
-      colorsGrayGray300: objectPath.get(
-        uiService.config,
-        "js.colors.gray.gray300"
-      ),
-      colorsThemeBaseSuccess: objectPath.get(
-        uiService.config,
-        `js.colors.theme.base.${baseColor}`
-      ),
+      colorsGrayGray500: objectPath.get(uiService.config, "js.colors.gray.gray500"),
+      colorsGrayGray200: objectPath.get(uiService.config, "js.colors.gray.gray200"),
+      colorsGrayGray300: objectPath.get(uiService.config, "js.colors.gray.gray300"),
+      colorsThemeBaseSuccess: objectPath.get(uiService.config, `js.colors.theme.base.${baseColor}`),
       colorsThemeLightSuccess: objectPath.get(
         uiService.config,
         `js.colors.theme.light.${baseColor}`
@@ -38,16 +29,16 @@ export function RevenueChartWidget({ className, symbolShape, baseColor }) {
     const element = document.getElementById("revenue_widget_chart");
 
     if (!element) {
-        return;
-      }
-  
-      const options = getChartOptions(layoutProps);
-  
-      const chart = new ApexCharts(element, options);
-      chart.render();
-      return function cleanUp() {
-        chart.destroy();
-      };
+      return;
+    }
+
+    const options = getChartOptions(layoutProps, categories, data);
+
+    const chart = new ApexCharts(element, options);
+    chart.render();
+    return function cleanUp() {
+      chart.destroy();
+    };
   }, [layoutProps]);
 
   console.log(layoutProps);
@@ -58,21 +49,15 @@ export function RevenueChartWidget({ className, symbolShape, baseColor }) {
         {/* begin::Body */}
         <div className="card-body p-0">
           <div className="d-flex align-items-center justify-content-between card-spacer flex-grow-1">
-            <span
-              className={`symbol ${symbolShape} symbol-50 symbol-light${baseColor} mr-2`}
-            >
+            <span className={`symbol ${symbolShape} symbol-50 symbol-light${baseColor} mr-2`}>
               <span className="symbol-label">
                 <span className={`svg-icon svg-icon-xl svg-icon-${baseColor}`}>
-                  <SVG
-                    src={toAbsoluteUrl("/media/svg/icons/Shopping/Dollar.svg")}
-                  ></SVG>
+                  <SVG src={toAbsoluteUrl("/media/svg/patterns/taieri.svg")}></SVG>
                 </span>
               </span>
             </span>
             <div className="d-flex flex-column text-right">
-              <span className="text-dark-75 font-weight-bolder font-size-h3">
-                +4200000 vnđ
-              </span>
+              <span className="text-dark-75 font-weight-bolder font-size-h3">+4200000 vnđ</span>
               <span className="text-muted font-weight-bold mt-2">Doanh thu</span>
             </div>
           </div>
@@ -90,59 +75,59 @@ export function RevenueChartWidget({ className, symbolShape, baseColor }) {
   );
 }
 
-function getChartOptions(layoutProps) {
+function getChartOptions(layoutProps, categories, data) {
   var options = {
     series: [
       {
         name: "Net Profit",
-        data: [40, 40, 30, 30, 35, 35, 50]
-      }
+        data: data ? data : [],
+      },
     ],
     chart: {
       type: "area",
       height: 150,
       toolbar: {
-        show: false
+        show: false,
       },
       zoom: {
-        enabled: false
+        enabled: false,
       },
       sparkline: {
-        enabled: true
-      }
+        enabled: true,
+      },
     },
     plotOptions: {},
     legend: {
-      show: false
+      show: false,
     },
     dataLabels: {
-      enabled: false
+      enabled: false,
     },
     fill: {
       type: "solid",
-      opacity: 1
+      opacity: 1,
     },
     stroke: {
       curve: "smooth",
       show: true,
       width: 3,
-      colors: [layoutProps.colorsThemeBasePrimary]
+      colors: [layoutProps.colorsThemeBasePrimary],
     },
     xaxis: {
-      categories: ["Feb", "Mar", "Apr", "May", "Jun", "Aug", "Sep"],
+      categories: categories ? categories : [],
       axisBorder: {
-        show: false
+        show: false,
       },
       axisTicks: {
-        show: false
+        show: false,
       },
       labels: {
         show: false,
         style: {
           colors: layoutProps.colorsGrayGray500,
           fontSize: "12px",
-          fontFamily: layoutProps.fontFamily
-        }
+          fontFamily: layoutProps.fontFamily,
+        },
       },
       crosshairs: {
         show: false,
@@ -150,8 +135,8 @@ function getChartOptions(layoutProps) {
         stroke: {
           color: layoutProps.colorsGrayGray300,
           width: 1,
-          dashArray: 3
-        }
+          dashArray: 3,
+        },
       },
       tooltip: {
         enabled: true,
@@ -159,9 +144,9 @@ function getChartOptions(layoutProps) {
         offsetY: 0,
         style: {
           fontSize: "12px",
-          fontFamily: layoutProps.fontFamily
-        }
-      }
+          fontFamily: layoutProps.fontFamily,
+        },
+      },
     },
     yaxis: {
       min: 0,
@@ -171,48 +156,48 @@ function getChartOptions(layoutProps) {
         style: {
           colors: layoutProps.colorsGrayGray500,
           fontSize: "12px",
-          fontFamily: layoutProps.fontFamily
-        }
-      }
+          fontFamily: layoutProps.fontFamily,
+        },
+      },
     },
     states: {
       normal: {
         filter: {
           type: "none",
-          value: 0
-        }
+          value: 0,
+        },
       },
       hover: {
         filter: {
           type: "none",
-          value: 0
-        }
+          value: 0,
+        },
       },
       active: {
         allowMultipleDataPointsSelection: false,
         filter: {
           type: "none",
-          value: 0
-        }
-      }
+          value: 0,
+        },
+      },
     },
     tooltip: {
       style: {
         fontSize: "12px",
-        fontFamily: layoutProps.fontFamily
+        fontFamily: layoutProps.fontFamily,
       },
       y: {
-        formatter: function(val) {
+        formatter: function (val) {
           return "$" + val + " thousands";
-        }
-      }
+        },
+      },
     },
     colors: [layoutProps.colorsThemeLightSuccess],
     markers: {
       colors: [layoutProps.colorsThemeLightSuccess],
       strokeColor: [layoutProps.colorsThemeBaseSuccess],
-      strokeWidth: 3
-    }
+      strokeWidth: 3,
+    },
   };
   return options;
 }

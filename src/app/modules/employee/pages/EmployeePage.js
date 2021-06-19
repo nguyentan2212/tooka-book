@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { InputAdornment } from "@material-ui/core";
 import PageTitle from "../../../../template/layout/components/page-title/PageTitle";
-import { LibraryBooks, Search, Add } from "@material-ui/icons";
+import { AccountBox, Search, Add } from "@material-ui/icons";
 import {
   Input,
   CustomButton,
@@ -49,7 +49,7 @@ function EmployeePage(props) {
       <PageTitle
         title="Quản Lý Nhân Viên"
         subTitle="Quản Lý Nhân Viên"
-        icon={() => <LibraryBooks />}
+        icon={() => <AccountBox />}
       />
       <div className={`card card-custom ${className} mt-8`}>
         {/* begin::Header */}

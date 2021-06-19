@@ -2,12 +2,13 @@ import React, { useState, useEffect } from "react";
 import PaymentPanel from "../components/PaymentPanel";
 import BookOrderTable from "../components/BookOrderTable";
 import PageTitle from "../../../../template/layout/components/page-title/PageTitle";
-import { LibraryBooks } from "@material-ui/icons";
+import { LocalGroceryStore } from "@material-ui/icons";
 import { TextField } from "@material-ui/core";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import { getAllBooks } from "../../books/js/book";
 import { getAllRules } from "../../rules/js/rule";
 import { getAllCustomers } from "../../customers/js/customer";
+import { toAbsoluteUrl } from "../../../../template/helpers/AssetsHelpers";
 
 function NewOrderPage({ className }) {
   const [bookList, setBookList] = useState([]);
@@ -26,6 +27,9 @@ function NewOrderPage({ className }) {
     fetchData();
   }, [updated]);
 
+  useEffect(() => {
+    setBookList(bookList.filter((book) => book.stock > rules?.LuongTonSauKhiBan));
+  },[rules])
   const [total, setTotal] = useState(0);
   const [bookOrderList, setBookOrderList] = useState([]);
 
@@ -90,11 +94,7 @@ function NewOrderPage({ className }) {
   });
   return (
     <div>
-      <PageTitle
-        title="Bán Hàng"
-        subTitle="Bán Hàng"
-        icon={() => <LibraryBooks />}
-      />
+      <PageTitle title="Bán Hàng" subTitle="Bán Hàng" icon={() => <LocalGroceryStore />} />
       <div className={`card card-custom mt-8 ${className}`}>
         <div className="card-body py-3 mt-2">
           <div className="tab-content">
@@ -107,14 +107,25 @@ function NewOrderPage({ className }) {
                   onChange={(event, book) => onAddItem(book)}
                   getOptionLabel={(option) => option.title}
                   renderOption={(book) => (
-                    <div>
-                      <h3 className="text-dark-75 font-weight-bolder font-size-lg">
-                        {book.title}
-                      </h3>
-                      <p>Thể loại: {book.category.name}</p>
-                      <p>Tác giả: {book.author.name}</p>
-                      <p>Hàng tồn: {book.stock}</p>
-                      <p>Giá: {book.price}</p>
+                    <div className="w-100">
+                      <h3 className="text-dark-75 font-weight-bolder font-size-lg">{book.title}</h3>
+                      <div className="row w-100">
+                        <div className="col-lg-2">
+                          <img src={toAbsoluteUrl(book.img)} className="h-50px"></img>
+                        </div>
+                        <div className="col-lg-3">
+                          <p>Thể loại: {book.category.name}</p>
+                        </div>
+                        <div className="col-lg-3">
+                          <p>Tác giả: {book.author.name}</p>
+                        </div>
+                        <div className="col-lg-2">
+                          <p>Hàng tồn: {book.stock}</p>
+                        </div>
+                        <div className="col-lg-2">
+                          <p>Giá: {book.price}</p>
+                        </div>
+                      </div>
                     </div>
                   )}
                   renderInput={(params) => (

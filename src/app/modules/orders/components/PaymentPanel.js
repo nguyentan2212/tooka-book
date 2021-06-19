@@ -26,12 +26,15 @@ function PaymentPanel(props) {
     items: [],
   };
   const AddBillSchema = Yup.object().shape({
-    customerId: Yup.number().required("Không được để trống").min(1,"Không được để trống"),
+    customerId: Yup.number().required("Không được để trống").min(1, "Không được để trống"),
     totalPrice: Yup.number(),
-    debt: Yup.number().max(rules.TienNoToiDa, `Vượt quá nợ tối đa. Tiền nợ tối đa là ${rules.TienNoToiDa}`),
+    debt: Yup.number().max(
+      rules.TienNoToiDa,
+      `Vượt quá nợ tối đa. Tiền nợ tối đa là ${rules.TienNoToiDa}`
+    ),
     paid: Yup.number().min(0, "Số tiền tối thiểu là 0đ"),
     change: Yup.number(),
-    items: Yup.array().min(1,"Hóa đơn không có sản phẩm nào"),
+    items: Yup.array().min(1, "Hóa đơn không có sản phẩm nào"),
   });
 
   const formik = useFormik({
@@ -39,24 +42,24 @@ function PaymentPanel(props) {
     validationSchema: AddBillSchema,
     onSubmit: async (values, { setSubmitting, resetForm }) => {
       postBill(values)
-      .then(() => {
-        setUpdated(!updated);
-        Swal.fire({
-          icon: "success",
-          title: "Created success",
-          text: "Thêm thành công",
+        .then(() => {
+          setUpdated(!updated);
+          Swal.fire({
+            icon: "success",
+            title: "Created success",
+            text: "Thêm thành công",
+          });
+          resetForm(initialValues);
+        })
+        .catch((e) => {
+          setSubmitting(false);
+          Swal.fire({
+            icon: "error",
+            title: "Oops...Created failed!",
+            text: `Error: ${e.message}`,
+          });
+          console.log("error");
         });
-        resetForm(initialValues);
-      })
-      .catch((e) => {
-        setSubmitting(false);
-        Swal.fire({
-          icon: "error",
-          title: "Oops...Created failed!",
-          text: `Error: ${e.message}`,
-        });
-        console.log("error");
-      });
     },
   });
 
@@ -79,8 +82,11 @@ function PaymentPanel(props) {
       return result;
     };
     let total = calculateTotalPrice();
-    formik.setFieldValue("totalPrice",total);
+    formik.setFieldValue("totalPrice", total);
     formik.setFieldValue("items", orderItemList);
+    let paid = formik.values.paid;
+    let change = (paid > total) ? paid - total : 0;
+    formik.setFieldValue("change", change);
   }, [orderItemList]);
 
   const onCustomerChange = (option) => {
@@ -97,23 +103,22 @@ function PaymentPanel(props) {
     if (customer) {
       let paid = formik.values.paid;
       let total = formik.values.totalPrice;
-      let change = paid - total;
+      let debt = (paid > total) ? customer.debt : customer.debt + (total-paid);
+      let change = (paid > total) ? paid - total : 0;
       formik.setFieldValue("change", change);
-      let debt = change < 0 ? customer.debt - change : customer.debt;
       formik.setFieldValue("debt", debt);
     }
   }, [formik.values.paid]);
 
   const clickHandler = async (e) => {
     e.preventDefault();
-    if (formik.errors.items){
+    if (formik.errors.items) {
       Swal.fire({
         title: "Opp!",
         text: "Hóa đơn chưa có sản phẩm nào!",
         icon: "error",
-      })
-    }
-    else {
+      });
+    } else {
       await formik.submitForm();
     }
   };
@@ -181,8 +186,7 @@ function PaymentPanel(props) {
               className={`form-control-plaintext ${getInputClasses("debt")}`}
               {...formik.getFieldProps("debt")}
               error={formik.errors.debt?.length > 0}
-              helperText={formik.errors.debt}
-            ></TextField>
+              helperText={formik.errors.debt}></TextField>
           </div>
         </div>
         {/*End::Tiền nợ */}
@@ -242,8 +246,7 @@ function PaymentPanel(props) {
           <button
             className="form-control btn btn-primary font-weight-bold"
             type="submit"
-            onClick={(e) => clickHandler(e)}
-          >
+            onClick={(e) => clickHandler(e)}>
             <span>Thanh toán</span>
           </button>
         </div>

@@ -1,11 +1,7 @@
 import React, { useState, useEffect } from "react";
 import BookItem from "../components/BookItem";
 import { InputAdornment, Grid } from "@material-ui/core";
-import {
-  Input,
-  CustomButton,
-  PopUp,
-} from "../../../../template/partials/controls";
+import { Input, CustomButton, PopUp } from "../../../../template/partials/controls";
 import { getAllBooks } from "../js/book";
 import PageTitle from "../../../../template/layout/components/page-title/PageTitle";
 import { LibraryBooks, Search, Add } from "@material-ui/icons";
@@ -59,11 +55,7 @@ function BookManagerPage(props) {
   };
   return (
     <div>
-      <PageTitle
-        title="Quản Lý Sách"
-        subTitle="Quản Lý Sách"
-        icon={() => <LibraryBooks />}
-      />
+      <PageTitle title="Quản Lý Sách" subTitle="Quản Lý Sách" icon={() => <LibraryBooks />} />
       <div className={`card card-custom mt-8`}>
         {/* begin::Header */}
         <div className="card-header border-0 py-5">
@@ -78,40 +70,28 @@ function BookManagerPage(props) {
                     <Search></Search>
                   </InputAdornment>
                 ),
-              }}
-            ></Input>
+              }}></Input>
             <CustomButton
               text="Thêm Sách"
               variant="outlined"
               startIcon={<Add></Add>}
               className="btn btn-success font-weight-bolder font-size-sm col-lg-2"
-              onClick={onCreateBook}
-            ></CustomButton>
+              onClick={onCreateBook}></CustomButton>
           </div>
         </div>
         {/* end::Header */}
 
         <div className="d-flex justify-content-center">
           <Grid container spacing={1}>
-            {bookList.map((book, index) => (
-              <Grid item xs={3} key={index} className="">
-                <BookItem
-                  book={book}
-                  updated={updated}
-                  setUpdated={setUpdated}
-                />
-              </Grid>
-            ))}
+            {bookList &&
+              bookList.map((book, index) => (
+                <Grid item xs={3} key={index} className="">
+                  <BookItem book={book} updated={updated} setUpdated={setUpdated} />
+                </Grid>
+              ))}
           </Grid>
-          <PopUp
-            openPopUp={openPopUp}
-            setOpenPopUp={setOpenPopUp}
-            title={openPopUp.title}
-          >
-            <AddBookForm
-              updated={updated}
-              setUpdated={setUpdated}
-            ></AddBookForm>
+          <PopUp openPopUp={openPopUp} setOpenPopUp={setOpenPopUp} title={openPopUp.title}>
+            <AddBookForm updated={updated} setUpdated={setUpdated}></AddBookForm>
           </PopUp>
         </div>
       </div>

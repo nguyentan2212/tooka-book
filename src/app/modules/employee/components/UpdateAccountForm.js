@@ -76,13 +76,12 @@ function UpdateAccountForm(props) {
     initialValues,
     validationSchema: UpdateSchema,
     onSubmit: async (values, { setSubmitting, resetForm }) => {
-      console.log(values);
       updateAccount(values)
         .then(() => {
           setUpdated(!updated);
           Swal.fire({
             icon: "success",
-            title: "Regeister success",
+            title: "Updated success",
             text: "Thêm thành công",
           });
           resetForm(initialValues);
@@ -91,7 +90,7 @@ function UpdateAccountForm(props) {
           setSubmitting(false);
           Swal.fire({
             icon: "error",
-            title: "Oops...Register failed!",
+            title: "Oops...Updated failed!",
             text: `Error: ${e.message}`,
           });
           console.log("error");
@@ -118,6 +117,7 @@ function UpdateAccountForm(props) {
             <Input
               variant="outlined"
               label="Username"
+              disabled
               className={`${getInputClasses("username")}`}
               {...formik.getFieldProps("username")}
               error={formik.touched.username && formik.errors.username}

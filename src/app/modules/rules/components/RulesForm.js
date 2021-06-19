@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import Swal from "sweetalert2";
-import { Search } from "@material-ui/icons";
+import { Save, RotateLeft } from "@material-ui/icons";
 import { Input, CustomButton } from "../../../../template/partials/controls";
 import { postRules } from "../js/rule";
 
@@ -111,14 +111,14 @@ function RulesForm(props) {
             type="submit"
             text="Lưu"
             variant="outlined"
-            startIcon={<Search></Search>}
+            startIcon={<Save></Save>}
             className="btn btn-success font-weight-bolder font-size-sm col-lg-2 ml-2"
             onClick={(e) => clickHandler(e)}
           ></CustomButton>
           <CustomButton
             text="Đặt lại"
             variant="outlined"
-            startIcon={<Search></Search>}
+            startIcon={<RotateLeft></RotateLeft>}
             className="btn btn-primary font-weight-bolder font-size-sm col-lg-2 ml-2"
             onClick={formik.handleReset}
           ></CustomButton>

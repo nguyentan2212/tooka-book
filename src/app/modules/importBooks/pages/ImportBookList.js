@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import SVG from "react-inlinesvg";
 import { toAbsoluteUrl } from "../../../../template/helpers/AssetsHelpers";
 import PageTitle from "../../../../template/layout/components/page-title/PageTitle";
-import { LibraryBooks } from "@material-ui/icons";
+import { Store } from "@material-ui/icons";
 import ImportBookListTable from "../components/ImportBookListTable";
 
 function ImportBookList() {
@@ -12,7 +12,7 @@ function ImportBookList() {
       <PageTitle
         title="Quản Lý Nhập Sách"
         subTitle="Quản Lý Nhập Sách"
-        icon={() => <LibraryBooks />}
+        icon={() => <Store />}
       />
       <div className="card card-custom mt-8">
         <div className="card-header border-0 py-5">

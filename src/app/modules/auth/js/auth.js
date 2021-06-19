@@ -1,32 +1,21 @@
-import axios from "axios";
-import userTableMock from "../_mocks_/userTableMock";
+import { setupAxios } from "../../../js";
 
-const { API_URL } = process.env;
+export const GET_ALL_EMPLOYEE_URL = "/api/account";
 
-export const LOGIN_URL = API_URL + "api/auth/login";
-export const REGISTER_URL = API_URL + "api/auth/register";
-
-export function login(email, password) {
-  return onLogin(email, password);
+export function login(username, password) {
+  console.log(username,password);
+  const result = setupAxios()
+    .get(GET_ALL_EMPLOYEE_URL)
+    .then(({ data }) => {
+      const account = data.find((item) => item.username == username && item.password == password);
+      console.log(data);
+      let result = {
+        username: account?.username,
+        fullname: account?.Realname,
+        email: account?.Email,
+        isSuccess: account ? true : false,
+      };
+      return result;
+    });
+  return result;
 }
-
-export function register(email, fullname, username, password) {
-  return axios.post(REGISTER_URL, { email, fullname, username, password });
-}
-
-const onLogin = (email, password) => {
-  if (email && password) {
-    const user = userTableMock.find(
-      (x) =>
-        x.email.toLowerCase() === email.toLowerCase() && x.password === password
-    );
-
-    if (user) {
-        let result = {
-          data: { ...user, password: undefined }
-        }
-        return result;
-      }
-  }
-  return [400];
-};

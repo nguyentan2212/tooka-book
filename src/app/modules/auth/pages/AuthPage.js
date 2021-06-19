@@ -4,8 +4,6 @@ import { Link, Switch, Redirect } from "react-router-dom";
 import { toAbsoluteUrl } from "../../../../template/helpers/AssetsHelpers";
 import { ContentRoute } from "../../../../template/layout/components/content/ContentRoute";
 import Login from "./Login";
-import Registration from "./Registration";
-import ForgotPassword from "./ForgotPassword";
 
 export function AuthPage({setUser}) {
   return (
@@ -74,16 +72,6 @@ export function AuthPage({setUser}) {
           <div className="d-flex flex-column flex-row-fluid position-relative p-7 overflow-hidden">
             {/*begin::Content header*/}
             <div className="position-absolute top-0 right-0 text-right mt-5 mb-15 mb-lg-0 flex-column-auto justify-content-center py-5 px-10">
-              <span className="font-weight-bold text-dark-50">
-                Don't have an account yet?
-              </span>
-              <Link
-                to="/auth/registration"
-                className="font-weight-bold ml-2"
-                id="kt_login_signup"
-              >
-                Sign Up!
-              </Link>
             </div>
             {/*end::Content header*/}
 
@@ -91,14 +79,6 @@ export function AuthPage({setUser}) {
             <div className="d-flex flex-column-fluid flex-center mt-30 mt-lg-0">
               <Switch>
                 <ContentRoute path="/auth/login" component={() => <Login login={user => setUser(user)}></Login>} />
-                <ContentRoute
-                  path="/auth/registration"
-                  component={Registration}
-                />
-                <ContentRoute
-                  path="/auth/forgot-password"
-                  component={ForgotPassword}
-                />
                 <Redirect from="/auth" exact={true} to="/auth/login" />
                 <Redirect to="/auth/login" />
               </Switch>
