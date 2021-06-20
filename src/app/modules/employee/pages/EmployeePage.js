@@ -25,7 +25,7 @@ function EmployeePage(props) {
         if (target.value === "") return items;
         else
           return items.filter((item) =>
-            item.Name.toLowerCase().includes(target.value)
+            item.username.toLowerCase().includes(target.value) || item.realname.toLowerCase().includes(target.value)
           );
       },
     });

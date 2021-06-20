@@ -85,29 +85,33 @@ function PaymentPanel(props) {
     formik.setFieldValue("totalPrice", total);
     formik.setFieldValue("items", orderItemList);
     let paid = formik.values.paid;
-    let change = (paid > total) ? paid - total : 0;
+    let change = paid > total ? paid - total : 0;
     formik.setFieldValue("change", change);
+    let debt = customer ? customer.debt : 0;
+    debt = paid > total ? debt : debt + (total - paid);
+    formik.setFieldValue("debt", debt);
   }, [orderItemList]);
 
   const onCustomerChange = (option) => {
     if (option) {
       setCustomer(option);
+      console.log(option);
+      let paid = formik.values.paid;
+      let total = formik.values.totalPrice;
       formik.setFieldValue("customerId", option?.id || 0);
-      let change = formik.values.change;
-      let debt = change < 0 ? option.debt - change : option.debt;
+      let debt = paid > total ? option.debt : option.debt + (total - paid);
       formik.setFieldValue("debt", debt);
     }
   };
 
   useEffect(() => {
-    if (customer) {
-      let paid = formik.values.paid;
-      let total = formik.values.totalPrice;
-      let debt = (paid > total) ? customer.debt : customer.debt + (total-paid);
-      let change = (paid > total) ? paid - total : 0;
-      formik.setFieldValue("change", change);
-      formik.setFieldValue("debt", debt);
-    }
+    let paid = formik.values.paid;
+    let total = formik.values.totalPrice;
+    let debt = customer ? customer.debt : 0;
+    debt = paid > total ? debt : debt + (total - paid);
+    let change = paid > total ? paid - total : 0;
+    formik.setFieldValue("change", change);
+    formik.setFieldValue("debt", debt);
   }, [formik.values.paid]);
 
   const clickHandler = async (e) => {
