@@ -27,7 +27,7 @@ function RulesForm(props) {
     initialValues,
     validationSchema: UpdateRulesSchema,
     onSubmit: (values, { setSubmitting }) => {
-      postRules(values)
+      postRules(values);
     },
   });
 
@@ -43,12 +43,11 @@ function RulesForm(props) {
   };
 
   const clickHandler = (e) => {
-    e.preventDefault();
     Swal.fire({
-        icon: "success",
-        title: "Update success",
-        text: "Cập nhật thành công",
-      });
+      icon: "success",
+      title: "Update success",
+      text: "Cập nhật thành công",
+    });
   }
   return (
     <form onSubmit={formik.handleSubmit}>

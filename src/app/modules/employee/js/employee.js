@@ -27,7 +27,7 @@ export function postAccount(account) {
   
   const result = setupAxios().post(POST_ACCOUNT_URL, {
     username: account.username,
-    Realname: account.realname,
+    realname: account.realname,
     PhoneNumber: account.phonenumber,
     Email: account.email,
     Address: account.address,

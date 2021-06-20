@@ -13,6 +13,7 @@ export async function getAllRules() {
 }
 
 export function postRules(rules) {
+    console.log(rules);
     result = setupAxios().post(POST_RULES_URL, {
         LuongNhapToiThieu: rules.luongNhapToiThieu,
         LuongTonTruocKhiNhap: rules.luongTonTruocKhiNhap,
