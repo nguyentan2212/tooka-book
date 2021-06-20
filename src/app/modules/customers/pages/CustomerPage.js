@@ -27,7 +27,7 @@ function CustomerPage(props) {
         if (target.value === "") return items;
         else
           return items.filter((item) =>
-            item.Name.toLowerCase().includes(target.value)
+            item.name.toLowerCase().includes(target.value)
           );
       },
     });

@@ -22,7 +22,7 @@ function CategoryPage(props) {
         if (target.value === "") return items;
         else
           return items.filter((item) =>
-            item.Name.toLowerCase().includes(target.value)
+            item.name.toLowerCase().includes(target.value)
           );
       },
     });
@@ -82,7 +82,7 @@ function CategoryPage(props) {
               }}
             ></Input>
             <CustomButton
-              text="Thêm tác giả"
+              text="Thêm thể loại"
               variant="outlined"
               startIcon={<Add></Add>}
               className="btn btn-success font-weight-bolder font-size-sm col-lg-2"
